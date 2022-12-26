@@ -1,0 +1,39 @@
+server:
+  port: 8088
+  servlet:
+    session:
+      tracking-modes: cookie
+spring:
+  #  datasource:
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    password: Alwjddlwh123!
+  #    url: jdbc:mysql://project-db-stu.ddns.net:3307/gogum0203
+  #    username: gogum0203
+  jpa:
+    hibernate:
+      ddl-auto: update   # jpa로 entity 처음 생성시 테이블 없으면 create, 만든 다음엔 update로 변경해야함
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://nadoo-mariadb.cziewzjo5jqh.ap-northeast-1.rds.amazonaws.com:3306/nadoo?characterEncoding=UTF-8
+    username: admin
+    password: nadoo1234
+  # viewresolver
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false    # thymeleaf ?? false ? ?? html ??? ?? ?? ??
+
+#logging:
+#  level:
+#    org:
+#      springframework: "debug"
+#      springframework.web: "debug"
