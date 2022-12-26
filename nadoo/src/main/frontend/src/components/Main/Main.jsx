@@ -1,30 +1,122 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { BiSearch, BiHomeAlt } from 'react-icons/bi';
-import '../../styles/Main/Main.css'
+import NavigatorMain from '../Navigator/NavigatorMain';
+import NavigatorTop from '../Navigator/NavigatorTop';
 
 function Main(props) {
   const location = useLocation();
-  const url = location.pathname
+  const url = location.pathname;
   console.log(location.pathname);
 
   if (url === '/test') {
     return (
-      <div>
-        Hello
+      <>
+        <NavigatorTop />
+        <Outlet />
+        test
         <BiSearch
-          className='testIcon'
         />
         <BiHomeAlt
-          className='testIcon'
         />
-      </div>
+        <NavigatorMain />
+        <Outlet />
+      </>
     );
-  } else {
+  } else if (url === '/main') {
     return (
-      <div>
-        Bye
-      </div>
+      <>
+        <NavigatorTop />
+        <Outlet />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        main
+        <br />
+        <br />
+        <br />
+        <br />
+        <NavigatorMain />
+        <Outlet />
+      </>
+    );
+  } else if (url === '/mypage') {
+    return (
+      <>
+        <NavigatorTop />
+        <Outlet />
+        mypage
+        <NavigatorMain />
+        <Outlet />
+      </>
+    );
+  } else if (url === '/wish') {
+    return (
+      <>
+        <NavigatorTop />
+        <Outlet />
+        wish
+        test end
+        <NavigatorMain />
+        <Outlet />
+      </>
     );
   }
 }
