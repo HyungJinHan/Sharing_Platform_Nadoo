@@ -1,0 +1,9 @@
+.testIcon {
+  color: red;
+  font-size: 18.75rem;
+}
+
+.testIcon:hover {
+  color: blue;
+  font-size: 18.75rem;
+}
