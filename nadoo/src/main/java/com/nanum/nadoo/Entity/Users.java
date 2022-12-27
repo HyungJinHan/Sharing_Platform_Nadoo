@@ -23,6 +23,8 @@ public class Users {
     @Column(name = "user_hp", nullable = false, length = 100)
     private String userHp;
 
+    
+
 //    @Temporal(TemporalType.TIMESTAMP)	// 날짜 타입일 때 사용
 //    @UpdateTimestamp
 //    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "board_date", nullable = false)

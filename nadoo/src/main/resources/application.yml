@@ -4,6 +4,9 @@ server:
     session:
       tracking-modes: cookie
 spring:
+  output:
+    ansi:
+      enabled: always
   #  datasource:
   #    driver-class-name: com.mysql.cj.jdbc.Driver
   #    password: Alwjddlwh123!
