@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { BiSearch, BiHomeAlt } from 'react-icons/bi';
 import NavigatorMain from '../Navigator/NavigatorMain';
 import NavigatorTop from '../Navigator/NavigatorTop';
+import Slider from '../Slider/Slider';
 
 function Main(props) {
   const location = useLocation();
@@ -28,17 +29,18 @@ function Main(props) {
       <>
         <NavigatorTop />
         <Outlet />
-        main
+        <span>메인 메인 메인 메인 메인 메인</span>
+        <br />
+        <br />
+        <Slider />
+        <br />
+        <br />
+        한형진
         <br />
         <br />
         <br />
         <br />
-        main
-        <br />
-        <br />
-        <br />
-        <br />
-        main
+        메인
         <br />
         <br />
         <br />

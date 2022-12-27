@@ -1,60 +1,97 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import NavigatorMain from '../Navigator/NavigatorMain';
+import NavigatorTop from '../Navigator/NavigatorTop';
+import '../../styles/Test/Test.css'
+import guideImg from '../../static/HHJ/images/guideClick.png'
+import styled from 'styled-components';
+import Slider from '../Slider/Slider';
+import day from '../../static/HHJ/images/day.png'
+import recycle from '../../static/HHJ/images/recycle.png'
+import together from '../../static/HHJ/images/together.png'
+import mega from '../../static/HHJ/images/mega.png'
+
+const Background = styled.div`
+  background-color: whitesmoke;
+`
 
 function Test() {
-  const location = useLocation();
-
-  console.log(location.pathname);
-
-  const [hello, setHello] = useState({
-    list: []
-  });
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get('/nadoo')
-      .then((res) => {
-        const { data } = res;
-        setHello({
-          list: data
-        });
-      })
-      .catch(error => console.log(error))
-  }, []);
 
   return (
-    <div>
-      {
-        hello.list
-          .map((list) => (
-            <div key={list.userId}>
-              백엔드에서 가져온 데이터입니다 : {list.userId} / {list.userName} /{list.userAddress} / {list.userHp}
+    <>
+      <NavigatorTop />
+      <Outlet />
+      <Background>
+        <div
+          className='Test_category'
+        >
+          <p>메인</p>
+          <p>이벤트</p>
+          <p>동네별</p>
+          <p>번개</p>
+          <p>마트</p>
+        </div>
+        <div
+          className='Test_guideImg'
+        >
+          <img
+            className='Test_guide'
+            alt='undefind'
+            src={guideImg}
+          />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <Slider />
+          <br /><br />
+          <div className='Test_iconDiv'>
+            <div className='Test_iconIfo'>
+              <img
+                className='Test_icon'
+                alt='undefind'
+                src={day}
+              />
               <br />
+              <p className='Test_iconText'>나두 일정</p>
             </div>
-          ))
-      }
-      <input
-        type='button'
-        value='main으로'
-        onClick={
-          () => {
-            navigate('/main');
-          }
-        }
-      />
-      <input
-        type='button'
-        value='test로'
-        onClick={
-          () => {
-            navigate('/test');
-          }
-        }
-      />
-    </div>
+            <div className='Test_iconIfo'>
+              <img
+                className='Test_icon'
+                alt='undefind'
+                src={recycle}
+              />
+              <br />
+              <p className='Test_iconText'>나두 교환</p>
+            </div>
+            <div className='Test_iconIfo'>
+              <img
+                className='Test_icon'
+                alt='undefind'
+                src={together}
+              />
+              <br />
+              <p className='Test_iconText'>나두 함께</p>
+            </div>
+            <div className='Test_iconIfo'>
+              <img
+                className='Test_icon'
+                alt='undefind'
+                src={mega}
+              />
+              <br />
+              <p className='Test_iconText'>나두 공지</p>
+            </div>
+          </div>
+          <br />
+          <br />
+        </div>
+      </Background>
+      <NavigatorMain />
+      <Outlet />
+    </>
   );
 }
 

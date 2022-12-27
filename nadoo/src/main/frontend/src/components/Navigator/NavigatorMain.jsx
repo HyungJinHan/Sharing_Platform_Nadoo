@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/Navigator/Navigator.css';
 import styled from "styled-components";
 import { BiHomeAlt, BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi';
@@ -15,12 +15,12 @@ function NavigatorMain({ searchMode, setSearchMode }) {
   const location = useLocation();
   const url = location.pathname;
 
+
   // 센터 로그인 후 센터 디테일 들어갈 때는 네비게이션바 안 띄우기 위해서 if문 추가
   return (
     <NavCenter>
       <div className="Navigator_bar">
         <BiHomeAlt
-          // className='testIcon'
           onClick={() => {
             navigate("/main");
           }}
