@@ -1,12 +1,13 @@
 package com.nanum.nadoo.Repository;
 
-import com.nanum.nadoo.Entity.Users;
+import com.nanum.nadoo.Entity.TestMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users, String> {
-    List<Users> findAll();
+public interface TestMemberRepository extends JpaRepository<TestMember, String> {
+    List<TestMember> findAll();
+//    void save();
 }

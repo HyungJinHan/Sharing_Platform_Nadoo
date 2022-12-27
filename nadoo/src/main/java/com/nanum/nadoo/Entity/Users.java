@@ -1,17 +1,20 @@
 package com.nanum.nadoo.Entity;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Users {
     @Id
     @Column(name = "user_id", length = 200)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
 
     @Column(name = "user_name", nullable = false, length = 500)
