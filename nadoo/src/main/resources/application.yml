@@ -4,6 +4,7 @@ server:
     session:
       tracking-modes: cookie
 spring:
+
   jpa:
     hibernate:
       ddl-auto: update  # jpa로 entity 처음 생성시 테이블 없으면 create, 만든 다음엔 update로 변경해야함

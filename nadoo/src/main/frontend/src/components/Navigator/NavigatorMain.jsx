@@ -22,10 +22,10 @@ function NavigatorMain({ searchMode, setSearchMode }) {
       <div className="Navigator_bar">
         <BiHomeAlt
           onClick={() => {
-            navigate("/main");
+            navigate("/");
           }}
           className={
-            url === '/main' ?
+            url === '/' ?
               'Navigator_imageSelect'
               :
               'Navigator_image'
