@@ -1,6 +1,7 @@
 package com.nanum.nadoo.Entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -15,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
+@DynamicInsert
 public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

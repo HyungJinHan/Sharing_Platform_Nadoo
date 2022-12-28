@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 @DynamicInsert
 public class TestMember {
     @Id

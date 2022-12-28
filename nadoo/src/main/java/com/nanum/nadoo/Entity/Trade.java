@@ -1,9 +1,8 @@
 package com.nanum.nadoo.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
+@DynamicInsert
 public class Trade {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,8 +25,7 @@ public class Trade {
     private String tradeAddress; //거래주소
 
     @Column(name = "trade_type", nullable = false, length = 30)
-    private Date tradeType; //거래타입
-
+    private String tradeType; //거래타입
 
     @Column(name = "trade_starttime", nullable = false)
     private Date tradeStart; //거래 시작 시간
@@ -39,7 +39,12 @@ public class Trade {
     @Column(name = "trade_title", nullable = false, length = 300)
     private String tradeTitle; //거래제목
 
-    @Column(name = "trade_views", nullable = false)
+    @Lob
+    @Column(name = "trade_content", nullable = false, length = 3000)
+    private String tradeContent;    // 거래 내용
+
+
+    @Column(name = "trade_views", columnDefinition = "INT_UNSIGNED default 0")
     private Long tradeViews; //거래조회수
 
     @ManyToOne(fetch = FetchType.LAZY)

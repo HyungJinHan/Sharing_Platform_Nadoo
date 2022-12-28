@@ -1,6 +1,7 @@
 package com.nanum.nadoo.Entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
+@DynamicInsert
 public class Comment {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
