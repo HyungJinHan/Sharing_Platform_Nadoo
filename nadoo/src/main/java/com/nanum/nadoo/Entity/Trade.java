@@ -1,0 +1,58 @@
+package com.nanum.nadoo.Entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+public class Trade {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "trade_idx")
+    private Long tradeIdx;  //거래모임순번
+
+    @Column(name = "trade_address", nullable = false, length = 300)
+    private String tradeAddress; //거래주소
+
+    @Column(name = "trade_type", nullable = false, length = 30)
+    private Date tradeType; //거래타입
+
+
+    @Column(name = "trade_starttime", nullable = false)
+    private Date tradeStart; //거래 시작 시간
+
+    @Column(name = "trade_endtime", nullable = false)
+    private Date tradeEnd; //거래 종료 시간
+
+    @Column(name = "trade_max", nullable = false)
+    private int tradeMax; //거래 가능 인원수
+
+    @Column(name = "trade_title", nullable = false, length = 300)
+    private String tradeTitle; //거래제목
+
+    @Column(name = "trade_views", nullable = false)
+    private Long tradeViews; //거래조회수
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_idx")
+    private Category tradeCategoryVO;   // 물품 종류
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_account")
+    private User tradeMasterVO;   // 거래 주최 유저
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "writer")
+//    private Users users; //작성자
+//    @OneToMany(mappedBy="board", fetch=FetchType.LAZY)
+//    private List<Comment> comment;
+}
