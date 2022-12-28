@@ -1,20 +1,24 @@
 package com.nanum.nadoo.Entity;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "board_idx", nullable = false, length = 500)
+    @Column(name = "board_idx")
     private Long boardIdx;  //게시판 번호
 
     @Column(name = "board_content", nullable = false, length = 1000)
@@ -26,8 +30,10 @@ public class Board {
     @Column(name = "board_addr", nullable = false, length = 300)
     private String boardAddr; //게시판 주소
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_accont")
-//    private Users users; //작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer")
+    private User userVO; //작성자
+    @OneToMany(mappedBy="boardVO", fetch=FetchType.LAZY)
+    private List<Comment> commentVO;
 
 }
