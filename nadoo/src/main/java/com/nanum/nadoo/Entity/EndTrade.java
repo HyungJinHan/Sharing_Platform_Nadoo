@@ -1,9 +1,7 @@
 package com.nanum.nadoo.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
+@DynamicInsert
 public class EndTrade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,9 @@ public class EndTrade {
     @Column(name = "end_title", nullable = false)
     private String endTitle;         // 종료 거래 제목
 
-    // end_content 추가해야함
+    @Lob
+    @Column(name = "end_content", nullable = false, length = 3000)
+    private String endContent;    // 거래 내용
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "end_category")
