@@ -7,62 +7,67 @@ import '../../styles/Test/Test.css';
 import guideImg from '../../static/HHJ/images/guideClick.png';
 import styled from 'styled-components';
 import Slider from '../Slider/Slider';
-import day from '../../static/HHJ/images/day.png';
-import recycle from '../../static/HHJ/images/recycle.png';
-import together from '../../static/HHJ/images/together.png';
-import mega from '../../static/HHJ/images/mega.png';
-import { Card } from 'antd';
+import day from '../../static/HHJ/images/Group 40.svg';
+import recycle from '../../static/HHJ/images/Group 43.svg';
+import together from '../../static/HHJ/images/Group 45.svg';
+import mega from '../../static/HHJ/images/Group 47.svg';
+import { Avatar, Card, List } from 'antd';
+import SliderGroup from '../Slider/SliderGroup';
+import { Pagination } from 'antd';
 
 const Background = styled.div`
   background-color: whitesmoke;
 `
 
 function Test() {
-  const homeRef = useRef();
-  const [guideToggle, setGuideToggle] = useState(false);
-
-  const onHomeClick = () => {
-    // homeRef.current?.scrollIntoView({ behavior: 'smooth' });
-    setGuideToggle(true);
-  };
+  const data = [
+    {
+      title: 'Ant Design Title 1',
+      user: '한형진',
+      item: '핸드크림',
+      location: '광주 광산구',
+    },
+    {
+      title: 'Ant Design Title 2',
+      user: '백하늘',
+      item: '딸기',
+      location: '광주 북구',
+    },
+    {
+      title: 'Ant Design Title 3',
+      user: '배수진',
+      item: '안경',
+      location: '광주 동구',
+    },
+    {
+      title: 'Ant Design Title 4',
+      user: '민윤기',
+      item: '커피',
+      location: '광주 서구',
+    },
+    {
+      title: 'Ant Design Title 5',
+      user: '김유리',
+      item: '폼클렌징',
+      location: '광주 남구',
+    },
+    {
+      title: 'Ant Design Title 6',
+      user: '김민정',
+      item: '모니터',
+      location: '광주 광산구',
+    },
+  ];
 
   return (
     <>
       <NavigatorTop />
       <Outlet />
       <Background>
-        {/* <div
-          className='Test_category'
-        >
-          <p>메인</p>
-          <p>이벤트</p>
-          <p>동네별</p>
-          <p>번개</p>
-          <p>마트</p>
-        </div> */}
         <div className='Test_guideImg'>
-          {
-            guideToggle === true ?
-              <div
-                onClick={
-                  () => {
-                    setGuideToggle(false);
-                  }
-                }
-              >
-                <Slider />
-              </div>
-              :
-              <img
-                className='Test_guide'
-                alt='undefind'
-                src={guideImg}
-                onClick={onHomeClick}
-              />
-          }
-
-          <br />
-          <br />
+          <div>
+            <Slider />
+          </div>
           <br />
           <div className='Test_iconDiv'>
             <div className='Test_iconIfo'>
@@ -102,116 +107,45 @@ function Test() {
               <p className='Test_iconText'>나두 공지</p>
             </div>
           </div>
-
           <br />
           <br />
-
-          <div className="site-card-border-less-wrapper">
-            <Card
-              title="Card title"
-              bordered={false}
-              style={{
-                backgroundColor: 'whitesmoke',
-                boxShadow: '5px 5px 5px'
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
-
+          <span className='Test_endSoon'>
+            ⏰ 종료 임박 ⏰
+            {/* 🚨⏰❗ */}
+          </span>
           <br />
           <br />
-
-          <div className="site-card-border-less-wrapper">
-            <Card
-              title="Card title"
-              bordered={false}
-              style={{
-                backgroundColor: 'whitesmoke',
-                boxShadow: '5px 5px 5px'
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
-
-          <br />
-          <br />
-
-          <div className="site-card-border-less-wrapper">
-            <Card
-              title="Card title"
-              bordered={false}
-              style={{
-                backgroundColor: 'whitesmoke',
-                boxShadow: '5px 5px 5px'
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
-
-          <br />
-          <br />
-
-          <div className="site-card-border-less-wrapper">
-            <Card
-              title="Card title"
-              bordered={false}
-              style={{
-                backgroundColor: 'whitesmoke',
-                boxShadow: '5px 5px 5px'
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
-
-          <br />
-          <br />
-
-          <div className="site-card-border-less-wrapper">
-            <Card
-              title="Card title"
-              bordered={false}
-              style={{
-                backgroundColor: 'whitesmoke',
-                boxShadow: '5px 5px 5px'
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
-
-          <br />
-          <br />
-
-          <div className="site-card-border-less-wrapper">
-            <Card
-              title="Card title"
-              bordered={false}
-              style={{
-                backgroundColor: 'whitesmoke',
-                boxShadow: '5px 5px 5px',
-                height: '30px'
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
         </div>
+        <SliderGroup />
+        <div className='Test_guideImg'>
+          <span className='Test_endSoon'>
+            👋 최신 나두 👋
+            {/* 🚨⏰❗ */}
+          </span>
+        </div>
+        <List
+          className='group_list'
+          itemLayout="horizontal"
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 5,
+          }}
+          dataSource={data}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                title={<a href="https://ant.design">{item.title}</a>}
+                description={[
+                  item.user, ' | ',
+                  item.item, ' | ',
+                  item.location
+                ]}
+              />
+            </List.Item>
+          )}
+        />
       </Background>
       <NavigatorMain />
       <Outlet />

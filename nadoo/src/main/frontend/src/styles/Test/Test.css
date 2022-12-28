@@ -34,14 +34,12 @@
 }
 
 .Test_icon {
-  width: 40%;
-  padding-left: 30px;
-  padding-right: 30px;
-  /* display: block; */
+  width: 50%;
 }
 
 .Test_iconIfo {
   text-align: center;
+  width: 25%;
 }
 
 .Test_iconText {
@@ -54,4 +52,27 @@
 
 .site-card-border-less-wrapper {
   text-align: center;
+}
+
+.group_list {
+  background-color: white;
+}
+
+@font-face {
+  font-family: 'yg-jalnan';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Test_endSoon {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'yg-jalnan';
+}
+
+.ant-list-pagination {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
 }
