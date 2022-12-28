@@ -5,6 +5,7 @@ import Test from './components/Test/Test';
 import Main from './components/Main/Main';
 import NavigatorMain from './components/Navigator/NavigatorMain';
 import NavigatorTop from "./components/Navigator/NavigatorTop";
+import SearchPage from "./components/Search/Search";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <Route path='/wish' element={<Main />} />
       <Route path="/navigator" element={<NavigatorMain />} />
       <Route path="/navigatortop" element={<NavigatorTop />} />
+      <Route path="/search" element={<SearchPage />} />
     </Routes>
   );
 }
