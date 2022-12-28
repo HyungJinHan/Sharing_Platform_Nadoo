@@ -1,6 +1,8 @@
 package com.nanum.nadoo.Entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
+@DynamicInsert
 public class TestMember {
     @Id
     @Column(name = "mem_id", length = 200)
@@ -21,7 +25,7 @@ public class TestMember {
 
     @Column(name = "mem_address", nullable = false, length = 1000)
     private String memAddress;
-
+    @ColumnDefault("0")
     @Column(name = "mem_hp", nullable = false, length = 100)
     private String memHp;
 

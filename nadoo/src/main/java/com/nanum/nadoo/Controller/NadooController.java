@@ -2,7 +2,6 @@ package com.nanum.nadoo.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nanum.nadoo.Entity.Users;
 import com.nanum.nadoo.Service.NadooService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +20,10 @@ public class NadooController {
 
   @RequestMapping("/nadoo")
   public String getAllUsers() {
-    List<Users> temp = service.getUsers();
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    return gson.toJson(temp);
+//    List<Users> temp = service.getUsers();
+//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//
+//    return gson.toJson(temp);
+    return "";
   }
 }
