@@ -1,0 +1,19 @@
+.search {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  margin: auto;
+  left: 50%;
+  top: 50%;
+  /* margin-left: -150px; */
+  margin-top: 220px;
+
+}
+
+.search_box {
+  width: 70%;
+}
+
+button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-primary.ant-input-search-button {
+  background-color: #6C63FF;
+}

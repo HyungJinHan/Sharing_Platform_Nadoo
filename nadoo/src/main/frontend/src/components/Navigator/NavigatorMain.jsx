@@ -33,13 +33,13 @@ function NavigatorMain({ searchMode, setSearchMode }) {
         />
         <BiSearch
           className={
-            url === '/test' ?
+            url === '/search' ?
               'Navigator_imageSelect'
               :
               'Navigator_image'
           }
           onClick={() => {
-            navigate("/test");
+            navigate("/search");
           }}
         />
         <BiShoppingBag
