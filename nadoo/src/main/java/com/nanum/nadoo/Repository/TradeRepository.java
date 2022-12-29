@@ -1,8 +1,12 @@
 package com.nanum.nadoo.Repository;
 
+import com.nanum.nadoo.Dto.TradePreviewDTO;
 import com.nanum.nadoo.Entity.Trade;
-import com.nanum.nadoo.Entity.User;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,9 +15,19 @@ import java.util.List;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
     List<Trade> findAll();
 
+    List<Trade> findFirst4ByOrderByTradeStarttimeDesc();
+
     // 거래내용 등록일순 내림차순
-    List<Trade> findAllByOrderByTradeStarttimeDesc();
+    @Query(value = "select new com.nanum.nadoo.Dto.TradePreviewDTO(" +
+            "t.tradeIdx, t.tradeTitle, u.userNick, " +
+            "t.tradeProduct, t.tradePrice, t.tradeStarttime, t.tradeEndtime, unix_timestamp(t.tradeEndtime) - unix_timestamp(now())) " +
+            "from Trade t, User u where t.tradeMasterVO = u order by t.tradeStarttime desc")
+    List<TradePreviewDTO> findRecentTrades();
 
     // 거래내용 종료일순 오름차순
-    List<Trade> findAllByOrderByTradeEndtimeAsc();
+    @Query(value = "select new com.nanum.nadoo.Dto.TradePreviewDTO(" +
+            "t.tradeIdx, t.tradeTitle, u.userNick, " +
+            "t.tradeProduct, t.tradePrice, t.tradeStarttime, t.tradeEndtime, unix_timestamp(t.tradeEndtime) - unix_timestamp(now())) " +
+            "from Trade t, User u where t.tradeMasterVO = u order by t.tradeEndtime asc")
+    List<TradePreviewDTO> findCloserTrades();
 }
