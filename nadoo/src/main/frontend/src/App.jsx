@@ -6,6 +6,7 @@ import Main from './components/Main/Main';
 import NavigatorMain from './components/Navigator/NavigatorMain';
 import NavigatorTop from "./components/Navigator/NavigatorTop";
 import SearchPage from "./components/Search/Search";
+import GroupDetail from "./components/GroupDetail/GroupDetail";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <Route path="/navigator" element={<NavigatorMain />} />
       <Route path="/navigatortop" element={<NavigatorTop />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/groupdetail" element={<GroupDetail />} />
     </Routes>
   );
 }
