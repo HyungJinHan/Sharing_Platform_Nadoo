@@ -1,5 +1,6 @@
 import { Card } from 'antd';
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import '../../styles/Slider/Slider.css'
@@ -44,6 +45,8 @@ const data = [
 ];
 
 function SliderGroup(props) {
+  const navigate = useNavigate();
+
   return (
     <Swiper
       // centeredSlides={true}
@@ -68,9 +71,20 @@ function SliderGroup(props) {
       {
         data.map((item) => (
           <SwiperSlide>
-            <div className="site-card-border-less-wrapper">
+            <div
+              className="site-card-border-less-wrapper"
+              onClick={
+                () => {
+                  navigate(`/groupdetail/${item.tradeIdx}`, {
+                    state: {
+                      tradeIdx: item.tradeIdx
+                    }
+                  });
+                }
+              }
+            >
               <Card
-                title="Card title"
+                title={'Card Title'}
                 bordered={false}
                 style={{
                   width: 180,

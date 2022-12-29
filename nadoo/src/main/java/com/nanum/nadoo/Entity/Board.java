@@ -36,7 +36,7 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer")
     private User userVO; //작성자
-    @OneToMany(mappedBy="boardVO", fetch=FetchType.LAZY)
-    private List<Comment> commentVO;
+//    @OneToMany(mappedBy="boardVO", fetch=FetchType.LAZY)
+//    private List<Comment> commentVO;
 
 }

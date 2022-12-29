@@ -1,6 +1,15 @@
 package com.nanum.nadoo.Dto;
 
+import lombok.*;
+
+import javax.persistence.PrePersist;
 import java.util.Date;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 public class TradePreviewDTO {
     private Long tradeIdx;          // 거래 인덱스
@@ -10,4 +19,6 @@ public class TradePreviewDTO {
     private int tradePrice;         // 거래 가격
     private Date tradeStarttime;    // 거래 등록 시간
     private Date tradeEndtime;      // 거래 종료 시간
+    private long diffTime;          // 종료시간 - 현재시간(초단위)
+
 }
