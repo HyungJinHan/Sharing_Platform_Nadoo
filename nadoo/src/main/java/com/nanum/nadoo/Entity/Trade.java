@@ -27,11 +27,11 @@ public class Trade {
     @Column(name = "trade_type", nullable = false, length = 30)
     private String tradeType; //거래타입
 
-    @Column(name = "trade_starttime", nullable = false)
-    private Date tradeStart; //거래 시작 시간
+    @Column(name = "trade_starttime", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date tradeStarttime; //거래 시작 시간
 
     @Column(name = "trade_endtime", nullable = false)
-    private Date tradeEnd; //거래 종료 시간
+    private Date tradeEndtime; //거래 종료 시간
 
     @Column(name = "trade_max", nullable = false)
     private int tradeMax; //거래 가능 인원수
@@ -55,7 +55,7 @@ public class Trade {
     @JoinColumn(name = "user_account")
     private User tradeMasterVO;   // 거래 주최 유저
 
-    @Column(name = "trade_product", nullable = false, length = 300)
+    @Column(name = "trade_product", columnDefinition = "varchar(30) default '일반거래'")
     private String tradeProduct; // 물품 종류
 
     @Column(name = "trade_price")
