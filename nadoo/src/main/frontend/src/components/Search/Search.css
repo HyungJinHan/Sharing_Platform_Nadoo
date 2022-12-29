@@ -6,14 +6,28 @@
   left: 50%;
   top: 50%;
   /* margin-left: -150px; */
-  margin-top: 220px;
+  margin-top: 230px;
 
 }
 
 .search_box {
-  width: 70%;
+  width: 80%;
 }
 
 button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-primary.ant-input-search-button {
   background-color: #6C63FF;
+}
+
+.ant-select-selector {
+  text-align: center;
+  margin: 0 auto;
+  position: absolute;
+}
+
+input.ant-input.css-dev-only-do-not-override-acm2ia {
+  height: 45px;
+}
+
+button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-primary.ant-input-search-button {
+  height: 45px;
 }
