@@ -1,5 +1,6 @@
 package com.nanum.nadoo;
 
+import com.nanum.nadoo.Dto.TradePreviewDTO;
 import com.nanum.nadoo.Entity.Trade;
 import com.nanum.nadoo.Repository.TradeRepository;
 import org.junit.jupiter.api.Test;
@@ -15,20 +16,20 @@ class TradeSelectTests {
 	@Autowired
 	TradeRepository tRepository;
 
-//	@Transactional
-//	@Test
-//	void selectTradeListStartTimeDesc() {
-//		List<Trade> result = tRepository.findAllByOrderByTradeStarttimeDesc();
-//		for(int i = 0; i < result.size(); i++){
-//			System.out.println(result.get(i));
-//		}
-//	}
+	// @Transactional
+	// @Test
+	// void selectTradeListStartTimeDesc() {
+	// List<Trade> result = tRepository.findAllByOrderByTradeStarttimeDesc();
+	// for(int i = 0; i < result.size(); i++){
+	// System.out.println(result.get(i));
+	// }
+	// }
 
 	@Transactional
 	@Test
-	void selectTradeListEndTimeAsc(){
-		List<Trade> result = tRepository.findAllByOrderByTradeEndtimeAsc();
-		for(int i = 0; i < result.size(); i++){
+	void selectTradeListEndTimeAsc() {
+		List<TradePreviewDTO> result = tRepository.findRecentTrades();
+		for (int i = 0; i < result.size(); i++) {
 			System.out.println(result.get(i));
 		}
 	}

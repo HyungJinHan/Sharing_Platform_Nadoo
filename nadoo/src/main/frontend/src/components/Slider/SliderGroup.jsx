@@ -75,7 +75,11 @@ function SliderGroup(props) {
               className="site-card-border-less-wrapper"
               onClick={
                 () => {
-                  navigate('/groupdetail');
+                  navigate(`/groupdetail/${item.tradeIdx}`, {
+                    state: {
+                      tradeIdx: item.tradeIdx
+                    }
+                  });
                 }
               }
             >

@@ -1,16 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Button, Descriptions, Space } from 'antd';
 import NavigatorTop from '../Navigator/NavigatorTop';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import '../../styles/GroupDetail/GroupDetail.css'
 import NavigatorMain from '../Navigator/NavigatorMain';
 import NavigatorTopDetail from '../Navigator/NavigatorTopDetail';
 import mapImg from '../../static/HHJ/images/testMap.jpg'
+import axios from 'axios';
 
-function GroupDetail(props) {
+function GroupDetail({
+  tradeIdx
+}) {
   const [toggleButton, setToggleButton] = useState(false);
+  const location = useLocation();
+
+  const idxState = location.state.tradeIdx;
+
+  const [groupList, setGroupList] = useState({
+    list: []
+  });
+
+  function getGroupList() {
+    axios
+      .post('http://localhost:8088/nadoo/detail', {
+        tradesIdx: idxState
+      })
+      .then((res) => {
+        const { data } = res;
+        setGroupList({
+          list: data
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+  };
+
+  useEffect(() => {
+    getGroupList();
+  }, []);
 
   const groupTitle = '양파 같이 사실 분!'
+
+  console.log(idxState);
 
   return (
     <>

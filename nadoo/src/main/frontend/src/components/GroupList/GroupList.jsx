@@ -60,17 +60,17 @@ function GroupList(props) {
       .then((res) => {
         const { data } = res;
         setGroupList({
-          list: data
+          list: data.recentTrades
         });
       })
       .catch((e) => {
         console.error(e);
       })
-  }
+  };
 
   useEffect(() => {
     getGroupList();
-  }, [])
+  }, []);
 
   return (
     <GroupDiv>
@@ -89,14 +89,18 @@ function GroupList(props) {
             <List.Item.Meta
               onClick={
                 () => {
-                  navigate('/groupdetail');
+                  navigate(`/groupdetail/${item.tradeIdx}`, {
+                    state: {
+                      tradeIdx: item.tradeIdx
+                    }
+                  });
                 }
               }
-              title={item.title}
+              title={item.tradeTitle}
               description={[
-                item.user, ' | ',
-                item.item, ' | ',
-                item.location
+                item.userNick, ' | ',
+                item.tradeProduct, ' | ',
+                item.tradePrice
               ]}
             />
           </List.Item>
