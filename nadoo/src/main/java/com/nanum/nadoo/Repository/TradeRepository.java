@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface TradeRepository extends JpaRepository<Trade, Long> {
     List<Trade> findAll();
+
+    // 등록일순 거래내용
+    List<Trade> findAllOrderByTradeStarttimeDesc();
 }

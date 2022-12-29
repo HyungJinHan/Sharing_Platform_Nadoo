@@ -28,10 +28,10 @@ public class Trade {
     private String tradeType; //거래타입
 
     @Column(name = "trade_starttime", nullable = false)
-    private Date tradeStart; //거래 시작 시간
+    private Date tradeStarttime; //거래 시작 시간
 
     @Column(name = "trade_endtime", nullable = false)
-    private Date tradeEnd; //거래 종료 시간
+    private Date tradeEndtime; //거래 종료 시간
 
     @Column(name = "trade_max", nullable = false)
     private int tradeMax; //거래 가능 인원수
