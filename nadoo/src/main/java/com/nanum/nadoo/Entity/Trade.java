@@ -58,6 +58,9 @@ public class Trade {
     @Column(name = "trade_product", nullable = false, length = 300)
     private String tradeProduct; // 물품 종류
 
+    @Column(name = "trade_price")
+    private int tradePrice; // 물품 가격
+
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "writer")
 //    private Users users; //작성자
