@@ -55,6 +55,9 @@ public class Trade {
     @JoinColumn(name = "user_account")
     private User tradeMasterVO;   // 거래 주최 유저
 
+    @Column(name = "trade_product", nullable = false, length = 300)
+    private String tradeProduct; // 물품 종류
+
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "writer")
 //    private Users users; //작성자
