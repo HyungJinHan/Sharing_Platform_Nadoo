@@ -11,6 +11,9 @@ import java.util.List;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
     List<Trade> findAll();
 
-    // 등록일순 거래내용
-    List<Trade> findAllOrderByTradeStarttimeDesc();
+    // 거래내용 등록일순 내림차순
+    List<Trade> findAllByOrderByTradeStarttimeDesc();
+
+    // 거래내용 종료일순 오름차순
+    List<Trade> findAllByOrderByTradeEndtimeAsc();
 }

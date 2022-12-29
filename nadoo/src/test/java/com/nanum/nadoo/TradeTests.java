@@ -38,8 +38,8 @@ class TradeTests {
 
 		sample1.setTradeAddress("광주광역시 동구 계림동");
 		sample1.setTradeType("가게거래");
-		sample1.setTradeStart(startDate);
-		sample1.setTradeEnd(new Date(cal.getTimeInMillis()));
+		sample1.setTradeStarttime(startDate);
+		sample1.setTradeEndtime(new Date(cal.getTimeInMillis()));
 		sample1.setTradeMax(1);
 		sample1.setTradeTitle("마늘 나누실분 구해요");
 		sample1.setTradeContent("홈플러스 광주계림점에서 마늘 대량으로 파는데 김장하시는분 나눠서 같이사요");
@@ -64,8 +64,8 @@ class TradeTests {
 
 		sample.setTradeAddress("광주광역시 동구 동명동");
 		sample.setTradeType("동네거래");
-		sample.setTradeStart(startDate);
-		sample.setTradeEnd(new Date(cal.getTimeInMillis()));
+		sample.setTradeStarttime(startDate);
+		sample.setTradeEndtime(new Date(cal.getTimeInMillis()));
 		sample.setTradeMax(1);
 		sample.setTradeTitle("선크림 1+1 나눠요");
 		sample.setTradeContent("올리브영에서 선크림 원플원 하는거 나눠서 사실분 구합니다");
@@ -89,8 +89,8 @@ class TradeTests {
 
 		sample.setTradeAddress("광주광역시 남구 진월동");
 		sample.setTradeType("동네거래");
-		sample.setTradeStart(startDate);
-		sample.setTradeEnd(new Date(cal.getTimeInMillis()));
+		sample.setTradeStarttime(startDate);
+		sample.setTradeEndtime(new Date(cal.getTimeInMillis()));
 		sample.setTradeMax(3);
 		sample.setTradeTitle("휴지 대량구매 같이하실분 구해요");
 		sample.setTradeContent("쿠팡에서 이벤트로 클리닉스 휴지 1박스 파는데... 자취방 2개월밖에 안남아서 다 못쓸거같아요.. 같이 나누실분 2명 구해요");
