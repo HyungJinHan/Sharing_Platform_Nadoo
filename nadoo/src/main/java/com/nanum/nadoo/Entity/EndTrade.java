@@ -54,4 +54,7 @@ public class EndTrade {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "endadoo_master")
     private User endMasterVO;   // 거래 주최 유저
+
+    @Column(name = "end_product", nullable = false, length = 300)
+    private String endProduct; // 물품 종류
 }

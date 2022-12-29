@@ -36,15 +36,16 @@ class TradeTests {
 		cal.add(Calendar.DATE, 5);	// 5일 후
 		cal.add(Calendar.HOUR_OF_DAY, 4);	// 4시간 후
 
-		sample1.setTradeAddress("광주광역시 북구 유림로 165");
+		sample1.setTradeAddress("광주광역시 동구 계림동");
 		sample1.setTradeType("가게거래");
 		sample1.setTradeStart(startDate);
 		sample1.setTradeEnd(new Date(cal.getTimeInMillis()));
-		sample1.setTradeMax(2);
-		sample1.setTradeTitle("같이 양파사실분 구합니다");
-		sample1.setTradeContent("Y마트에서 양파 1망 1키로 기준으로 파는데 같이 사실분 구해요ㅠㅠㅠㅠㅠ");
+		sample1.setTradeMax(1);
+		sample1.setTradeTitle("마늘 나누실분 구해요");
+		sample1.setTradeContent("홈플러스 광주계림점에서 마늘 대량으로 파는데 김장하시는분 나눠서 같이사요");
 		sample1.setTradeCategoryVO(categoryRepository.findByCategoryNameContaining("식료품"));
-		sample1.setTradeMasterVO(userRepository.findByUserAccount("myk1234"));
+		sample1.setTradeMasterVO(userRepository.findByUserAccount("bsj1234"));
+		sample1.setTradeProduct("마늘");
 
 		tradeRepository.save(sample1);
 	}
@@ -65,11 +66,11 @@ class TradeTests {
 		sample.setTradeType("동네거래");
 		sample.setTradeStart(startDate);
 		sample.setTradeEnd(new Date(cal.getTimeInMillis()));
-		sample.setTradeMax(2);
-		sample.setTradeTitle("폼클렌징 1+1 나눠요");
-		sample.setTradeContent("올리브영에서 폼클렌징 살건데 1+1이에요~ 반띵해서 한개씩 나눠요~~");
+		sample.setTradeMax(1);
+		sample.setTradeTitle("선크림 1+1 나눠요");
+		sample.setTradeContent("올리브영에서 선크림 원플원 하는거 나눠서 사실분 구합니다");
 		sample.setTradeCategoryVO(categoryRepository.findByCategoryNameContaining("뷰티"));
-		sample.setTradeMasterVO(userRepository.findByUserAccount("bsj1234"));
+		sample.setTradeMasterVO(userRepository.findByUserAccount("bhn1234"));
 
 		tradeRepository.save(sample);
 	}
