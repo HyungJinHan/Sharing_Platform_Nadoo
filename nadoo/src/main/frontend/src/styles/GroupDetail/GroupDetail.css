@@ -5,3 +5,11 @@
 .ant-descriptions-item-content {
   width: 70%;
 }
+
+.GroupDetail_mapImg {
+  width: 100%;
+}
+
+.GroupDetail_mapDiv {
+  text-align: center;
+}
