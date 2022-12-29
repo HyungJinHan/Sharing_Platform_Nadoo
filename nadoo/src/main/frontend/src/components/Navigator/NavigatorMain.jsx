@@ -44,17 +44,6 @@ function NavigatorMain({ searchMode, setSearchMode }) {
         />
         <BiShoppingBag
           className={
-            url === '/mypage' ?
-              'Navigator_imageSelect'
-              :
-              'Navigator_image'
-          }
-          onClick={() => {
-            navigate("/mypage");
-          }}
-        />
-        <BiUser
-          className={
             url === '/wish' ?
               'Navigator_imageSelect'
               :
@@ -62,6 +51,17 @@ function NavigatorMain({ searchMode, setSearchMode }) {
           }
           onClick={() => {
             navigate("/wish");
+          }}
+        />
+        <BiUser
+          className={
+            url === '/mypage' ?
+              'Navigator_imageSelect'
+              :
+              'Navigator_image'
+          }
+          onClick={() => {
+            navigate("/mypage");
           }}
         />
       </div>

@@ -1,5 +1,6 @@
 import { Card } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import '../../styles/Slider/Slider.css'
@@ -70,7 +71,7 @@ function SliderGroup(props) {
           <SwiperSlide>
             <div className="site-card-border-less-wrapper">
               <Card
-                title="Card title"
+                title={<Link to='groupdetail'>Card Title</Link>}
                 bordered={false}
                 style={{
                   width: 180,

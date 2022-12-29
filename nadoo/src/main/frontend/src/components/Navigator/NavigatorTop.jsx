@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import '../../styles/Navigator/NavigatorTop.css'
 import styled from "styled-components";
@@ -12,6 +12,9 @@ const NavCenter = styled.div`
 function NavigatorTop(props) {
   const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
+  const [title, setTitle] = useState('');
+  const location = useLocation();
+  const url = location.pathname;
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -28,6 +31,18 @@ function NavigatorTop(props) {
     }
   }
 
+  // if (url === '/groupdetail') {
+  //   setTitle('title');
+  // } else if (url === '/') {
+  //   setTitle('Main');
+  // } else if (url === '/search') {
+  //   setTitle('search');
+  // } else if (url === '/mypage') {
+  //   setTitle('mypage');
+  // } else {
+  //   setTitle('Nadoo');
+  // }
+
   return (
     <NavCenter>
       <div
@@ -42,23 +57,21 @@ function NavigatorTop(props) {
           scroll === true ?
             <>
               <span className='Navigator_topfont1'>
-                여기는&nbsp;
+                Ma
               </span>
               <span className='Navigator_topfont2'>
-                메인
+                in
               </span>
             </>
             :
-            <img
-              className='Navigator_toplogo'
-              src={Logo}
-              alt="undefind"
-              onClick={
-                () => {
-                  navigate('/');
-                }
-              }
-            />
+            <>
+              <span className='Navigator_topfont1'>
+                NA
+              </span>
+              <span className='Navigator_topfont2'>
+                DOO
+              </span>
+            </>
         }
       </div>
     </NavCenter>
