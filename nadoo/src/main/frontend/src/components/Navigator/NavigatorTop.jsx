@@ -12,8 +12,9 @@ const NavCenter = styled.div`
 function NavigatorTop(props) {
   const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
+  const [title, setTitle] = useState('');
   const location = useLocation();
-  const url = location.pathname
+  const url = location.pathname;
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -29,6 +30,18 @@ function NavigatorTop(props) {
       setScroll(false);
     }
   }
+
+  // if (url === '/groupdetail') {
+  //   setTitle('title');
+  // } else if (url === '/') {
+  //   setTitle('Main');
+  // } else if (url === '/search') {
+  //   setTitle('search');
+  // } else if (url === '/mypage') {
+  //   setTitle('mypage');
+  // } else {
+  //   setTitle('Nadoo');
+  // }
 
   return (
     <NavCenter>
@@ -59,16 +72,6 @@ function NavigatorTop(props) {
                 DOO
               </span>
             </>
-          // <img
-          //   className='Navigator_toplogo'
-          //   src={Logo}
-          //   alt="undefind"
-          //   onClick={
-          //     () => {
-          //       navigate('/');
-          //     }
-          //   }
-          // />
         }
       </div>
     </NavCenter>
