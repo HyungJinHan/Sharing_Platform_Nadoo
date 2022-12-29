@@ -57,4 +57,7 @@ public class EndTrade {
 
     @Column(name = "end_product", nullable = false, length = 300)
     private String endProduct; // 물품 종류
+
+    @Column(name = "end_price")
+    private int endPrice; // 물품 가격
 }

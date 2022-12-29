@@ -33,19 +33,20 @@ class TradeTests {
 		// Calendar 객체를 사용해서 현재시간 + 5일을 종료 시간으로 설정
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startDate);
-		cal.add(Calendar.DATE, 5);	// 5일 후
+		cal.add(Calendar.DATE, 3);	// 5일 후
 		cal.add(Calendar.HOUR_OF_DAY, 4);	// 4시간 후
 
-		sample1.setTradeAddress("광주광역시 동구 계림동");
+		sample1.setTradeAddress("광주광역시 서구 화정동");
 		sample1.setTradeType("가게거래");
 		sample1.setTradeStart(startDate);
 		sample1.setTradeEnd(new Date(cal.getTimeInMillis()));
 		sample1.setTradeMax(1);
 		sample1.setTradeTitle("마늘 나누실분 구해요");
-		sample1.setTradeContent("홈플러스 광주계림점에서 마늘 대량으로 파는데 김장하시는분 나눠서 같이사요");
+		sample1.setTradeContent("이마트 광주점에서 마늘 대량으로 파는데 김장하시는분 나눠서 같이사요");
 		sample1.setTradeCategoryVO(categoryRepository.findByCategoryNameContaining("식료품"));
 		sample1.setTradeMasterVO(userRepository.findByUserAccount("bsj1234"));
 		sample1.setTradeProduct("마늘");
+		sample1.setTradePrice(10000);
 
 		tradeRepository.save(sample1);
 	}
@@ -71,7 +72,8 @@ class TradeTests {
 		sample.setTradeContent("올리브영에서 선크림 원플원 하는거 나눠서 사실분 구합니다");
 		sample.setTradeCategoryVO(categoryRepository.findByCategoryNameContaining("뷰티"));
 		sample.setTradeMasterVO(userRepository.findByUserAccount("bhn1234"));
-
+		sample.setTradeProduct("선크림");
+		sample.setTradePrice(6000);
 		tradeRepository.save(sample);
 	}
 
@@ -84,7 +86,7 @@ class TradeTests {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startDate);
 		cal.add(Calendar.DATE, 3);	// 7일 후
-		cal.add(Calendar.HOUR_OF_DAY, 1);	// 1시간 후
+		cal.add(Calendar.HOUR_OF_DAY, 1);	// 1시간
 		cal.add(Calendar.MINUTE, 30);	// 30분 후
 
 		sample.setTradeAddress("광주광역시 남구 진월동");
@@ -92,11 +94,11 @@ class TradeTests {
 		sample.setTradeStart(startDate);
 		sample.setTradeEnd(new Date(cal.getTimeInMillis()));
 		sample.setTradeMax(3);
-		sample.setTradeTitle("휴지 대량구매 같이하실분 구해요");
-		sample.setTradeContent("쿠팡에서 이벤트로 클리닉스 휴지 1박스 파는데... 자취방 2개월밖에 안남아서 다 못쓸거같아요.. 같이 나누실분 2명 구해요");
+		sample.setTradeTitle("모자 원플원 나누실분");
+		sample.setTradeContent("emis에서 모자 원플원하는데 같은색만 원플원해서 나눠서 사실 한분 구합니다!");
 		sample.setTradeCategoryVO(categoryRepository.findByCategoryNameContaining("생필품"));
 		sample.setTradeMasterVO(userRepository.findByUserAccount("kyr1234"));
-
+		sample.setTradeProduct("모자");
 		tradeRepository.save(sample);
 	}
 
