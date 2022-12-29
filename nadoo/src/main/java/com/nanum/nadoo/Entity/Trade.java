@@ -28,10 +28,10 @@ public class Trade {
     private String tradeType; //거래타입
 
     @Column(name = "trade_starttime", nullable = false)
-    private Date tradeStart; //거래 시작 시간
+    private Date tradeStarttime; //거래 시작 시간
 
     @Column(name = "trade_endtime", nullable = false)
-    private Date tradeEnd; //거래 종료 시간
+    private Date tradeEndtime; //거래 종료 시간
 
     @Column(name = "trade_max", nullable = false)
     private int tradeMax; //거래 가능 인원수
@@ -54,6 +54,12 @@ public class Trade {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_account")
     private User tradeMasterVO;   // 거래 주최 유저
+
+    @Column(name = "trade_product", length = 300, nullable = false)
+    private String tradeProduct; // 물품 종류
+
+    @Column(name = "trade_price")
+    private int tradePrice; // 물품 가격
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "writer")
