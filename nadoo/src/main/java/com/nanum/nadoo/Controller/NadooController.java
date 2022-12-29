@@ -2,17 +2,18 @@ package com.nanum.nadoo.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nanum.nadoo.Entity.Trade;
 import com.nanum.nadoo.Service.NadooService;
+import com.nanum.nadoo.Service.NadooServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
+@CrossOrigin(origins="*")
 @RestController
 @Log4j2
 public class NadooController {
@@ -30,20 +31,21 @@ public class NadooController {
   }
 
   // 최신 나두 (등록일 최신순 거래 리스트 반환)
-  @PostMapping("/nadoo/recentTrades")
-  public String rencentTrades(){
-    List<Trade> trades = service.getRecentTrades();
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+  @RequestMapping("/nadoo/recentTrades")
+  public String recentTrades(){
+    Map<String, Object> result = service.getRecentTrades();
+//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    Gson gson = new Gson();
 
-    return gson.toJson(trades);
+    return gson.toJson(result);
   }
 
   // 종료 임박 (종료일 내림차순 거래 리스트 반환)
-  @PostMapping("/nadoo/closerTrades")
+  @RequestMapping("/nadoo/closerTrades")
   public String closerTrades(){
-    List<Trade> trades = service.getRecentTrades();
+    Map<String, Object> result = service.getCloserTrades();
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    return gson.toJson(trades);
+    return gson.toJson(result);
   }
 }
