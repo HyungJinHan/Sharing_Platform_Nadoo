@@ -30,17 +30,21 @@ function NavigatorTop(props) {
     }
   }
 
-  // if (url === '/groupdetail') {
-  //   setTitle('title');
-  // } else if (url === '/') {
-  //   setTitle('Main');
-  // } else if (url === '/search') {
-  //   setTitle('search');
-  // } else if (url === '/mypage') {
-  //   setTitle('mypage');
-  // } else {
-  //   setTitle('Nadoo');
-  // }
+  useEffect(() => {
+    if (url === '/groupdetail') {
+      setTitle('나두 상세정보');
+    } else if (url === '/') {
+      setTitle('메인 나두');
+    } else if (url === '/search') {
+      setTitle('나두 검색');
+    } else if (url === '/mypage') {
+      setTitle('마이 페이지');
+    } else if (url === '/grouplist') {
+      setTitle('나두 목록');
+    }
+  }, [title]);
+
+
 
   return (
     <NavCenter>
@@ -55,20 +59,14 @@ function NavigatorTop(props) {
         {
           scroll === true ?
             <>
-              <span className='Navigator_topfont1'>
-                Ma
-              </span>
               <span className='Navigator_topfont2'>
-                in
+                {title}
               </span>
             </>
             :
             <>
               <span className='Navigator_topfont1'>
-                NA
-              </span>
-              <span className='Navigator_topfont2'>
-                DOO
+                NADOO
               </span>
             </>
         }

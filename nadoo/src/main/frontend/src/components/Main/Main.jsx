@@ -12,6 +12,7 @@ import together from '../../static/HHJ/images/Group 45.svg';
 import mega from '../../static/HHJ/images/Group 47.svg';
 import SliderGroup from '../Slider/SliderGroup';
 import GroupList from '../GroupList/GroupList';
+import GroupListAll from '../GroupList/GroupListAll';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
@@ -106,7 +107,7 @@ function Main() {
       <>
         <NavigatorTop />
         <Outlet />
-        this is list
+        <GroupListAll />
         <NavigatorMain />
         <Outlet />
       </>

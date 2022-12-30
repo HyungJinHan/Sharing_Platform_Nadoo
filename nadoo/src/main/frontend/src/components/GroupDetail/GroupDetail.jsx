@@ -4,7 +4,6 @@ import NavigatorTop from '../Navigator/NavigatorTop';
 import { Outlet, useLocation } from 'react-router-dom';
 import '../../styles/GroupDetail/GroupDetail.css'
 import NavigatorMain from '../Navigator/NavigatorMain';
-import NavigatorTopDetail from '../Navigator/NavigatorTopDetail';
 import mapImg from '../../static/HHJ/images/testMap.jpg'
 import axios from 'axios';
 
@@ -31,11 +30,12 @@ function GroupDetail({
 
   function getGroupList() {
     axios
-      .post(`http://localhost:8088/nadoo/detail/${idxState}`, {
+      .post(`http://localhost:8088/nadoo/detail`, {
         tradeIdx: idxState
       })
       .then((res) => {
         setDetailArticle(res.data);
+        console.log(res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -48,9 +48,13 @@ function GroupDetail({
 
   console.log(idxState);
 
+  const originPrice = detailArticle.tradeProduct
+
+  const price = [originPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
   return (
     <>
-      <NavigatorTopDetail />
+      <NavigatorTop />
       <Outlet />
       <div className='GroupDetail_mapDiv'>
         <img
@@ -61,15 +65,23 @@ function GroupDetail({
       </div>
       <br />
       <Descriptions title={detailArticle.tradeTitle} bordered>
-        <Descriptions.Item label="판매 물품">{detailArticle.tradeProduct}</Descriptions.Item>
-        <Descriptions.Item label="거래 주소">{detailArticle.tradeAddress}</Descriptions.Item>
-        <Descriptions.Item label="거래 인원">{detailArticle.tradeMax}</Descriptions.Item>
-        <Descriptions.Item label="주최자">{detailArticle.userNick}</Descriptions.Item>
-        <Descriptions.Item label="조회수">{detailArticle.tradeViews}</Descriptions.Item>
+        <Descriptions.Item label="판매 물품">
+          {detailArticle.tradeProduct}
+        </Descriptions.Item>
+        <Descriptions.Item label="거래 주소">
+          {detailArticle.tradeAddress}
+        </Descriptions.Item>
+        <Descriptions.Item label="거래 인원">
+          {detailArticle.tradeMax}
+        </Descriptions.Item>
+        <Descriptions.Item label="주최자">
+          {detailArticle.userNick}
+        </Descriptions.Item>
+        <Descriptions.Item label="조회수">
+          {detailArticle.tradeViews}
+        </Descriptions.Item>
         <Descriptions.Item label="거래 가격">
-          {/* {detailArticle.tradePrice.toString()
-            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원 */}
-          {detailArticle.tradePrice}원
+          {price}원
         </Descriptions.Item>
         <Descriptions.Item label="거래 상태">
           {
