@@ -22,19 +22,14 @@ public class NadooController {
 
   @RequestMapping("/nadoo")
   public String getAllUsers() {
-//    List<Users> temp = service.getUsers();
-//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//
-//    return gson.toJson(temp);
-    return "";
+    return "Nadoo";
   }
 
   // 최신 나두 (등록일 최신순 거래 리스트 반환)
   @RequestMapping("/nadoo/recentTrades")
   public String recentTrades(){
     Map<String, Object> result = service.getRecentTrades();
-//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     return gson.toJson(result);
   }
