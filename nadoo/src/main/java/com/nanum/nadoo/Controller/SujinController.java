@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @Log4j2
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class SujinController {
 
   @Autowired
