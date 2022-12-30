@@ -18,18 +18,19 @@ public class SujinController {
   @Autowired
   NadooService service;
 
-  @RequestMapping(value = "/nadoo/detail/{tradeIdx}", method = RequestMethod.GET)
-  public String getDetail(@PathVariable Long tradeIdx) {
-    TradeDetailDTO trade = service.getDetail(tradeIdx);
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    return gson.toJson(trade);
-  }
+//  @RequestMapping(value = "/nadoo/detail/{tradeIdx}", method = RequestMethod.GET)
+//  public String getDetail(@PathVariable Long tradeIdx) {
+//    TradeDetailDTO trade = service.getDetail(tradeIdx);
+//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//
+//    return gson.toJson(trade);
+//  }
 
   // 윤기
-  @RequestMapping(value = "/nadoo/detail", method = RequestMethod.POST)
-  public String getDetail2(@RequestBody Map<String, Object> paramMap) {
-    TradeDetailDTO trade = service.getDetail((Long)paramMap.get("tradeIdx"));
+//  @RequestMapping(value = "/nadoo/detail", method = RequestMethod.POST)
+  @PostMapping(value = "/nadoo/detail")
+  public String getDetail2(@RequestBody Map<String, Long> paramMap) {
+    TradeDetailDTO trade = service.getDetail(paramMap.get("tradeIdx"));
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     return gson.toJson(trade);

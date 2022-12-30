@@ -37,6 +37,7 @@ function GroupDetail({
       })
       .then((res) => {
         setDetailArticle(res.data);
+        console.log(res.data);
       })
       .catch((e) => {
         console.error(e);
