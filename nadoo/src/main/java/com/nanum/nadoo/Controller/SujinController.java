@@ -8,6 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @Log4j2
 @CrossOrigin(origins="*")
@@ -16,9 +18,18 @@ public class SujinController {
   @Autowired
   NadooService service;
 
-  @RequestMapping("/nadoo/detail/{tradeIdx}")
+  @RequestMapping(value = "/nadoo/detail/{tradeIdx}", method = RequestMethod.GET)
   public String getDetail(@PathVariable Long tradeIdx) {
     TradeDetailDTO trade = service.getDetail(tradeIdx);
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    return gson.toJson(trade);
+  }
+
+  // 윤기
+  @RequestMapping(value = "/nadoo/detail", method = RequestMethod.POST)
+  public String getDetail2(@RequestBody Map<String, Object> paramMap) {
+    TradeDetailDTO trade = service.getDetail((Long)paramMap.get("tradeIdx"));
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     return gson.toJson(trade);
