@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.nanum.nadoo.Service.NadooService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.log4j.Log4j2;
@@ -44,10 +45,11 @@ public class NadooController {
   }
 
   // 모든 거래 리스트(최신순)
-//  @Request
-//  public String getAllTrades(){
-//
-//
-//
-//  }
+  @RequestMapping("/nadoo/tradeAll")
+  public String getAllTrades(){
+    Map<String, Object> result = service.getAllTrades();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    return gson.toJson(result);
+  }
 }
