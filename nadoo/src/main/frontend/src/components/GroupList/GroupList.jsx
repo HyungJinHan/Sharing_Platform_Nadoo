@@ -100,7 +100,7 @@ function GroupList(props) {
               description={[
                 item.userNick, ' | ',
                 item.tradeProduct, ' | ',
-                item.tradePrice
+                item.tradeAddress
               ]}
             />
           </List.Item>
