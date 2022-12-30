@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Badge, Button, Descriptions, Space } from 'antd';
+import { Badge, Button, Descriptions, Row, Space, Col, Statistic } from 'antd';
 import NavigatorTop from '../Navigator/NavigatorTop';
 import { Outlet, useLocation } from 'react-router-dom';
 import '../../styles/GroupDetail/GroupDetail.css'
 import NavigatorMain from '../Navigator/NavigatorMain';
 import mapImg from '../../static/HHJ/images/testMap.jpg'
 import axios from 'axios';
+import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
+const { Countdown } = Statistic;
 
 function GroupDetail({
   tradeIdx
@@ -27,6 +29,7 @@ function GroupDetail({
       tradePrice: '',
       tradeMax: '',
       tradeViews: '',
+      diffTime: ''
     }
   ]);
 
@@ -55,17 +58,17 @@ function GroupDetail({
 
   const price = [originPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
+  const onFinish = () => {
+    console.log('finished!');
+  };
+
+  console.log(detailArticle.diffTime);
+
   return (
     <>
       <NavigatorTop detailUrl={url} />
       <Outlet />
-      <div className='GroupDetail_mapDiv'>
-        <img
-          className='GroupDetail_mapImg'
-          src={mapImg}
-          alt="undefind"
-        />
-      </div>
+      <KakaoMapContainer tradeAddress={detailArticle.tradeAddress} />
       <br />
       <Descriptions
         className='GroupDetail_article'
@@ -74,6 +77,14 @@ function GroupDetail({
       >
         <Descriptions.Item label="판매 물품">
           {detailArticle.tradeProduct}
+        </Descriptions.Item>
+        <Descriptions.Item label="남은 시간">
+          <Col>
+            <Countdown
+              value={detailArticle.diffTime}
+              onFinish={onFinish}
+            />
+          </Col>
         </Descriptions.Item>
         <Descriptions.Item label="거래 주소">
           {detailArticle.tradeAddress}

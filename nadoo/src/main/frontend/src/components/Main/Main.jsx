@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import NavigatorMain from '../Navigator/NavigatorMain';
 import NavigatorTop from '../Navigator/NavigatorTop';
-import '../../styles/Test/Test.css';
+import '../../styles/Main/Main.css';
 import styled from 'styled-components';
 import Slider from '../Slider/Slider';
 import day from '../../static/HHJ/images/Group 40.svg';

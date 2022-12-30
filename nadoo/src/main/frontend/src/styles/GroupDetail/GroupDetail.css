@@ -18,3 +18,9 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.ant-statistic-content-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #6c63ff;
+}

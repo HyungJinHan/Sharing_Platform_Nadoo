@@ -1,8 +1,9 @@
-import { List } from 'antd';
+import { Button, List } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import '../../styles/GroupList/GroupList.css'
 
 const GroupDiv = styled.div`
   text-align: left;
@@ -16,12 +17,12 @@ function GroupListAll(props) {
 
   function getAllGroupList() {
     axios
-      .post('http://localhost:8088/nadoo/tradesAll', {
+      .post('http://localhost:8088/nadoo/tradeAll', {
       })
       .then((res) => {
         const { data } = res;
         setGroupList({
-          list: data.tradesAll
+          list: data.tradeAll
         });
       })
       .catch((e) => {
@@ -35,6 +36,10 @@ function GroupListAll(props) {
 
   return (
     <GroupDiv>
+      <p className='Test_endSoon'>
+        👋 나두 목록 👋
+        {/* 🚨⏰❗ */}
+      </p>
       <List
         className='group_list'
         itemLayout="horizontal"
@@ -42,7 +47,7 @@ function GroupListAll(props) {
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 5,
+          pageSize: 8,
         }}
         dataSource={groupList.list}
         renderItem={(item) => (
@@ -67,6 +72,19 @@ function GroupListAll(props) {
           </List.Item>
         )}
       />
+      <br />
+      <p className='Test_endSoon'>
+        <Button
+          type="primary"
+          onClick={
+            () => {
+              navigate('/grouplist');
+            }
+          }
+        >
+          나두 만들기
+        </Button>
+      </p>
     </GroupDiv>
   );
 }

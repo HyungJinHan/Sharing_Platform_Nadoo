@@ -1,4 +1,4 @@
-import { List } from 'antd';
+import { Button, List } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -49,6 +49,7 @@ const GroupDiv = styled.div`
 
 function GroupList(props) {
   const navigate = useNavigate();
+  const [pageNum, setPageNum] = useState(false);
   const [groupList, setGroupList] = useState({
     list: []
   });
@@ -73,40 +74,59 @@ function GroupList(props) {
   }, []);
 
   return (
-    <GroupDiv>
-      <List
-        className='group_list'
-        itemLayout="horizontal"
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 5,
-        }}
-        dataSource={groupList.list}
-        renderItem={(item) => (
-          <List.Item>
-            <List.Item.Meta
-              onClick={
-                () => {
-                  navigate(`/groupdetail/${item.tradeIdx}`, {
-                    state: {
-                      tradeIdx: item.tradeIdx
-                    }
-                  });
+    <>
+      <GroupDiv>
+        <List
+          className='group_list'
+          itemLayout="horizontal"
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+              setPageNum(!pageNum);
+            },
+            pageSize: 5,
+          }}
+          dataSource={groupList.list}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                onClick={
+                  () => {
+                    navigate(`/groupdetail/${item.tradeIdx}`, {
+                      state: {
+                        tradeIdx: item.tradeIdx
+                      }
+                    });
+                  }
                 }
+                title={item.tradeTitle}
+                description={[
+                  item.userNick, ' | ',
+                  item.tradeProduct, ' | ',
+                  item.tradeAddress
+                ]}
+              />
+            </List.Item>
+          )}
+        />
+      </GroupDiv>
+      <br />
+      {
+        pageNum === true ?
+          <Button
+            type="primary"
+            onClick={
+              () => {
+                navigate('/grouplist');
               }
-              title={item.tradeTitle}
-              description={[
-                item.userNick, ' | ',
-                item.tradeProduct, ' | ',
-                item.tradeAddress
-              ]}
-            />
-          </List.Item>
-        )}
-      />
-    </GroupDiv>
+            }
+          >
+            목록 더보기
+          </Button>
+          :
+          ''
+      }
+    </>
   );
 }
 

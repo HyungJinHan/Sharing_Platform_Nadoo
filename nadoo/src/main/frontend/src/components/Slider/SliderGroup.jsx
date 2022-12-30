@@ -1,51 +1,35 @@
 import { Card } from 'antd';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import '../../styles/Slider/Slider.css'
 
-const data = [
-  {
-    title: 'Ant Design Title 1',
-    user: '한형진',
-    item: '핸드크림',
-    location: '광주 광산구',
-  },
-  {
-    title: 'Ant Design Title 2',
-    user: '백하늘',
-    item: '딸기',
-    location: '광주 북구',
-  },
-  {
-    title: 'Ant Design Title 3',
-    user: '배수진',
-    item: '안경',
-    location: '광주 동구',
-  },
-  {
-    title: 'Ant Design Title 4',
-    user: '민윤기',
-    item: '커피',
-    location: '광주 서구',
-  },
-  {
-    title: 'Ant Design Title 5',
-    user: '김유리',
-    item: '폼클렌징',
-    location: '광주 남구',
-  },
-  {
-    title: 'Ant Design Title 6',
-    user: '김민정',
-    item: '모니터',
-    location: '광주 광산구',
-  },
-];
-
 function SliderGroup(props) {
   const navigate = useNavigate();
+  const [groupList, setGroupList] = useState({
+    list: []
+  });
+
+  function getCloserGroupList() {
+    axios
+      .post('http://localhost:8088/nadoo/closerTrades', {
+      })
+      .then((res) => {
+        const { data } = res;
+        setGroupList({
+          list: data.closerTrades
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+  };
+
+  useEffect(() => {
+    getCloserGroupList();
+  }, []);
 
   return (
     <Swiper
@@ -69,37 +53,39 @@ function SliderGroup(props) {
       }}
     >
       {
-        data.map((item) => (
-          <SwiperSlide>
-            <div
-              className="site-card-border-less-wrapper"
-              onClick={
-                () => {
-                  navigate(`/groupdetail/${item.tradeIdx}`, {
-                    state: {
-                      tradeIdx: item.tradeIdx
-                    }
-                  });
+        groupList.list
+          .map((item) => (
+            <SwiperSlide>
+              {console.log(item.tradeIdx)}
+              <div
+                className="site-card-border-less-wrapper"
+                onClick={
+                  () => {
+                    navigate(`/groupdetail/${item.tradeIdx}`, {
+                      state: {
+                        tradeIdx: item.tradeIdx
+                      }
+                    });
+                  }
                 }
-              }
-            >
-              <Card
-                title={'Card Title'}
-                bordered={false}
-                style={{
-                  width: 180,
-                  height: 180,
-                  backgroundColor: 'white',
-                }}
               >
-                <p>{item.user} | {item.item}</p>
-                <p>{item.location}</p>
-              </Card>
-            </div>
-          </SwiperSlide>
-        ))
+                <Card
+                  title={item.tradeTitle}
+                  bordered={false}
+                  style={{
+                    width: 180,
+                    height: 180,
+                    backgroundColor: 'white',
+                  }}
+                >
+                  <p>{item.userNick} | {item.tradeProduct}</p>
+                  <p>{item.tradeAddress}</p>
+                </Card>
+              </div>
+            </SwiperSlide>
+          ))
       }
-    </Swiper>
+    </Swiper >
   );
 }
 

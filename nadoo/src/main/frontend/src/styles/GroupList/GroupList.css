@@ -1,0 +1,35 @@
+.Test_endSoon {
+  text-align: center;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.ant-btn {
+  width: 90%;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary:not(:disabled):hover {
+  background-color: #6c63ff;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary {
+  color: #fff;
+  background-color: #6c63ff;
+  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active:hover a {
+  color: #09cf83;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active:hover {
+  border-color: #09cf83;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active a {
+  color: #09cf83;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active {
+  border-color: #09cf83;
+}
