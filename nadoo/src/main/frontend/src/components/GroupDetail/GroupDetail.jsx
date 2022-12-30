@@ -30,7 +30,8 @@ function GroupDetail({
 
   function getGroupList() {
     axios
-      .post(`http://localhost:8088/nadoo/detail`, {
+      .post('http://localhost:8088/nadoo/detail', {
+        //.post(`http://localhost:8088/nadoo/detail/${idxState}`, {
         tradeIdx: idxState
       })
       .then((res) => {
