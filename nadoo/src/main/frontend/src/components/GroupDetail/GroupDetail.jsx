@@ -12,6 +12,7 @@ const { Countdown } = Statistic;
 function GroupDetail({
   tradeIdx
 }) {
+  var [time, setTime] = useState(0);
   const [toggleButton, setToggleButton] = useState(false);
   const location = useLocation();
   const originUrl = location.pathname;
@@ -58,11 +59,26 @@ function GroupDetail({
 
   const price = [originPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-  const onFinish = () => {
-    console.log('finished!');
-  };
-
   console.log(detailArticle.diffTime);
+
+  const timeCount = parseInt((detailArticle.diffTime - (Date.now() / 1000)));
+
+  console.log(timeCount);
+
+  var day = Math.floor(timeCount / (24 * 3600))
+  var hour = Math.floor(timeCount % (24 * 3600) / 3600)
+  var minute = Math.floor((timeCount % 3600) / 60);
+  var second = timeCount % 60;
+
+  useEffect(() => {
+    var timer = setInterval(() => {
+      if (timeCount > 0) {
+        setTime(timeCount);
+      } else {
+        clearInterval(timer);
+      }
+    }, 1000);
+  }, [timeCount]);
 
   return (
     <>
@@ -79,12 +95,14 @@ function GroupDetail({
           {detailArticle.tradeProduct}
         </Descriptions.Item>
         <Descriptions.Item label="남은 시간">
-          <Col>
-            <Countdown
-              value={detailArticle.diffTime}
-              onFinish={onFinish}
-            />
-          </Col>
+          <span className='GroupDetail_day'>
+            {day < 10 ? `0${day}` : day}일&nbsp;
+          </span>
+          <span className='GroupDetail_timer'>
+            {hour < 10 ? `0${hour}` : hour}:
+            {minute < 10 ? `0${minute}` : minute}:
+            {second < 10 ? `0${second}` : second}
+          </span>
         </Descriptions.Item>
         <Descriptions.Item label="거래 주소">
           {detailArticle.tradeAddress}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import '../../styles/GroupList/GroupList.css'
 
 const GroupDiv = styled.div`
   text-align: left;
