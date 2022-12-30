@@ -2,7 +2,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import '../../styles/Navigator/Navigator.css';
 import styled from "styled-components";
-import { BiHomeAlt, BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi';
+import { BiHomeAlt, BiSearch, BiUser, BiChat } from 'react-icons/bi';
+import { RiFileList3Line } from 'react-icons/ri';
+import { IoChatbubblesOutline } from 'react-icons/io5'
 
 const NavCenter = styled.div`
   text-align: center;
@@ -31,6 +33,28 @@ function NavigatorMain({ searchMode, setSearchMode }) {
               'Navigator_image'
           }
         />
+        <RiFileList3Line
+          className={
+            url === '/grouplist' ?
+              'Navigator_imageSelect'
+              :
+              'Navigator_image'
+          }
+          onClick={() => {
+            navigate("/grouplist");
+          }}
+        />
+        <BiChat
+          className={
+            url === '/grouplist' ?
+              'Navigator_imageSelect'
+              :
+              'Navigator_image'
+          }
+          onClick={() => {
+            navigate("/grouplist");
+          }}
+        />
         <BiSearch
           className={
             url === '/search' ?
@@ -40,17 +64,6 @@ function NavigatorMain({ searchMode, setSearchMode }) {
           }
           onClick={() => {
             navigate("/search");
-          }}
-        />
-        <BiShoppingBag
-          className={
-            url === '/wish' ?
-              'Navigator_imageSelect'
-              :
-              'Navigator_image'
-          }
-          onClick={() => {
-            navigate("/wish");
           }}
         />
         <BiUser

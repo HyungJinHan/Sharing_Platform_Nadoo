@@ -101,13 +101,12 @@ function Main() {
         <Outlet />
       </>
     );
-  } else if (url === '/wish') {
+  } else if (url === '/grouplist') {
     return (
       <>
         <NavigatorTop />
         <Outlet />
-        wish
-        test end
+        this is list
         <NavigatorMain />
         <Outlet />
       </>

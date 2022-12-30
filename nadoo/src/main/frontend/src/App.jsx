@@ -39,14 +39,14 @@ function App() {
       {/* 유저 화면 컴포넌트 */}
       <Route path='/test' element={<Main />} />
       <Route path='/mypage' element={<Main />} />
-      <Route path='/wish' element={<Main />} />
+      <Route path='/grouplist' element={<Main />} />
       <Route path="/navigator" element={<NavigatorMain />} />
       <Route path="/navigatortop" element={<NavigatorTop />} />
       <Route path="/search" element={<SearchPage />} />
       {
         groupList.list
-          .map((idx) => (
-            <Route path={`/groupdetail/${idx.tradeIdx}`} element={< GroupDetail />} />
+          .map((item) => (
+            <Route path={`/groupdetail/${item.tradeIdx}`} element={<GroupDetail />} />
           ))
       }
     </Routes>
