@@ -25,7 +25,7 @@ public class NadooService{
     public Map<String, Object> getRecentTrades() {
         List<TradePreviewDTO> list = tradeRepository.findRecentTrades();
         int size = list.size();
-        int limit = 15; // 최근 나두 갯수 제한
+        int limit = 10; // 최근 나두 갯수 제한
 
         if(list.size() > limit){
             size = limit;
@@ -58,7 +58,7 @@ public class NadooService{
     public Map<String, Object> getCloserTrades(){
         List<TradePreviewDTO> list = tradeRepository.findCloserTrades();
         int size = list.size();
-        int limit = 15; // 종료 임박 갯수 제한
+        int limit = 10; // 종료 임박 갯수 제한
 
         if(list.size() > limit){
             size = limit;

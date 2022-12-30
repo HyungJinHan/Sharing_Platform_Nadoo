@@ -28,7 +28,7 @@ public class SujinController {
 
   // 윤기
 //  @RequestMapping(value = "/nadoo/detail", method = RequestMethod.POST)
-  @PostMapping(value = "/nadoo/detail")
+  @RequestMapping(value = "/nadoo/detail")
   public String getDetail2(@RequestBody Map<String, Long> paramMap) {
     TradeDetailDTO trade = service.getDetail(paramMap.get("tradeIdx"));
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
