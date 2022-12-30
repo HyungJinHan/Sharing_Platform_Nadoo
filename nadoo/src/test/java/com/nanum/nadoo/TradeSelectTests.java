@@ -25,13 +25,23 @@ class TradeSelectTests {
 	// }
 	// }
 
+//	@Transactional
+//	@Test
+//	void selectTradeListEndTimeAsc() {
+//		List<TradePreviewDTO> result = tRepository.findRecentTrades();
+//		for (int i = 0; i < result.size(); i++) {
+//			System.out.println(result.get(i));
+//		}
+//	}
+
+
 	@Transactional
 	@Test
-	void selectTradeListEndTimeAsc() {
-		List<TradePreviewDTO> result = tRepository.findRecentTrades();
-		for (int i = 0; i < result.size(); i++) {
-			System.out.println(result.get(i));
+	void splitTradeAddress(){
+		List<TradePreviewDTO> list = tRepository.findRecentTrades();
+		for(TradePreviewDTO dto : list){
+			String[] temp = dto.getTradeAddress().split(" ");
+			System.out.println(temp[0] + " " + temp[1]);
 		}
 	}
-
 }
