@@ -86,4 +86,29 @@ public class NadooService{
         return map;
     }
 
+    // 모든 거래 불러오기
+    public Map<String, Object> getAllTrades() {
+        List<TradePreviewDTO> list = tradeRepository.findRecentTrades();
+
+        int addressSize = 2;// 주소 두번째까지만 제한
+
+        for(TradePreviewDTO dto : list){
+            String resultAddress = "";
+            String[] temp = dto.getTradeAddress().split(" ");
+            // 혹시 제한개수보다 작은값이면 그대로 표출
+            if(temp.length < addressSize) {
+                dto.setTradeAddress(dto.getTradeAddress());
+            }
+            else{
+                for(int i = 0; i < addressSize; i++){
+                    resultAddress += (temp[i] + " ");
+                }
+            }
+            dto.setTradeAddress(resultAddress);
+        }
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("tradeAll", list);
+        return map;
+    }
 }
