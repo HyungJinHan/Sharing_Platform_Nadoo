@@ -33,8 +33,9 @@ public class NadooService{
         list = list.subList(0, size);
 
         int addressSize = 2;// 주소 두번째까지만 제한
-        String resultAddress = "";
+        
         for(TradePreviewDTO dto : list){
+            String resultAddress = "";
             String[] temp = dto.getTradeAddress().split(" ");
             // 혹시 제한개수보다 작은값이면 그대로 표출
             if(temp.length < addressSize) {
@@ -65,8 +66,8 @@ public class NadooService{
         list = list.subList(0, size);
 
         int addressSize = 2;// 주소 두번째까지만 제한
-        String resultAddress = "";
         for(TradePreviewDTO dto : list){
+            String resultAddress = "";
             String[] temp = dto.getTradeAddress().split(" ");
             // 혹시 제한개수보다 작은값이면 그대로 표출
             if(temp.length < addressSize) {
@@ -81,7 +82,7 @@ public class NadooService{
         }
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("closerTrades", list.subList(0,limit));
+        map.put("closerTrades", list);
         return map;
     }
 
