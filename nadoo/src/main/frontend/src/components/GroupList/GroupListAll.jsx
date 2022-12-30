@@ -16,12 +16,12 @@ function GroupListAll(props) {
 
   function getAllGroupList() {
     axios
-      .post('http://localhost:8088/nadoo/recentTrades', {
+      .post('http://localhost:8088/nadoo/tradesAll', {
       })
       .then((res) => {
         const { data } = res;
         setGroupList({
-          list: data.recentTrades
+          list: data.tradesAll
         });
       })
       .catch((e) => {

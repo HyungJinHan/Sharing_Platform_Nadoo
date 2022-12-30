@@ -13,3 +13,8 @@
 .GroupDetail_mapDiv {
   text-align: center;
 }
+
+.GroupDetail_article {
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -8,7 +8,9 @@ const NavCenter = styled.div`
   padding-top: 3.75rem;
 `;
 
-function NavigatorTop(props) {
+function NavigatorTop({
+  detailUrl
+}) {
   const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
   const [title, setTitle] = useState('');
@@ -31,7 +33,7 @@ function NavigatorTop(props) {
   }
 
   useEffect(() => {
-    if (url === '/groupdetail') {
+    if (detailUrl === '/groupdetail') {
       setTitle('나두 상세정보');
     } else if (url === '/') {
       setTitle('메인 나두');

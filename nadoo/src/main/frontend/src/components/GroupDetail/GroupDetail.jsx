@@ -12,6 +12,8 @@ function GroupDetail({
 }) {
   const [toggleButton, setToggleButton] = useState(false);
   const location = useLocation();
+  const originUrl = location.pathname;
+  const url = originUrl.substring(0, 12);
 
   const idxState = location.state.tradeIdx;
 
@@ -49,13 +51,13 @@ function GroupDetail({
 
   console.log(idxState);
 
-  const originPrice = detailArticle.tradeProduct
+  const originPrice = detailArticle.tradePrice
 
   const price = [originPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
   return (
     <>
-      <NavigatorTop />
+      <NavigatorTop detailUrl={url} />
       <Outlet />
       <div className='GroupDetail_mapDiv'>
         <img
@@ -65,7 +67,11 @@ function GroupDetail({
         />
       </div>
       <br />
-      <Descriptions title={detailArticle.tradeTitle} bordered>
+      <Descriptions
+        className='GroupDetail_article'
+        title={detailArticle.tradeTitle}
+        bordered
+      >
         <Descriptions.Item label="판매 물품">
           {detailArticle.tradeProduct}
         </Descriptions.Item>
