@@ -33,7 +33,7 @@ public class NadooService{
         list = list.subList(0, size);
 
         int addressSize = 2;// 주소 두번째까지만 제한
-        
+
         for(TradePreviewDTO dto : list){
             String resultAddress = "";
             String[] temp = dto.getTradeAddress().split(" ");
