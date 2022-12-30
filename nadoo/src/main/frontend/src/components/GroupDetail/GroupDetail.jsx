@@ -31,11 +31,13 @@ function GroupDetail({
 
   function getGroupList() {
     axios
-      .post(`http://localhost:8088/nadoo/detail/${idxState}`, {
+      .post('http://localhost:8088/nadoo/detail', {
+      //.post(`http://localhost:8088/nadoo/detail/${idxState}`, {
         tradeIdx: idxState
       })
       .then((res) => {
         setDetailArticle(res.data);
+        console.log(res.data);
       })
       .catch((e) => {
         console.error(e);
