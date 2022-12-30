@@ -18,8 +18,8 @@ public class SujinController {
   NadooService service;
 
   @RequestMapping("/nadoo/detail")
-  public String getDetail(@PathVariable Long tradeIdx) {
-    TradeDetailDTO trade = service.getDetail(tradeIdx);
+  public String getDetail(@PathVariable Long tradesIdx) {
+    TradeDetailDTO trade = service.getDetail(tradesIdx);
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     return gson.toJson(trade);
