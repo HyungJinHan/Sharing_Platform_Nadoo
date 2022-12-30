@@ -20,7 +20,7 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
     @Query(value = "select new com.nanum.nadoo.Dto.TradeDetailDTO(" +
             "t.tradeIdx, t.tradeAddress, t.tradeTitle, t.tradeContent, u.userNick, " +
             "t.tradeProduct, t.tradePrice, t.tradeStarttime, t.tradeEndtime, " +
-            " t.tradeMax, t.tradeType, t.tradeViews) " +
+            "t.tradeMax, t.tradeType, t.tradeViews, unix_timestamp(t.tradeEndtime) - unix_timestamp(now())) " +
             "from Trade t, User u where t.tradeMasterVO = u and t.tradeIdx=:tradeIdx")
     TradeDetailDTO findDetailTrade(@Param(value="tradeIdx") Long tradeIdx);
     List<Trade> findFirst4ByOrderByTradeStarttimeDesc();

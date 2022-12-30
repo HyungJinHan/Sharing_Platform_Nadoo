@@ -23,4 +23,6 @@ public class TradeDetailDTO {
     private String tradeType;        // 거래 타입
     private long tradeViews;         // 조회수
 
+    private long diffTime;          // 종료 남은 시간
+
 }
