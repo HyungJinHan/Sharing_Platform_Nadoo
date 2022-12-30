@@ -23,7 +23,7 @@ function GroupDetail({
   function getGroupList() {
     axios
       .post('http://localhost:8088/nadoo/detail', {
-        tradesIdx: idxState
+        tradeIdx: idxState
       })
       .then((res) => {
         const { data } = res;

@@ -42,4 +42,12 @@ public class NadooController {
 
     return gson.toJson(result);
   }
+
+  // 모든 거래 리스트(최신순)
+//  @Request
+//  public String getAllTrades(){
+//
+//
+//
+//  }
 }
