@@ -3,7 +3,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import '../../styles/GroupList/GroupList.css'
+import '../../styles/Group/GroupList.css'
+import Swal from 'sweetalert2';
 
 const GroupDiv = styled.div`
   text-align: left;
@@ -36,7 +37,7 @@ function GroupListAll(props) {
 
   return (
     <GroupDiv>
-      <p className='Test_endSoon'>
+      <p className='GroupList_title'>
         👋 나두 목록 👋
         {/* 🚨⏰❗ */}
       </p>
@@ -51,9 +52,38 @@ function GroupListAll(props) {
         }}
         dataSource={groupList.list}
         renderItem={(item) => (
-          <List.Item>
+          <List.Item
+            style=
+            {
+              item.diffTime === 0 || item.diffTime <= 0 ?
+                {
+                  backgroundColor: 'whitesmoke',
+                }
+                :
+                {
+                  backgroundColor: 'white',
+                }
+            }
+          >
             <List.Item.Meta
-              onClick={
+              style=
+              {
+                item.diffTime === 0 || item.diffTime <= 0 ?
+                  {
+                    color: 'red'
+                  }
+                  :
+                  {
+                    backgroundColor: 'white',
+                  }
+              }
+              onClick=
+              {item.diffTime === 0 || item.diffTime <= 0 ?
+                () => {
+                  Swal.fire('거래가 종료된 나두입니다.');
+                  return false;
+                }
+                :
                 () => {
                   navigate(`/groupdetail/${item.tradeIdx}`, {
                     state: {
@@ -63,22 +93,30 @@ function GroupListAll(props) {
                 }
               }
               title={item.tradeTitle}
-              description={[
-                item.userNick, ' | ',
-                item.tradeProduct, ' | ',
-                item.tradeAddress
-              ]}
+              description=
+              {
+                item.diffTime === 0 || item.diffTime <= 0 ?
+                  <span style={{ color: 'red' }}>
+                    거래가 종료된 나두입니다.
+                  </span>
+                  :
+                  [
+                    item.userNick, ' | ',
+                    item.tradeProduct, ' | ',
+                    item.tradeAddress
+                  ]
+              }
             />
           </List.Item>
         )}
       />
       <br />
-      <p className='Test_endSoon'>
+      <p className='GroupList_title'>
         <Button
           type="primary"
           onClick={
             () => {
-              navigate('/grouplist');
+              navigate('/groupcreate');
             }
           }
         >

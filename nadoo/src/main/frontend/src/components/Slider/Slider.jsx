@@ -9,10 +9,12 @@ import "swiper/css/navigation";
 
 import "../../styles/Slider/Slider.css";
 
-import Slider1 from '../../static/HHJ/images/Slider1.png';
-import Slider2 from '../../static/HHJ/images/Slider2.png';
-import Slider3 from '../../static/HHJ/images/Slider3.png';
-import Slider4 from '../../static/HHJ/images/Slider4.png';
+import Slider1 from '../../static/HHJ/images/MainSliderImages/MainImage1.png';
+import Slider2 from '../../static/HHJ/images/MainSliderImages/MainImage2.png';
+import Slider3 from '../../static/HHJ/images/MainSliderImages/MainImage3.png';
+import Slider4 from '../../static/HHJ/images/MainSliderImages/MainImage4.png';
+import Slider5 from '../../static/HHJ/images/MainSliderImages/MainImage5.png';
+import Slider6 from '../../static/HHJ/images/MainSliderImages/MainImage6.png';
 
 // import required modules
 import { Autoplay, Pagination } from "swiper";
@@ -50,27 +52,12 @@ function Slider(props) {
         modules={[Autoplay, Pagination]}
         className="mySwiper"
       >
-        {/* {
-          hello.list
-            .map((list) => (
-              <SwiperSlide key={list.userId}>
-                userId : {list.userId}
-                <br />
-                userName : {list.userName}
-                <br />
-                userAddress: {list.userAddress}
-                <br />
-                userHp : {list.userHp}
-                <br />
-                <br />
-                <br />
-              </SwiperSlide>
-            ))
-        } */}
         <SwiperSlide><img src={Slider1} alt="!" /></SwiperSlide>
         <SwiperSlide><img src={Slider2} alt="!" /></SwiperSlide>
         <SwiperSlide><img src={Slider3} alt="!" /></SwiperSlide>
         <SwiperSlide><img src={Slider4} alt="!" /></SwiperSlide>
+        <SwiperSlide><img src={Slider5} alt="!" /></SwiperSlide>
+        <SwiperSlide><img src={Slider6} alt="!" /></SwiperSlide>
       </Swiper>
     </>
   );

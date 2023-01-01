@@ -5,9 +5,9 @@ import Main from './components/Main/Main';
 import NavigatorMain from './components/Navigator/NavigatorMain';
 import NavigatorTop from "./components/Navigator/NavigatorTop";
 import SearchPage from "./components/Search/Search";
-import GroupDetail from "./components/GroupDetail/GroupDetail";
 import axios from "axios";
-import GroupCreate from "./components/GroupCreate/GroupCreate";
+import GroupCreate from "./components/Group/GroupCreate";
+import GroupDetail from "./components/Group/GroupDetail";
 
 function App() {
   const [groupList, setGroupList] = useState({

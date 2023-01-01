@@ -5,18 +5,18 @@
   font-style: normal;
 }
 
-.Test_category p {
+.Main_category p {
   width: 100%;
   font-family: 'S-CoreDream-3Light';
   font-size: 15px;
 }
 
-.Test_category {
+.Main_category {
   display: flex;
   text-align: center;
 }
 
-.Test_guideImg {
+.Main_guideImg {
   text-align: center;
   padding-top: 30px;
   width: 100%;
@@ -26,27 +26,27 @@
   border-radius: 30px 30px 0px 0px; */
 }
 
-.Test_guide {
+.Main_guide {
   width: 90%;
   box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
   background-color: whitesmoke;
   padding: 10px;
 }
 
-.Test_icon {
+.Main_icon {
   width: 50%;
 }
 
-.Test_iconIfo {
+.Main_iconIfo {
   text-align: center;
   width: 25%;
 }
 
-.Test_iconText {
+.Main_iconText {
   display: inline;
 }
 
-.Test_iconDiv {
+.Main_iconDiv {
   display: flex;
 }
 
@@ -58,14 +58,7 @@
   background-color: white;
 }
 
-@font-face {
-  font-family: 'yg-jalnan';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.Test_endSoon {
+.Main_endSoon {
   font-size: 20px;
   font-weight: bold;
   font-family: 'yg-jalnan';

@@ -37,7 +37,7 @@ function NavigatorMain({ searchMode, setSearchMode }) {
         />
         <RiFileList3Line
           className={
-            url === '/grouplist' || detailUrl === '/groupdetail' ?
+            url === '/grouplist' || detailUrl === '/groupdetail' || url === '/groupcreate' ?
               'Navigator_imageSelect'
               :
               'Navigator_image'

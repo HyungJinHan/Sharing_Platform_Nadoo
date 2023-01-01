@@ -13,9 +13,9 @@ function NavigatorTop({
 }) {
   // const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
-  // const [title, setTitle] = useState('');
-  // const location = useLocation();
-  // const url = location.pathname;
+  const [title, setTitle] = useState('');
+  const location = useLocation();
+  const url = location.pathname;
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -32,51 +32,46 @@ function NavigatorTop({
     }
   }
 
-  // useEffect(() => {
-  //   if (detailUrl === '/groupdetail') {
-  //     setTitle('나두 상세정보');
-  //   } else if (url === '/search') {
-  //     setTitle('나두 검색');
-  //   } else if (url === '/mypage') {
-  //     setTitle('마이 페이지');
-  //   } else if (url === '/grouplist') {
-  //     setTitle('나두 목록');
-  //   } else if ('/') {
-  //     setTitle('메인 나두');
-  //   }
-  // }, [title]);
+  useEffect(() => {
+    if (detailUrl === '/groupdetail') {
+      setTitle('나두 상세정보');
+    } else if (url === '/search') {
+      setTitle('나두 검색');
+    } else if (url === '/mypage') {
+      setTitle('마이 페이지');
+    } else if (url === '/grouplist') {
+      setTitle('나두 목록');
+    } else if ('/') {
+      setTitle('메인 나두');
+    }
+  }, [title]);
 
   return (
     <NavCenter>
-      <div
-        className={
-          scroll === true ?
-            'Navigator_topbar'
-            :
-            'Navigator_topbarScroll'
-        }
-      >
-        {
-          scroll === true ?
-            <>
-              <span className='Navigator_topfont1'>
-                NA
-              </span>
-              <span className='Navigator_topfont2'>
-                DOO
-              </span>
-            </>
-            :
-            <>
-              <span className='Navigator_topfont2'>
-                NA
-              </span>
-              <span className='Navigator_topfont1'>
-                DOO
-              </span>
-            </>
-        }
-      </div>
+      {
+        scroll === true ?
+          <div
+            className='Navigator_topbar'
+          >
+            <span className='Navigator_topfont1'>
+              NA
+            </span>
+            <span className='Navigator_topfont2'>
+              DOO
+            </span>
+          </div>
+          :
+          <div
+            className='Navigator_topbarScroll'
+          >
+            <span className='Navigator_topfont2'>
+              NA
+            </span>
+            <span className='Navigator_topfont1'>
+              DOO
+            </span>
+          </div>
+      }
     </NavCenter>
   );
 }

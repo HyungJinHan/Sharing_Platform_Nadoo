@@ -1,0 +1,54 @@
+.GroupCreate_title {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'yg-jalnan';
+  text-align: center;
+}
+
+.GroupCreate_button {
+  width: 200px;
+  height: 2.5rem;
+  margin: 0.625rem;
+  /* margin-top: 1.25rem; */
+  margin-bottom: 3.125rem;
+  background: #6c63ff;
+  border-radius: 24px;
+  border: none;
+  color: white;
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 1.0625rem;
+  letter-spacing: 0.2rem;
+  text-align: center;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-input-affix-wrapper:not(:where(.css-dev-only-do-not-override-acm2ia).ant-input-affix-wrapper-disabled):hover {
+  border-color: #09cf83;
+  border-inline-end-width: 1px;
+  z-index: 1;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-input-affix-wrapper:not(:where(.css-dev-only-do-not-override-acm2ia).ant-input-affix-wrapper-disabled)::before {
+  border-color: #6c63ff;
+  border-inline-end-width: 1px;
+  z-index: 1;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-input:hover {
+  border-color: #09cf83;
+  border-inline-end-width: 1px;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-input-textarea-show-count::after {
+  text-align: center;
+}
+
+.ant-input-textarea {
+  margin: 0 auto;
+}
+
+.GroupCreate_textarea {
+  resize: none;
+  width: 90%;
+  height: 300px;
+}

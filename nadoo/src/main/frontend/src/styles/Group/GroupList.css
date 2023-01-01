@@ -1,7 +1,8 @@
-.Test_endSoon {
+.GroupList_title {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'yg-jalnan';
   text-align: center;
-  margin: 0;
-  margin-top: 10px;
 }
 
 .ant-btn {
@@ -32,4 +33,14 @@
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active {
   border-color: #09cf83;
+}
+
+.swal2-title {
+  font-size: 20px;
+  font-family: 'yg-jalnan';
+}
+
+.ant-list-item-meta-title {
+  margin-top: 10px;
+  font-weight: bolder;
 }

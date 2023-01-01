@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Badge, Button, Descriptions, Row, Space, Col, Statistic } from 'antd';
+import { Badge, Button, Descriptions, Space } from 'antd';
 import NavigatorTop from '../Navigator/NavigatorTop';
 import { Outlet, useLocation } from 'react-router-dom';
-import '../../styles/GroupDetail/GroupDetail.css'
+import '../../styles/Group/GroupDetail.css'
 import NavigatorMain from '../Navigator/NavigatorMain';
-import mapImg from '../../static/HHJ/images/testMap.jpg'
 import axios from 'axios';
 import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
-const { Countdown } = Statistic;
 
 function GroupDetail({
   tradeIdx
@@ -53,17 +51,11 @@ function GroupDetail({
     getGroupList();
   }, []);
 
-  console.log(idxState);
-
   const originPrice = detailArticle.tradePrice
 
   const price = [originPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-  console.log(detailArticle.diffTime);
-
   const timeCount = parseInt((detailArticle.diffTime - (Date.now() / 1000)));
-
-  console.log(timeCount);
 
   var day = Math.floor(timeCount / (24 * 3600))
   var hour = Math.floor(timeCount % (24 * 3600) / 3600)
@@ -95,14 +87,28 @@ function GroupDetail({
           {detailArticle.tradeProduct}
         </Descriptions.Item>
         <Descriptions.Item label="남은 시간">
-          <span className='GroupDetail_day'>
-            {day < 10 ? `0${day}` : day}일&nbsp;
-          </span>
-          <span className='GroupDetail_timer'>
-            {hour < 10 ? `0${hour}` : hour}:
-            {minute < 10 ? `0${minute}` : minute}:
-            {second < 10 ? `0${second}` : second}
-          </span>
+          {
+            timeCount === 0 || timeCount <= 0 ?
+              <>
+                <span className='GroupDetail_day'>
+                  거래가&nbsp;
+                </span>
+                <span className='GroupDetail_timer'>
+                  종료되었습니다.
+                </span>
+              </>
+              :
+              <>
+                <span className='GroupDetail_day'>
+                  {day < 10 ? `0${day}` : day}일&nbsp;
+                </span>
+                <span className='GroupDetail_timer'>
+                  {hour < 10 ? `0${hour}` : hour}:
+                  {minute < 10 ? `0${minute}` : minute}:
+                  {second < 10 ? `0${second}` : second}
+                </span>
+              </>
+          }
         </Descriptions.Item>
         <Descriptions.Item label="거래 주소">
           {detailArticle.tradeAddress}
