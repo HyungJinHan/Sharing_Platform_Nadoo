@@ -53,7 +53,7 @@ function App() {
       {
         groupList.list
           .map((item) => (
-            <Route path={`/groupdetail/${item.tradeIdx}`} element={<GroupDetail />} />
+            <Route key={item.tradeIdx} path={`/groupdetail/${item.tradeIdx}`} element={<GroupDetail />} />
           ))
       }
     </Routes>

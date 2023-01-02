@@ -69,7 +69,7 @@ function GroupList(props) {
                 {
                   item.diffTime === 0 || item.diffTime <= 0 ?
                     () => {
-                      Swal.fire('거래가 종료된 나두입니다.');
+                      Swal.fire('거래가 종료된 나두입니다.😢');
                       return false;
                     }
                     :
