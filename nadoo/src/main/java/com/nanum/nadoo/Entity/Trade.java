@@ -3,6 +3,7 @@ package com.nanum.nadoo.Entity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Getter
 @ToString
 @DynamicInsert
+@DynamicUpdate
 public class Trade {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -60,6 +62,9 @@ public class Trade {
 
     @Column(name = "trade_price")
     private int tradePrice; // 물품 가격
+
+    @Column(name = "trade_check", columnDefinition = "int(1) default 1")
+    private int tradeCheck; // 거래 유지 여부 (tradeMax 기준 거래가능=1 거래불가=0)
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "writer")
