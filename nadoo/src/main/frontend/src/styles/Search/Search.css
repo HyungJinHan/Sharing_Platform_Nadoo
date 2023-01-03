@@ -3,8 +3,8 @@
   height: 50px;
   text-align: center;
   margin: auto;
-  left: 50%;
-  top: 50%;
+  /* left: 50%;
+  top: 50%; */
   /* margin-left: -150px; */
   margin-top: 230px;
 
@@ -18,7 +18,7 @@ button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-primary.ant-input-sea
   background-color: #6C63FF;
 }
 
-.ant-select-selector {
+/* .ant-select-selector {
   text-align: center;
   margin: 0 auto;
   position: absolute;
@@ -30,4 +30,4 @@ input.ant-input.css-dev-only-do-not-override-acm2ia {
 
 button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-primary.ant-input-search-button {
   height: 45px;
-}
+} */

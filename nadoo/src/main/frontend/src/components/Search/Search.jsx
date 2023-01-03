@@ -197,30 +197,14 @@ function SearchPage(props) {
 
   return (
     <>
-      <NavigatorTop />
-      <Outlet />
+      <div className='search'>
+        <Space direction="vertical" className='search_box'>
+          <Search placeholder="검색해보세요" onSearch={onSearch} enterButton />
+        </Space>
+        <br />
+        <br />
 
-      <>
-        <div className='search'>
-          <Space direction="vertical" className='search_box'>
-            <Search placeholder="검색해보세요" onSearch={onSearch} enterButton />
-          </Space>
-          <br />
-          <br />
-
-          <Cascader
-            style={{
-              width: '80%',
-            }}
-            options={options}
-            onChange={onChange}
-            multiple
-            maxTagCount="responsive"
-            showCheckedStrategy={SHOW_CHILD}
-          />
-        </div>
-
-        {/* <Cascader
+        <Cascader
           style={{
             width: '80%',
           }}
@@ -228,13 +212,10 @@ function SearchPage(props) {
           onChange={onChange}
           multiple
           maxTagCount="responsive"
-          defaultValue={['bamboo']}
-        /> */}
-      </>
-      <NavigatorMain />
-      <Outlet />
+          showCheckedStrategy={SHOW_CHILD}
+        />
+      </div>
     </>
-
   );
 }
 
