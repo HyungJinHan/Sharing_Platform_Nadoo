@@ -18,7 +18,7 @@ public class HaneulController {
     NadooService service;
 
     @RequestMapping("/nadoo/joinTrade")
-    public void joinTrade(Map<String, Object> map){
+    public void joinTrade(Map<String, Object> map) {
         // map에 필요한 데이터 tradeIdx, userAccount(참여자꺼 주최자말고)
         service.joinTrade(map);
 
