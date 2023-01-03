@@ -9,9 +9,23 @@ function SocialLogin(props) {
   const KAKAO_CODE = location.search.split('=')[1];
   console.log(KAKAO_CODE);
 
+  const getKakaoToken = () => {
+    axios
+      .get('http://localhost:8088/nadoo/kakaologin', {
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem('token', data.token);
+        navigate('/')
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+  }
+
   useEffect(() => {
     axios
-      .get('http://localhost:8088/nadoo/closerTrades', {
+      .get('http://localhost:8088/nadoo/kakaologin', {
       })
       .then((res) => res.json())
       .then((data) => {
