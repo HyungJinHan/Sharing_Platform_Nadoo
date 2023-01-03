@@ -7,8 +7,7 @@ function SoicalLoginConfirm(props) {
   const navigate = useNavigate();
   const KAKAO_CODE = location.search.split('=')[1];
   console.log(KAKAO_CODE);
-  const [loginAccount, setLoginAccount] = useState([]);
-  const [loginNick, setLoginNick] = useState([]);
+  const [loginAccount, setLoginAccount] = useState({});
 
   const getKakaoToken = () => {
     axios
@@ -19,8 +18,8 @@ function SoicalLoginConfirm(props) {
         axios
           .get(`http://localhost:8088/oauth/userInfo?token=${res.data}`)
           .then((res) => {
-            setLoginAccount(res.data.userAccount);
-            setLoginNick(res.data.userNick)
+            const { data } = res;
+            setLoginAccount(data.userInfo);
           })
       })
       .catch((e) => {
@@ -34,9 +33,9 @@ function SoicalLoginConfirm(props) {
 
   return (
     <div>
-      {loginAccount}
+      {loginAccount.userAccount}
       <br />
-      {loginNick}
+      {loginAccount.userNick}
     </div>
   );
 }
