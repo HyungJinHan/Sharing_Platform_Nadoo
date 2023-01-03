@@ -1,8 +1,10 @@
 package com.nanum.nadoo;
 
+import com.nanum.nadoo.Entity.Tmember;
 import com.nanum.nadoo.Entity.Trade;
 import com.nanum.nadoo.Entity.User;
 import com.nanum.nadoo.Repository.CategoryRepository;
+import com.nanum.nadoo.Repository.TmemberRepository;
 import com.nanum.nadoo.Repository.TradeRepository;
 import com.nanum.nadoo.Repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,9 @@ class TradeTests {
 
 	@Autowired
 	UserRepository userRepository;
+    
+    @Autowired
+    TmemberRepository tmemberRepository;
 
 	@Test	// Trade 가데이터 생성1
 	void insertSampleTrade1() {
@@ -114,4 +119,24 @@ class TradeTests {
 //
 //		System.out.println("5일 후 : " + new Date(cal.getTimeInMillis()));
 //	}
+    @Test
+    void tmemSaveTest(){
+        Tmember tmember = new Tmember();
+        tmember.setTradeVO(tradeRepository.findByTradeIdx(29L));
+        tmember.setUserVO(userRepository.findByUserAccount("bhn1234"));
+
+        tmemberRepository.save(tmember);
+    }
+    @Test // countTmem 메소드 확인
+    void countTmemTest(){
+
+        Long cnt =  tmemberRepository.countTmem(24L);
+        System.out.println("cnt = " + cnt);
+    }
+
+    @Test // countTmem 메소드 확인
+    void changeTradeCheck(){
+        tradeRepository.changeTradeCheck(24L);
+    }
+
 }
