@@ -8,6 +8,7 @@ import SearchPage from "./components/Search/Search";
 import axios from "axios";
 import GroupCreate from "./components/Group/GroupCreate";
 import GroupDetail from "./components/Group/GroupDetail";
+import UserMyPage from "./components/UserMyPage/UserMyPage";
 
 function App() {
   const [groupList, setGroupList] = useState({
@@ -37,18 +38,37 @@ function App() {
     <Routes>
       {/* 테스트용 컴포넌트 */}
       <Route path='/' element={<Main />} />
+
       {/* 마이 페이지 */}
       <Route path='/mypage' element={<Main />} />
+
       {/* 최신 나두 불러오기 */}
       <Route path='/grouplist' element={<Main />} />
+
+      {/* 검색 페이지 */}
+      <Route path="/search" element={<Main />} />
+
+      {/* 마이 페이지 */}
+      <Route path='/wishlist' element={<UserMyPage />} />
+
+      {/* 마이 페이지 */}
+      <Route path='/notice' element={<UserMyPage />} />
+
+      {/* 마이 페이지 */}
+      <Route path='/customer' element={<UserMyPage />} />
+
+      {/* 마이 페이지 */}
+      <Route path='/purchased' element={<UserMyPage />} />
+
       {/* 하단 네비게이션 */}
       <Route path="/navigator" element={<NavigatorMain />} />
+
       {/* 상단 헤더 */}
       <Route path="/navigatortop" element={<NavigatorTop />} />
-      {/* 검색 페이지 */}
-      <Route path="/search" element={<SearchPage />} />
+
       {/* 방 생성 */}
       <Route path="/groupcreate" element={<GroupCreate />} />
+
       {/* 해당 그룹 상세정보 페이지 */}
       {
         groupList.list

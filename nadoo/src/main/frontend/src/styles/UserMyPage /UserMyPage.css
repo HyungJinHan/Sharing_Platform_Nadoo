@@ -1,0 +1,29 @@
+.UserMyPage_kakao {
+  width: 309.31px;
+  height: 55.91px;
+  background: #FEE500;
+  border-radius: 15px;
+  filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.25));
+  margin: 0 auto;
+  position: relative;
+  top: 180px;
+  left: 12px;
+}
+
+.UserMyPage_kakaoLogo {
+  position: absolute;
+  top: 14px;
+  left: 24px;
+}
+
+.UserMyPage_write {
+  position: absolute;
+  top: 19px;
+  left: 80px;
+}
+
+.UserMyPage_box {
+  width: 90%;
+  text-align: center;
+  bottom: 50px;
+}
