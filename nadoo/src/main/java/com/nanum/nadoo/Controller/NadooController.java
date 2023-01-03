@@ -2,7 +2,6 @@ package com.nanum.nadoo.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Service.NadooService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +17,9 @@ public class NadooController {
 
   @Autowired
   NadooService service;
+
+  @Autowired
+  OAuthService oauthService;
 
   @RequestMapping("/nadoo")
   public String getAllUsers() {
@@ -59,4 +61,5 @@ public class NadooController {
 
     return gson.toJson(result);
   }
+
 }

@@ -151,6 +151,7 @@ public class NadooService{
 
     }
 
+    // 로그인 정보 체크
     public Map<String, Object> loginCheck(String userAccount) {
         User findUser = userRepository.findByUserAccount(userAccount);
         Map<String, Object> map = new HashMap<String, Object>();
