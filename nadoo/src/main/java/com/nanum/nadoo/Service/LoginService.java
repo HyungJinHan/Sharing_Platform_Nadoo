@@ -41,7 +41,7 @@ public class LoginService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=4b6aab937e2879273728054a3b7ec4a4"); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri=http://localhost:8088/oauth/login"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=http://localhost:3000/oauth/login"); // TODO 인가코드 받은 redirect_uri 입력
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();

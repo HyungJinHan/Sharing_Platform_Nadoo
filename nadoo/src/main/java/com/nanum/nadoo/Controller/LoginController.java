@@ -43,16 +43,24 @@ public class LoginController {
 //  }
 
   @RequestMapping("/oauth/login")
-  public String login(@RequestParam(value = "code", required = false) String code, Model model) throws Exception{
+  public String login(@RequestParam(value = "code", required = false) String code) throws Exception{
     System.out.println("#######" + code);
 
     String access_token = service.getAccessToken(code);
     System.out.println("###access_token###" + access_token);
 
-    KakaoVO userInfo = service.getUserInfo(access_token);
+//    KakaoVO userInfo = service.getUserInfo(access_token);
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+//    return gson.toJson(userInfo);
+      return access_token;
+  }
+
+  @RequestMapping("/oauth/userInfo")
+  public String userInfo(@RequestParam(value = "token") String token) throws Exception{
+    KakaoVO userInfo = service.getUserInfo(token);
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     return gson.toJson(userInfo);
-
   }
 }

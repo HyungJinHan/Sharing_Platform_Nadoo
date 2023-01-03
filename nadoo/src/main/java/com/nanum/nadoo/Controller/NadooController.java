@@ -18,9 +18,6 @@ public class NadooController {
   @Autowired
   NadooService service;
 
-  @Autowired
-  OAuthService oauthService;
-
   @RequestMapping("/nadoo")
   public String getAllUsers() {
     return "Nadoo";
@@ -61,5 +58,6 @@ public class NadooController {
 
     return gson.toJson(result);
   }
+
 
 }
