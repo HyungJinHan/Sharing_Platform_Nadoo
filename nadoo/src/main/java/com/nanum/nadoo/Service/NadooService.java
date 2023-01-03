@@ -4,6 +4,7 @@ import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Dto.TradePreviewDTO;
 import com.nanum.nadoo.Entity.Tmember;
 import com.nanum.nadoo.Entity.Trade;
+import com.nanum.nadoo.Entity.User;
 import com.nanum.nadoo.Repository.TmemberRepository;
 import com.nanum.nadoo.Repository.TradeRepository;
 import com.nanum.nadoo.Repository.UserRepository;
@@ -148,5 +149,17 @@ public class NadooService{
 
 
 
+    }
+
+    public Map<String, Object> loginCheck(String userAccount) {
+        User findUser = userRepository.findByUserAccount(userAccount);
+        Map<String, Object> map = new HashMap<String, Object>();
+        if(findUser == null){
+            map.put("loginCheck", null);
+        }
+        else{
+            map.put("loginCheck", findUser);
+        }
+        return map;
     }
 }

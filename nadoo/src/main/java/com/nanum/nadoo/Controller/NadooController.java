@@ -2,14 +2,12 @@ package com.nanum.nadoo.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Service.NadooService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -48,6 +46,15 @@ public class NadooController {
   @RequestMapping("/nadoo/tradeAll")
   public String getAllTrades(){
     Map<String, Object> result = service.getAllTrades();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    return gson.toJson(result);
+  }
+
+  @RequestMapping("/nadoo/loginCheck")
+  public String loginCheck(@RequestBody Map<String, String> loginMap){
+
+    Map<String, Object> result = service.loginCheck(loginMap.get("userAccount"));
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     return gson.toJson(result);
