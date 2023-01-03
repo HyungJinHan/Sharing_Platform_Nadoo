@@ -2,7 +2,12 @@ package com.nanum.nadoo.Service;
 
 import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Dto.TradePreviewDTO;
+import com.nanum.nadoo.Entity.Tmember;
+import com.nanum.nadoo.Entity.Trade;
+import com.nanum.nadoo.Entity.User;
+import com.nanum.nadoo.Repository.TmemberRepository;
 import com.nanum.nadoo.Repository.TradeRepository;
+import com.nanum.nadoo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,12 @@ import java.util.Map;
 public class NadooService{
     @Autowired
     TradeRepository tradeRepository;
+
+    @Autowired
+    TmemberRepository tmemberRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     // 상세 거래 서비스
     public TradeDetailDTO getDetail(Long tradeIdx) {
@@ -109,6 +120,46 @@ public class NadooService{
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("tradeAll", list);
+        return map;
+    }
+
+    public void joinTrade(Map<String, Object> map) {
+
+        // 거래 참여자 insert
+
+        Tmember tmember = new Tmember();
+
+        Long tradeIdx = (Long)map.get("tradeIdx");
+        String userAccount = (String)map.get("userAccount");
+        Trade trade = tradeRepository.findByTradeIdx(tradeIdx);
+        tmember.setTradeVO(trade);
+        tmember.setUserVO(userRepository.findByUserAccount(userAccount));
+
+        tmemberRepository.save(tmember);
+
+        // 거래 tradeMax와 tmemCount(거래 참여자수 ) 확인
+        int tradeMax = trade.getTradeMax();
+        Long countTmem =  tmemberRepository.countTmem(tradeIdx);
+
+        // 거래 참여자수가 거래최대수와 같아질때 trade_check=0으로
+        if(countTmem == tradeMax){
+
+            tradeRepository.changeTradeCheck(tradeIdx);
+        }
+
+
+
+    }
+
+    public Map<String, Object> loginCheck(String userAccount) {
+        User findUser = userRepository.findByUserAccount(userAccount);
+        Map<String, Object> map = new HashMap<String, Object>();
+        if(findUser == null){
+            map.put("loginCheck", null);
+        }
+        else{
+            map.put("loginCheck", findUser);
+        }
         return map;
     }
 }

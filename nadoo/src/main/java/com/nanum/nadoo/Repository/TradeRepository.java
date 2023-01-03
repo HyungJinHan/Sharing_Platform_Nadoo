@@ -20,7 +20,7 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
         @Query(value = "select new com.nanum.nadoo.Dto.TradeDetailDTO(" +
                         "t.tradeIdx, t.tradeAddress, t.tradeTitle, t.tradeContent, u.userNick, " +
                         "t.tradeProduct, t.tradePrice, t.tradeStarttime, t.tradeEndtime, " +
-                        "t.tradeMax, t.tradeType, t.tradeViews, unix_timestamp(t.tradeEndtime)) "
+                        "t.tradeMax, t.tradeType, t.tradeViews, t.tradeCheck ,unix_timestamp(t.tradeEndtime)) " // t.tradeCheck 추가
                         +
                         "from Trade t, User u where t.tradeMasterVO = u and t.tradeIdx=:tradeIdx")
         TradeDetailDTO findDetailTrade(@Param(value = "tradeIdx") Long tradeIdx);
@@ -42,4 +42,9 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
                         +
                         "from Trade t, User u where t.tradeMasterVO = u order by t.tradeEndtime asc")
         List<TradePreviewDTO> findCloserTrades();
+
+        Trade findByTradeIdx(Long tradeIdx); // 거래 모임 순번으로 Trade select
+
+        @Query(value = "update trade set trade_check=0 where trade_idx = :tradeIdx", nativeQuery = true)
+        void changeTradeCheck(@Param(value = "tradeIdx") Long tradeIdx);
 }

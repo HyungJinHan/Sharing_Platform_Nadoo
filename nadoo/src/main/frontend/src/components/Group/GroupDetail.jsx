@@ -7,9 +7,7 @@ import NavigatorMain from '../Navigator/NavigatorMain';
 import axios from 'axios';
 import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
 
-function GroupDetail({
-  tradeIdx
-}) {
+function GroupDetail() {
   var [time, setTime] = useState(0);
   const [toggleButton, setToggleButton] = useState(false);
   const location = useLocation();
@@ -17,6 +15,8 @@ function GroupDetail({
   const url = originUrl.substring(0, 12);
 
   const idxState = location.state.tradeIdx;
+
+  console.log(idxState);
 
   const [detailArticle, setDetailArticle] = useState([
     {
@@ -51,7 +51,7 @@ function GroupDetail({
     getGroupList();
   }, []);
 
-  const originPrice = detailArticle.tradePrice
+  const originPrice = detailArticle.tradePrice;
 
   const price = [originPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
@@ -137,6 +137,9 @@ function GroupDetail({
           &nbsp;
           <Space wrap>
             <Button
+              style={{
+                width: '100%'
+              }}
               type="dashed"
               onClick={
                 () => {
