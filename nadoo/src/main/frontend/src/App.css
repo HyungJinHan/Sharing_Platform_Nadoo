@@ -1,7 +1,25 @@
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+  font-family: 'LINESeedKR-Bd';
+}
 
-.notosanskr * {
-  font-family: 'Noto Sans KR', sans-serif;
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KorailRoundGothicBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
@@ -25,9 +43,9 @@
   font-style: normal;
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: 'S-CoreDream-3Light';
+@font-face {
+  font-family: 'NanumSquareNeo-Variable';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }

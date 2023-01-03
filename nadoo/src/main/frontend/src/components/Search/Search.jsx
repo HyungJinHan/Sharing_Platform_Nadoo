@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { AudioOutlined } from '@ant-design/icons';
 import { Input, Space } from 'antd';
-
 import NavigatorMain from '../Navigator/NavigatorMain';
 import NavigatorTop from '../Navigator/NavigatorTop';
 import { Outlet, useLocation } from 'react-router-dom';
-
-
-import "./Search.css";
+import "../../styles/Search/Search.css";
 import { Cascader } from 'antd';
 const { SHOW_CHILD } = Cascader;
 
@@ -23,14 +20,6 @@ const suffix = (
 );
 
 const options = [
-  // {
-  //   label: '서울',
-  //   value: '',
-  //   children: new Array(20).fill(null).map((_, index) => ({
-  //     label: `Number ${index}`,
-  //     value: index,
-  //   })),
-  // },
   {
     label: '광주광역시',
     value: '광주광역시 ',
@@ -228,11 +217,6 @@ function SearchPage(props) {
             multiple
             maxTagCount="responsive"
             showCheckedStrategy={SHOW_CHILD}
-            defaultValue={[
-              ['bamboo', 'little', 'fish'],
-              ['bamboo', 'little', 'cards'],
-              ['bamboo', 'little', 'bird'],
-            ]}
           />
         </div>
 

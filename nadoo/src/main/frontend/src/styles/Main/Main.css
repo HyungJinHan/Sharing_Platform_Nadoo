@@ -1,16 +1,97 @@
-.testIcon {
-  color: red;
-  font-size: 18.75rem;
-}
-
-.testIcon:hover {
-  color: blue;
-  font-size: 18.75rem;
-}
-
 @font-face {
-  font-family: 'Cafe24Ssurround';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
-  font-weight: normal;
+  font-family: 'S-CoreDream-3Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-900.woff') format('woff');
+  font-weight: bolder;
   font-style: normal;
+}
+
+.Main_category p {
+  width: 100%;
+  font-family: 'S-CoreDream-3Light';
+  font-size: 15px;
+}
+
+.Main_category {
+  display: flex;
+  text-align: center;
+}
+
+.Main_guideImg {
+  text-align: center;
+  padding-top: 30px;
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  /* box-shadow: 6px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px 30px 0px 0px; */
+}
+
+.Main_guide {
+  width: 90%;
+  box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+  background-color: whitesmoke;
+  padding: 10px;
+}
+
+.Main_icon {
+  width: 50%;
+}
+
+.Main_iconIfo {
+  text-align: center;
+  width: 25%;
+}
+
+.Main_iconText {
+  display: inline;
+}
+
+.Main_iconDiv {
+  display: flex;
+}
+
+.site-card-border-less-wrapper {
+  text-align: center;
+}
+
+.group_list {
+  background-color: white;
+}
+
+.Main_endSoon {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'yg-jalnan';
+}
+
+.ant-list-pagination {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary:not(:disabled):hover {
+  background-color: #6c63ff;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary {
+  color: #fff;
+  background-color: #6c63ff;
+  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active:hover a {
+  color: #09cf83;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active:hover {
+  border-color: #09cf83;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active a {
+  color: #09cf83;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active {
+  border-color: #09cf83;
 }

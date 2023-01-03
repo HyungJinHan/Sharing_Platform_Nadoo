@@ -5,8 +5,9 @@ import Main from './components/Main/Main';
 import NavigatorMain from './components/Navigator/NavigatorMain';
 import NavigatorTop from "./components/Navigator/NavigatorTop";
 import SearchPage from "./components/Search/Search";
-import GroupDetail from "./components/GroupDetail/GroupDetail";
 import axios from "axios";
+import GroupCreate from "./components/Group/GroupCreate";
+import GroupDetail from "./components/Group/GroupDetail";
 
 function App() {
   const [groupList, setGroupList] = useState({
@@ -15,12 +16,12 @@ function App() {
 
   function getGroupList() {
     axios
-      .post('http://localhost:8088/nadoo/recentTrades', {
+      .post('http://localhost:8088/nadoo/tradeAll', {
       })
       .then((res) => {
         const { data } = res;
         setGroupList({
-          list: data.recentTrades
+          list: data.tradeAll
         });
       })
       .catch((e) => {
@@ -36,13 +37,19 @@ function App() {
     <Routes>
       {/* 테스트용 컴포넌트 */}
       <Route path='/' element={<Main />} />
-      {/* 유저 화면 컴포넌트 */}
-      <Route path='/test' element={<Main />} />
+      {/* 마이 페이지 */}
       <Route path='/mypage' element={<Main />} />
+      {/* 최신 나두 불러오기 */}
       <Route path='/grouplist' element={<Main />} />
+      {/* 하단 네비게이션 */}
       <Route path="/navigator" element={<NavigatorMain />} />
+      {/* 상단 헤더 */}
       <Route path="/navigatortop" element={<NavigatorTop />} />
+      {/* 검색 페이지 */}
       <Route path="/search" element={<SearchPage />} />
+      {/* 방 생성 */}
+      <Route path="/groupcreate" element={<GroupCreate />} />
+      {/* 해당 그룹 상세정보 페이지 */}
       {
         groupList.list
           .map((item) => (
