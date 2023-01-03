@@ -22,7 +22,7 @@ public class TradeDetailDTO {
     private int tradeMax;           // 최대 인원
     private String tradeType;        // 거래 타입
     private long tradeViews;         // 조회수
-
+    private int tradeCheck;          // 거래 유지 여부 (tradeMax 기준)
     private long diffTime;          // 종료 남은 시간
 
 }
