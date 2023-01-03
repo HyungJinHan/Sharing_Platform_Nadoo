@@ -8,6 +8,7 @@ import MainShape from './MainShape';
 import SearchPage from '../Search/Search';
 import shortid from 'shortid';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import UserMyPage from '../UserMyPage/UserMyPage';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
@@ -40,38 +41,8 @@ function Main() {
       <>
         <NavigatorTop />
         <Outlet />
-        <input
-          type={'button'}
-          style={{
-            width: '70px',
-            height: '70px',
-            borderRadius: '50%',
-            position: 'fixed',
-            bottom: '80px',
-            right: '10px'
-          }}
-          value={'mypage'}
-        />
-        나는한형진{userTag1}
-        <br />
-        <br />
-        나는민윤기{userTag2}
-        <br />
-        <br />
-        나는배수진{userTag3}
-        <br />
-        <br />
-        나는백하늘{userTag4}
-        <br />
-        <br />
-        나는김유리{userTag5}
-        <br />
-        <br />
-        나는김민정{userTag6}
-        <br />
-        <br />
-        <SocialLogin />
-        <NavigatorMain />
+        <UserMyPage />
+        <NavigatorMain />ß
         <Outlet />
       </>
     );
