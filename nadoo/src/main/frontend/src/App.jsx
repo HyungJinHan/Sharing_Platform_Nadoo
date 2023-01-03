@@ -41,21 +41,19 @@ function App() {
       <Route path='/mypage' element={<Main />} />
       {/* 최신 나두 불러오기 */}
       <Route path='/grouplist' element={<Main />} />
-      {/* 하단 네비게이션 */}
-      <Route path="/navigator" element={<NavigatorMain />} />
-      {/* 상단 헤더 */}
-      <Route path="/navigatortop" element={<NavigatorTop />} />
       {/* 검색 페이지 */}
-      <Route path="/search" element={<SearchPage />} />
+      <Route path="/search" element={<Main />} />
       {/* 방 생성 */}
       <Route path="/groupcreate" element={<GroupCreate />} />
       {/* 해당 그룹 상세정보 페이지 */}
-      {
-        groupList.list
-          .map((item) => (
-            <Route key={item.tradeIdx} path={`/groupdetail/${item.tradeIdx}`} element={<GroupDetail />} />
-          ))
-      }
+      {groupList.list
+        .map((item) => (
+          <Route
+            key={item.tradeIdx}
+            path={`/groupdetail/${item.tradeIdx}`}
+            element={<GroupDetail />}
+          />
+        ))}
     </Routes>
   );
 }

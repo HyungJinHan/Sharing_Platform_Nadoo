@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { UserOutlined } from '@ant-design/icons';
 import { Alert, Button, Input } from 'antd';
 import '../../styles/Group/GroupCreate.css'
 import DaumPostcode from "react-daum-postcode";
@@ -85,10 +84,6 @@ function GroupCreate(props) {
       setErrorMessage("");
     }
   }
-
-  // console.log('titleRef -> ', titleRef.current.value);
-  // console.log('locationRef -> ', titleRef.current.value);
-  // console.log('articleRef -> ', titleRef.current.value);
 
   /** 팝업창 열기 */
   const openPostCode = () => {
