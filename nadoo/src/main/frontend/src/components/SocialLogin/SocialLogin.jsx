@@ -1,41 +1,9 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { KAKAO_AUTH_URL } from './SocialLoginOAuth';
 
 function SocialLogin(props) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const KAKAO_CODE = location.search.split('=')[1];
-  console.log(KAKAO_CODE);
-
-  const getKakaoToken = () => {
-    axios
-      .get('http://localhost:8088/nadoo/kakaologin', {
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-        navigate('/')
-      })
-      .catch((e) => {
-        console.error(e);
-      })
-  }
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8088/nadoo/kakaologin', {
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-        navigate('/')
-      })
-      .catch((e) => {
-        console.error(e);
-      })
-  })
 
   return (
     <div>
