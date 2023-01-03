@@ -8,6 +8,7 @@ import SearchPage from "./components/Search/Search";
 import axios from "axios";
 import GroupCreate from "./components/Group/GroupCreate";
 import GroupDetail from "./components/Group/GroupDetail";
+import SocialLogin from "./components/SocialLogin/SocialLogin";
 
 function App() {
   const [groupList, setGroupList] = useState({
@@ -45,6 +46,8 @@ function App() {
       <Route path="/search" element={<Main />} />
       {/* 방 생성 */}
       <Route path="/groupcreate" element={<GroupCreate />} />
+      {/* 소셜로그인 (카카오) */}
+      <Route path="/oauth/callback/kakao" element={<SocialLogin />} />
       {/* 해당 그룹 상세정보 페이지 */}
       {groupList.list
         .map((item) => (

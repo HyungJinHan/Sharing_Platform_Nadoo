@@ -6,12 +6,22 @@ import NavigatorTop from '../Navigator/NavigatorTop';
 import GroupListAll from '../Group/GroupListAll';
 import MainShape from './MainShape';
 import SearchPage from '../Search/Search';
+import shortid from 'shortid';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
 // `
 
 function Main() {
+  shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
+  const [userTag1, setUserTag1] = useState('#' + shortid.generate());
+  const [userTag2, setUserTag2] = useState('#' + shortid.generate());
+  const [userTag3, setUserTag3] = useState('#' + shortid.generate());
+  const [userTag4, setUserTag4] = useState('#' + shortid.generate());
+  const [userTag5, setUserTag5] = useState('#' + shortid.generate());
+  const [userTag6, setUserTag6] = useState('#' + shortid.generate());
+
   const location = useLocation();
   const url = location.pathname;
 
@@ -42,69 +52,25 @@ function Main() {
           }}
           value={'mypage'}
         />
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
-        <br />mypage
+        나는한형진{userTag1}
         <br />
+        <br />
+        나는민윤기{userTag2}
+        <br />
+        <br />
+        나는배수진{userTag3}
+        <br />
+        <br />
+        나는백하늘{userTag4}
+        <br />
+        <br />
+        나는김유리{userTag5}
+        <br />
+        <br />
+        나는김민정{userTag6}
+        <br />
+        <br />
+        <SocialLogin />
         <NavigatorMain />
         <Outlet />
       </>
