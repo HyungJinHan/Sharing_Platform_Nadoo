@@ -47,7 +47,7 @@ function App() {
       {/* 방 생성 */}
       <Route path="/groupcreate" element={<GroupCreate />} />
       {/* 소셜로그인 (카카오) */}
-      <Route path="/oauth/callback/kakao" element={<SocialLogin />} />
+      <Route path="/kakaologin" element={<SocialLogin />} />
       {/* 해당 그룹 상세정보 페이지 */}
       {groupList.list
         .map((item) => (
