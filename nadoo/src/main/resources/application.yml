@@ -4,7 +4,6 @@ server:
     session:
       tracking-modes: cookie
 spring:
-
   jpa:
     hibernate:
       ddl-auto: update  # jpa로 entity 처음 생성시 테이블 없으면 create, 만든 다음엔 update로 변경해야함
@@ -23,7 +22,11 @@ spring:
   output:
     ansi:
       enabled: always
-
+  # 타임리프 설정
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false    # thymeleaf 캐싱 false 로 해서 html 파일에 영향 없게 하기
 # JPA 내부에서 DEBUG 로그 레벨을 지정한 부분의 로그 확인 가능
 logging:
   level:
