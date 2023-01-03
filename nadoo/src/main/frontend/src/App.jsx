@@ -9,6 +9,7 @@ import axios from "axios";
 import GroupCreate from "./components/Group/GroupCreate";
 import GroupDetail from "./components/Group/GroupDetail";
 import UserMyPage from "./components/UserMyPage/UserMyPage";
+import SocialLogin from "./components/SocialLogin/SocialLogin";
 
 function App() {
   const [groupList, setGroupList] = useState({
@@ -69,13 +70,18 @@ function App() {
       {/* 방 생성 */}
       <Route path="/groupcreate" element={<GroupCreate />} />
 
+      {/* 소셜로그인 (카카오) */}
+      <Route path="/kakaologin" element={<SocialLogin />} />
+      
       {/* 해당 그룹 상세정보 페이지 */}
-      {
-        groupList.list
-          .map((item) => (
-            <Route path={`/groupdetail/${item.tradeIdx}`} element={<GroupDetail />} />
-          ))
-      }
+      {groupList.list
+        .map((item) => (
+          <Route
+            key={item.tradeIdx}
+            path={`/groupdetail/${item.tradeIdx}`}
+            element={<GroupDetail />}
+          />
+        ))}
     </Routes>
   );
 }

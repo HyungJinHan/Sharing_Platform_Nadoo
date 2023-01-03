@@ -56,7 +56,7 @@ function GroupCloser(props) {
       {
         groupList.list
           .map((item) => (
-            <SwiperSlide>
+            <SwiperSlide key={item.tradeIdx}>
               {console.log(item.tradeIdx)}
               <div
                 className="site-card-border-less-wrapper"
@@ -64,7 +64,7 @@ function GroupCloser(props) {
                 {
                   item.diffTime === 0 || item.diffTime <= 0 ?
                     () => {
-                      Swal.fire('거래가 종료된 나두입니다.');
+                      Swal.fire('거래가 종료된 나두입니다.😢');
                       return false;
                     }
                     :
