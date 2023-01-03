@@ -16,12 +16,12 @@ import UserMyPage from '../UserMyPage/UserMyPage';
 
 function Main() {
   shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
-  const [userTag1, setUserTag1] = useState('#' + shortid.generate());
-  const [userTag2, setUserTag2] = useState('#' + shortid.generate());
-  const [userTag3, setUserTag3] = useState('#' + shortid.generate());
-  const [userTag4, setUserTag4] = useState('#' + shortid.generate());
-  const [userTag5, setUserTag5] = useState('#' + shortid.generate());
-  const [userTag6, setUserTag6] = useState('#' + shortid.generate());
+  // const [userTag1, setUserTag1] = useState('#' + shortid.generate());
+  // const [userTag2, setUserTag2] = useState('#' + shortid.generate());
+  // const [userTag3, setUserTag3] = useState('#' + shortid.generate());
+  // const [userTag4, setUserTag4] = useState('#' + shortid.generate());
+  // const [userTag5, setUserTag5] = useState('#' + shortid.generate());
+  // const [userTag6, setUserTag6] = useState('#' + shortid.generate());
 
   const location = useLocation();
   const url = location.pathname;
@@ -42,7 +42,7 @@ function Main() {
         <NavigatorTop />
         <Outlet />
         <UserMyPage />
-        <NavigatorMain />ß
+        <NavigatorMain />
         <Outlet />
       </>
     );
