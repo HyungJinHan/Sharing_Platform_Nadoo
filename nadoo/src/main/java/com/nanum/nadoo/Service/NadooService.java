@@ -145,8 +145,6 @@ public class NadooService{
 
             tradeRepository.changeTradeCheck(tradeIdx);
         }
-
-
-
     }
+
 }

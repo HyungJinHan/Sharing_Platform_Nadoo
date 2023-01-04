@@ -23,7 +23,6 @@ spring:
   output:
     ansi:
       enabled: always
-
 # JPA 내부에서 DEBUG 로그 레벨을 지정한 부분의 로그 확인 가능
 logging:
   level:
