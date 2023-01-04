@@ -4,7 +4,7 @@ import '../../styles/Group/GroupCreate.css'
 import DaumPostcode from "react-daum-postcode";
 import DaumAddressPopup from './DaumPostCode/DaumAddressPopup';
 import NavigatorTop from '../Navigator/NavigatorTop';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import NavigatorMain from '../Navigator/NavigatorMain';
 import TextArea from 'antd/es/input/TextArea';
 import styled from 'styled-components';
@@ -21,6 +21,8 @@ const CreateCenter = styled.div`
 `
 
 function GroupCreate(props) {
+  const navigate = useNavigate();
+
   const [errorMessage, setErrorMessage] = useState();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [priceToggle, setPriceToggle] = useState(false);
@@ -45,8 +47,22 @@ function GroupCreate(props) {
   const priceRef = useRef();
   const maxRef = useRef();
   const categoryRef = useRef();
-  const tradeTypeRef = useRef();
+  const tradeTypeRef = useRef('');
   const productRef = useRef('');
+
+  console.log(
+    typeof (groupTitle), '/',
+    typeof (groupUser), '/',
+    typeof (groupLocation), '/',
+    typeof (groupArticle), '/',
+    typeof (groupDate), '/',
+    typeof (groupTime), '/',
+    typeof (groupPrice), '/',
+    typeof (groupCategory), '/',
+    typeof (groupTradeType), '/',
+    typeof (groupProduct), '/',
+    typeof (groupMax)
+  );
 
   console.log(
     groupTitle, '/',
@@ -58,7 +74,8 @@ function GroupCreate(props) {
     groupPrice, '/',
     groupCategory, '/',
     groupTradeType, '/',
-    groupProduct
+    groupProduct, '/',
+    groupMax
   );
 
   console.log(priceToggle);
@@ -70,18 +87,24 @@ function GroupCreate(props) {
         tradeAddress: groupLocation,
         tradeContent: groupArticle,
         userAccount: groupUser,
-        tradeEndtime: groupDate + ' ' + groupTime
+        tradeEndtime: groupDate + ' ' + groupTime,
+        tradePrice: `${groupPrice}`,
+        tradeMax: groupMax,
+        tradeType: groupTradeType,
+        categoryIdx: groupCategory,
+        tradeProduct: groupProduct
       })
       .then((res) => {
+        navigate('/grouplist')
       })
       .catch((e) => {
         console.error(e);
       })
   };
 
-  useEffect(() => {
-    createGroup();
-  }, []);
+  // useEffect(() => {
+  //   createGroup();
+  // }, []);
 
   const errorCheck = () => {
     if (groupTradeType === '' || groupTradeType === undefined) {
@@ -274,6 +297,8 @@ function GroupCreate(props) {
     } else {
       setErrorMessage("");
     }
+
+    createGroup();
   }
 
   /** 팝업창 열기 */
