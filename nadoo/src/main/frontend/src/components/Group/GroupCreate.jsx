@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Alert, Button, Input } from 'antd';
+import { Alert, Button, DatePicker, Input, TimePicker } from 'antd';
 import '../../styles/Group/GroupCreate.css'
 import DaumPostcode from "react-daum-postcode";
 import DaumAddressPopup from './DaumPostCode/DaumAddressPopup';
@@ -10,6 +10,11 @@ import TextArea from 'antd/es/input/TextArea';
 import styled from 'styled-components';
 import { GrLocation } from 'react-icons/gr';
 import { BiUser } from 'react-icons/bi'
+import { AiOutlineFontSize } from 'react-icons/ai';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 const CreateCenter = styled.div`
   text-align: center;
@@ -22,10 +27,17 @@ function GroupCreate(props) {
   const [groupTitle, setGroupTitle] = useState('');
   const [groupLocation, setGroupLocation] = useState('');
   const [groupArticle, setGroupArticle] = useState('');
+  const [groupDate, setGroupDate] = useState('');
+  const [groupTime, setGroupTime] = useState('');
 
   const titleRef = useRef();
   const locationRef = useRef();
   const articleRef = useRef();
+  const dateRef = useRef();
+  const timeRef = useRef();
+
+  console.log(groupTitle, groupLocation, groupArticle);
+  console.log(groupDate, groupTime);
 
   const errorCheck = () => {
     if (groupTitle === '' || groupTitle === undefined) {
@@ -128,12 +140,44 @@ function GroupCreate(props) {
           style={{
             width: '90%'
           }}
-          prefix={<BiUser className="site-form-item-icon" />}
+          prefix={<AiOutlineFontSize className="site-form-item-icon" />}
           ref={titleRef}
           onChange={(e) => {
             setGroupTitle(e.target.value);
           }}
         />
+        <br />
+        <br />
+        <div className='GroupCreate_datatime'>
+          <DatePicker
+            placeholder='날짜를 정해주세요.'
+            style={{
+              width: '48%'
+            }}
+            onChange={
+              (date, dateString) => {
+                setGroupDate(dateString);
+              }}
+            size="large"
+            ref={dateRef}
+          />
+          &nbsp;
+          &nbsp;
+          <TimePicker
+            style={{
+              width: '48%'
+            }}
+            placeholder='시간을 정해주세요.'
+            defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')}
+            size="large"
+            onChange={
+              (time, timeSting) => {
+                setGroupTime(timeSting);
+              }
+            }
+            ref={timeRef}
+          />
+        </div>
         <br />
         <br />
         <Input

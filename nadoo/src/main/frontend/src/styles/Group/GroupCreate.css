@@ -54,6 +54,12 @@
   outline: 0;
 }
 
+:where(.css-dev-only-do-not-override-acm2ia).ant-picker:hover,
+:where(.css-dev-only-do-not-override-acm2ia).ant-picker-focused {
+  border-color: #09cf83;
+  border-inline-end-width: 1px;
+}
+
 .ant-input-textarea {
   margin: 0 auto;
 }
@@ -61,4 +67,10 @@
 .site-form-item-icon {
   padding: 10px;
   font-size: large;
+}
+
+.GroupCreate_datatime {
+  width: 90%;
+  text-align: center;
+  display: inline-block;
 }

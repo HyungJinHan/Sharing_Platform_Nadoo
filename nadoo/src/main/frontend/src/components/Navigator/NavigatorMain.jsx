@@ -48,13 +48,13 @@ function NavigatorMain({ searchMode, setSearchMode }) {
         />
         <BiChat
           className={
-            url === '/grouplist' ?
+            url === '/groupchat' ?
               'Navigator_imageSelect'
               :
               'Navigator_image'
           }
           onClick={() => {
-            navigate("/grouplist");
+            navigate("/groupchat");
           }}
         />
         <BiSearch

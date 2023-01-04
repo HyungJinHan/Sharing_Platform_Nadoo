@@ -9,6 +9,7 @@ import SearchPage from '../Search/Search';
 import shortid from 'shortid';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import UserMyPage from '../UserMyPage/UserMyPage';
+import GroupChat from '../Group/GroupChat';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
@@ -62,6 +63,16 @@ function Main() {
         <NavigatorTop />
         <Outlet />
         <SearchPage />
+        <NavigatorMain />
+        <Outlet />
+      </>
+    );
+  } else if (url === '/groupchat') {
+    return (
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <GroupChat />
         <NavigatorMain />
         <Outlet />
       </>

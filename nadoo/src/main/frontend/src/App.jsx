@@ -50,6 +50,9 @@ function App() {
       {/* 검색 페이지 */}
       <Route path="/search" element={<Main />} />
 
+      {/* 채팅 페이지 */}
+      <Route path="/groupchat" element={<Main />} />
+
       {/* 마이 페이지 */}
       <Route path='/wishlist' element={<UserMyPage />} />
 
