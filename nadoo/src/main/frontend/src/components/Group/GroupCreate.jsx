@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Alert, Button, DatePicker, Input, TimePicker } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, Button, DatePicker, Input, InputNumber, Select, TimePicker } from 'antd';
 import '../../styles/Group/GroupCreate.css'
 import DaumPostcode from "react-daum-postcode";
 import DaumAddressPopup from './DaumPostCode/DaumAddressPopup';
@@ -9,12 +9,12 @@ import NavigatorMain from '../Navigator/NavigatorMain';
 import TextArea from 'antd/es/input/TextArea';
 import styled from 'styled-components';
 import { GrLocation } from 'react-icons/gr';
-import { BiUser } from 'react-icons/bi'
+import { BiCart, BiHighlight, BiUser } from 'react-icons/bi'
 import { AiOutlineFontSize } from 'react-icons/ai';
+import { MdAttachMoney } from 'react-icons/md';
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-
-dayjs.extend(customParseFormat);
+import axios from 'axios';
+const format = 'HH:mm';
 
 const CreateCenter = styled.div`
   text-align: center;
@@ -23,23 +23,105 @@ const CreateCenter = styled.div`
 function GroupCreate(props) {
   const [errorMessage, setErrorMessage] = useState();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [priceToggle, setPriceToggle] = useState(false);
 
   const [groupTitle, setGroupTitle] = useState('');
+  const [groupUser, setGroupUser] = useState(window.sessionStorage.getItem(`userID`));
   const [groupLocation, setGroupLocation] = useState('');
   const [groupArticle, setGroupArticle] = useState('');
   const [groupDate, setGroupDate] = useState('');
   const [groupTime, setGroupTime] = useState('');
+  const [groupPrice, setGroupPrice] = useState();
+  const [groupMax, setGroupMax] = useState();
+  const [groupCategory, setGroupCategory] = useState();
+  const [groupTradeType, setGroupTradeType] = useState('');
+  const [groupProduct, setGroupProduct] = useState('');
 
   const titleRef = useRef();
   const locationRef = useRef();
   const articleRef = useRef();
   const dateRef = useRef();
   const timeRef = useRef();
+  const priceRef = useRef();
+  const maxRef = useRef();
+  const categoryRef = useRef();
+  const tradeTypeRef = useRef();
+  const productRef = useRef('');
 
-  console.log(groupTitle, groupLocation, groupArticle);
-  console.log(groupDate, groupTime);
+  console.log(
+    groupTitle, '/',
+    groupUser, '/',
+    groupLocation, '/',
+    groupArticle, '/',
+    groupDate, '/',
+    groupTime, '/',
+    groupPrice, '/',
+    groupCategory, '/',
+    groupTradeType, '/',
+    groupProduct
+  );
+
+  console.log(priceToggle);
+
+  function createGroup() {
+    axios
+      .post('http://localhost:8088/nadoo/createTrade', {
+        tradeTitle: groupTitle,
+        tradeAddress: groupLocation,
+        tradeContent: groupArticle,
+        userAccount: groupUser,
+        tradeEndtime: groupDate + ' ' + groupTime
+      })
+      .then((res) => {
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+  };
+
+  useEffect(() => {
+    createGroup();
+  }, []);
 
   const errorCheck = () => {
+    if (groupTradeType === '' || groupTradeType === undefined) {
+      setErrorMessage(
+        <Alert
+          message="나두의 거래 종류를 선택해주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      tradeTypeRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      categoryRef.current.focus();
+    }
+
+    if (groupCategory === null || groupCategory === undefined) {
+      setErrorMessage(
+        <Alert
+          message="나두의 거래 카테고리를 선택해주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      categoryRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      titleRef.current.focus();
+    }
+
     if (groupTitle === '' || groupTitle === undefined) {
       setErrorMessage(
         <Alert
@@ -53,6 +135,103 @@ function GroupCreate(props) {
         />
       );
       titleRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      productRef.current.focus();
+    }
+
+    if (groupProduct === '' || groupProduct === undefined) {
+      setErrorMessage(
+        <Alert
+          message="판매할 물품을 작성해주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      productRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      if (priceToggle === false) {
+        priceRef.current.focus();
+      }
+    }
+
+    if ((groupPrice === '' || groupPrice === undefined) && priceToggle === false) {
+      setErrorMessage(
+        <Alert
+          message="판매할 물품의 가격을 적어주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      priceRef.current.focus();
+      return false;
+    } else if (groupPrice === 0) {
+      setErrorMessage("");
+      locationRef.current.focus();
+    }
+
+    if (groupMax === '' || groupMax === undefined) {
+      setErrorMessage(
+        <Alert
+          message="거래할 인원을 정해주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      maxRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      dateRef.current.focus();
+    }
+
+    if (groupDate === '' || groupDate === undefined) {
+      setErrorMessage(
+        <Alert
+          message="나두가 끝나는 날짜를 정해주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      dateRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      timeRef.current.focus();
+    }
+
+    if (groupTime === '' || groupTime === undefined) {
+      setErrorMessage(
+        <Alert
+          message="나두가 끝나는 시간을 정해주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      timeRef.current.focus();
       return false;
     } else {
       setErrorMessage("");
@@ -135,12 +314,64 @@ function GroupCreate(props) {
           👋 나두를 생성해보세요! 👋
           {/* 🚨⏰❗ */}
         </p>
+        <div className='GroupCreate_select'>
+          <Select
+            defaultValue="거래 종류"
+            style={{
+              width: '48%',
+              marginRight: '2%'
+            }}
+            options={[
+              {
+                value: '일반거래',
+                label: '일반 거래',
+              },
+              {
+                value: '번개거래',
+                label: '번개 거래',
+              }
+            ]}
+            onChange={
+              (value) => {
+                setGroupTradeType(value);
+              }}
+            ref={tradeTypeRef}
+          />
+          <Select
+            defaultValue="카테고리 선택"
+            style={{
+              width: '48%',
+              marginLeft: '2%'
+            }}
+            options={[
+              {
+                value: '1',
+                label: '뷰티',
+              },
+              {
+                value: '2',
+                label: '식료품',
+              },
+              {
+                value: '3',
+                label: '생필품',
+              }
+            ]}
+            onChange={
+              (value) => {
+                setGroupCategory(value);
+              }}
+            ref={categoryRef}
+          />
+        </div>
+        <br />
+        <br />
         <Input
           placeholder="나두의 이름은 무엇으로 할까요?"
           style={{
             width: '90%'
           }}
-          prefix={<AiOutlineFontSize className="site-form-item-icon" />}
+          prefix={<BiHighlight className="site-form-item-icon" />}
           ref={titleRef}
           onChange={(e) => {
             setGroupTitle(e.target.value);
@@ -148,11 +379,85 @@ function GroupCreate(props) {
         />
         <br />
         <br />
-        <div className='GroupCreate_datatime'>
+        <Input
+          placeholder="판매할 물품은 무엇인가요?"
+          style={{
+            width: '90%'
+          }}
+          prefix={<BiCart className="site-form-item-icon" />}
+          ref={productRef}
+          onChange={(e) => {
+            setGroupProduct(e.target.value);
+          }}
+        />
+        {
+          priceToggle === true ?
+            ''
+            :
+            <>
+              <br />
+              <br />
+              <Input
+                type='number'
+                placeholder="판매할 물품의 가격을 매겨주세요."
+                style={{
+                  width: '90%'
+                }}
+                prefix={<MdAttachMoney className="site-form-item-icon" />}
+                ref={priceRef}
+                onChange={(e) => {
+                  setGroupPrice(e.target.value);
+                }}
+              />
+            </>
+        }
+        <br />
+        <br />
+        <Button
+          style={{
+            width: '90%'
+          }}
+          type="dashed"
+          onClick={
+            () => {
+              setPriceToggle(!priceToggle);
+              if (priceToggle === false) {
+                setGroupPrice(0);
+              } else if (priceToggle === true) {
+                setGroupPrice('');
+              }
+            }
+          }
+        >
+          {
+            priceToggle === true ?
+              '가격을 정하고 싶어요!'
+              :
+              '만나서 결정하고 싶어요!'
+          }
+        </Button>
+        <br />
+        <br />
+        <Input
+          placeholder="몇 명과 거래를 하고 싶으신가요?"
+          type='number'
+          style={{
+            width: '90%'
+          }}
+          prefix={<BiUser className="site-form-item-icon" />}
+          ref={maxRef}
+          onChange={(e) => {
+            setGroupMax(e.target.value);
+          }}
+        />
+        <br />
+        <br />
+        <div className='GroupCreate_select'>
           <DatePicker
             placeholder='날짜를 정해주세요.'
             style={{
-              width: '48%'
+              width: '48%',
+              marginRight: '2%'
             }}
             onChange={
               (date, dateString) => {
@@ -161,14 +466,13 @@ function GroupCreate(props) {
             size="large"
             ref={dateRef}
           />
-          &nbsp;
-          &nbsp;
           <TimePicker
             style={{
-              width: '48%'
+              width: '48%',
+              marginLeft: '2%'
             }}
             placeholder='시간을 정해주세요.'
-            defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')}
+            format={format}
             size="large"
             onChange={
               (time, timeSting) => {
