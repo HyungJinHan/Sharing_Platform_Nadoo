@@ -123,7 +123,12 @@ function GroupDetail() {
           {detailArticle.tradeViews}
         </Descriptions.Item>
         <Descriptions.Item label="거래 가격">
-          {price}원
+          {
+            detailArticle.tradePrice === 0 ?
+              '만나서 정하고 싶어요!'
+              :
+              `${price}원`
+          }
         </Descriptions.Item>
         <Descriptions.Item label="거래 상태">
           {

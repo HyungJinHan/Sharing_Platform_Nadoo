@@ -564,6 +564,8 @@ function GroupCreate(props) {
         />
         <br />
         <br />
+        {errorMessage}
+        <br />
         <Button
           type="primary"
           onClick={
@@ -574,9 +576,6 @@ function GroupCreate(props) {
         >
           나두 만들기
         </Button>
-        <br />
-        <br />
-        {errorMessage}
       </CreateCenter>
       <NavigatorMain />
       <Outlet />
