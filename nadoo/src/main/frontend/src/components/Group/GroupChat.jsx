@@ -39,7 +39,7 @@ const GroupChat = () => {
 
 
   const webSocketLogin = useCallback(() => {
-    ws.current = new WebSocket("ws://localhost:8080/socket/chatt");
+    ws.current = new WebSocket("ws://localhost:8088/socket/chatt");
 
     ws.current.onmessage = (message) => {
       const dataSet = JSON.parse(message.data);
