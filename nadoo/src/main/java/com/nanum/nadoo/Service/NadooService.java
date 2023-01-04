@@ -2,12 +2,14 @@ package com.nanum.nadoo.Service;
 
 import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Dto.TradePreviewDTO;
+import com.nanum.nadoo.Entity.Category;
 import com.nanum.nadoo.Entity.Tmember;
 import com.nanum.nadoo.Entity.Trade;
 import com.nanum.nadoo.Entity.User;
 import com.nanum.nadoo.Repository.TmemberRepository;
 import com.nanum.nadoo.Repository.TradeRepository;
 import com.nanum.nadoo.Repository.UserRepository;
+import com.nanum.nadoo.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class NadooService{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
+
 
     // 상세 거래 서비스
     public TradeDetailDTO getDetail(Long tradeIdx) {
@@ -163,4 +170,16 @@ public class NadooService{
         }
         return map;
     }
+
+    public void createTrade(Trade tradeVO){
+        // 받아온 trade객체를 저장해주기(Insert)
+        tradeRepository.save(tradeVO);
+    }
+    public Category findCategory(Long categoryIdx) {
+        return categoryRepository.findByCategoryIdx(categoryIdx);   // 레포지토리에서 해당 category객체를 찾아서 반환
+    }
+    public User findUser(String userAccount) {
+        return userRepository.findByUserAccount(userAccount);
+    }
+
 }
