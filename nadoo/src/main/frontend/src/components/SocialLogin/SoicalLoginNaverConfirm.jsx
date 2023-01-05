@@ -6,7 +6,7 @@ function SoicalLoginNaverConfirm(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const NAVER_CODE = location.search.split('&')[0].split('=')[1];
-  const NAVER_STATE = "1234";
+  const NAVER_STATE = "12345";
   console.log(NAVER_CODE);
 
   const [loginAccount, setLoginAccount] = useState({});
@@ -16,13 +16,9 @@ function SoicalLoginNaverConfirm(props) {
         .get(`http://localhost:8088/login/naver?code=${NAVER_CODE}&state=${NAVER_STATE}`, {
         })
         .then((res) => {
-          console.log(res.data);
-          axios
-              .get(`http://localhost:8088/oauth/naver/userInfo?token=${res.data}`)
-              .then((res) => {
-                const { data } = res;
-                setLoginAccount(data.userInfo);
-              })
+            const { data } = res;
+            setLoginAccount(data.userInfo);
+            console.log(res.data);
         })
         .catch((e) => {
           console.error(e);
@@ -38,6 +34,8 @@ function SoicalLoginNaverConfirm(props) {
       {loginAccount.userAccount}
       <br />
       {loginAccount.userNick}
+      <br />
+      {loginAccount.userHp}
     </div>
   );
 }
