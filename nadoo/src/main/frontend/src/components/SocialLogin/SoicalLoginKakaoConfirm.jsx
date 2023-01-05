@@ -24,6 +24,7 @@ function SoicalLoginKakaoConfirm(props) {
           .then((res) => {
             const { data } = res;
             setLoginAccount(data.userInfo);
+            window.sessionStorage.setItem(`userID`, data.userInfo.userAccount);
           })
       })
       .catch((e) => {
