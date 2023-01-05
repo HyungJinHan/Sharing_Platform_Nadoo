@@ -130,32 +130,40 @@ function GroupDetail() {
               `${price}원`
           }
         </Descriptions.Item>
-        <Descriptions.Item label="거래 상태">
-          {
-            toggleButton === true ?
-              <Badge status="error" text="거래 중지" />
-              :
-              <Badge status="processing" text="거래 허용" />
-          }
-          &nbsp;
-          &nbsp;
-          &nbsp;
-          <Space wrap>
-            <Button
-              style={{
-                width: '100%'
-              }}
-              type="dashed"
-              onClick={
-                () => {
-                  setToggleButton(!toggleButton);
-                }
+        {console.log(detailArticle.userAccount)}
+        {
+          detailArticle.userAccount === window.sessionStorage.getItem('userID') ?
+            <Descriptions.Item label="거래 상태">
+              나두의 주최자입니다!
+            </Descriptions.Item>
+            :
+            <Descriptions.Item label="거래 상태">
+              {
+                toggleButton === true ?
+                  <Badge status="error" text="거래 중지" />
+                  :
+                  <Badge status="processing" text="거래 허용" />
               }
-            >
-              거래 상태 변경
-            </Button>
-          </Space>
-        </Descriptions.Item>
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              <Space wrap>
+                <Button
+                  style={{
+                    width: '100%'
+                  }}
+                  type="dashed"
+                  onClick={
+                    () => {
+                      setToggleButton(!toggleButton);
+                    }
+                  }
+                >
+                  거래 상태 변경
+                </Button>
+              </Space>
+            </Descriptions.Item>
+        }
         <Descriptions.Item label="상세 내용">
           {detailArticle.tradeContent}
         </Descriptions.Item>

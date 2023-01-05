@@ -13,16 +13,20 @@ function SoicalLoginNaverConfirm(props) {
 
   const getNaverToken = () => {
     axios
-        .get(`http://localhost:8088/login/naver?code=${NAVER_CODE}&state=${NAVER_STATE}`, {
-        })
-        .then((res) => {
-            const { data } = res;
-            setLoginAccount(data.userInfo);
-            console.log(res.data);
-        })
-        .catch((e) => {
-          console.error(e);
-        })
+      .get(`http://localhost:8088/login/naver?code=${NAVER_CODE}&state=${NAVER_STATE}`, {
+      })
+      .then((res) => {
+        const { data } = res;
+        setLoginAccount(data.userInfo);
+        window.sessionStorage.clear();
+        window.sessionStorage.setItem(`userID`, data.userInfo.userAccount);
+      })
+      .then((res) => {
+        navigate('/mypage');
+      })
+      .catch((e) => {
+        console.error(e);
+      })
   }
 
   useEffect(() => {
