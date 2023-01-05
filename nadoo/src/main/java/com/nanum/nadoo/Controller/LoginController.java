@@ -5,10 +5,16 @@ import com.google.gson.GsonBuilder;
 import com.nanum.nadoo.Entity.KakaoVO;
 import com.nanum.nadoo.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +22,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class LoginController {
   @Autowired
-  LoginService service;
+  LoginService loginService;
 
 //  // 카카오 로그인
 //  // 프론트에서 인가코드를 받아옴, 받은 인가코드로 카카오서버에서 액세스 토큰 받아와서 반환
@@ -41,4 +47,12 @@ public class LoginController {
 //    return gson.toJson(map);
 //  }
 
+  @RequestMapping(value="/login/naver")
+  public String loginNaver(@RequestParam(value="code") String code, @RequestParam(value="state") String state){
+    loginService.getNaverAccessToken(code, state);
+    return "";
+  }
+
+//  @RequestMapping("/oauth/naver/userInfo")
+//  public String
 }

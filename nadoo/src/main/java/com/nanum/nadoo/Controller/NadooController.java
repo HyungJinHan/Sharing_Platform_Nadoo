@@ -3,6 +3,7 @@ package com.nanum.nadoo.Controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nanum.nadoo.Entity.KakaoVO;
+import com.nanum.nadoo.Entity.User;
 import com.nanum.nadoo.Service.LoginService;
 import com.nanum.nadoo.Service.NadooService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class NadooController {
   // 받은 액세스 토큰으로 유저 정보 확인, 로그인/회원가입 처리
   @RequestMapping("/oauth/userInfo")
   public String userInfo(@RequestParam(value = "token") String token) throws Exception {
-    KakaoVO userInfo = loginService.getUserInfo(token);
+    User userInfo = loginService.getUserInfo(token);
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     Map<String, Object> map = new HashMap<String, Object>();
 
