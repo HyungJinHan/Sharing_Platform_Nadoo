@@ -2,6 +2,7 @@ package com.nanum.nadoo.Entity;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -21,7 +22,8 @@ public class User {
     @Column(name = "user_nick", nullable = false, length = 300)
     private String userNick; //닉네임
 
-    @Column(name="user_hp", nullable = false, length = 30)
+
+    @Column(name="user_hp", length = 30)
     private String userHp; //폰번호
 
     @Column(name="recent_addr", length = 300)

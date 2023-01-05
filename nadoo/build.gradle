@@ -23,6 +23,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'	// 타임리프
+//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'com.google.code.gson:gson:2.9.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

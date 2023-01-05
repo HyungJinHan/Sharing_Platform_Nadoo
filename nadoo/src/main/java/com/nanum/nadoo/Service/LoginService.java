@@ -4,10 +4,21 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nanum.nadoo.Entity.KakaoVO;
+import com.nanum.nadoo.Entity.User;
 import com.nanum.nadoo.Repository.KakaoVORepository;
+import com.nanum.nadoo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -20,7 +31,7 @@ import java.util.Map;
 public class LoginService {
 
     @Autowired
-    KakaoVORepository kRepository;
+    UserRepository userRepository;
 
     // 뱓은 인가코드로 액세스 토큰 받아오기
     public String getAccessToken(String authorize_code){
@@ -80,8 +91,8 @@ public class LoginService {
     }
 
     // access_token 값 읽어오고 DB 저장
-    public KakaoVO getUserInfo(String access_Token){
-        KakaoVO userInfo = new KakaoVO();
+    public User getUserInfo(String access_Token){
+        User userInfo = new User();
         //Map<String, Object> userInfo = new HashMap<>();
 
         String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -122,10 +133,10 @@ public class LoginService {
             userInfo.setUserAccount(email);
             userInfo.setUserNick(nickname);
 
-            KakaoVO findUser = kRepository.findByUserAccount(userInfo.getUserAccount());
+            User findUser = userRepository.findByUserAccount(userInfo.getUserAccount());
             System.out.println("##DB 유저 : " + findUser);
             if(findUser == null){
-                kRepository.save(userInfo);
+                userRepository.save(userInfo);
             }
 
         } catch(Exception e){
@@ -133,5 +144,36 @@ public class LoginService {
         }
 
         return userInfo;
+    }
+
+    // Naver로그인 AccessToken 얻어오기
+    public MultiValueMap<String, String> accessTokenParams(String grantType, String clientSecret, String clientId, String code, String redirect_uri) {
+        MultiValueMap<String, String> accessTokenParams = new LinkedMultiValueMap<>();
+        accessTokenParams.add("grant_type", grantType);
+        accessTokenParams.add("client_id", clientId);
+        accessTokenParams.add("client_secret", clientSecret);
+        accessTokenParams.add("code", code); // 응답으로 받은 코드
+        accessTokenParams.add("redirect_uri", redirect_uri);
+
+        return accessTokenParams;
+    }
+
+    // Naver 로그인, AccessToken 받아와서 유저정보 확인
+    public void getNaverAccessToken(String code, String state){
+        WebClient webclient = WebClient.builder()
+                .baseUrl("https://nid.naver.com")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
+        JsonObject response = webclient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/oauth2.0/token")
+                        .queryParam("client_id", "kFXWxG9S3JYGuLNlgz3l")
+                        .queryParam("client_secret", "ckWI_3YivU")
+                        .queryParam("grant_type", "authorization_code")
+                        .queryParam("state", state)
+                        .queryParam("code", code)
+                        .build()).retrieve().bodyToMono(JsonObject.class).block();
+
+        String token = String.valueOf(response.get("access_token"));
+        System.out.println("#####네이버 액세스 토큰 : " + token);
     }
 }
