@@ -54,6 +54,17 @@
   outline: 0;
 }
 
+:where(.css-dev-only-do-not-override-acm2ia).ant-picker:hover,
+:where(.css-dev-only-do-not-override-acm2ia).ant-picker-focused {
+  border-color: #09cf83;
+  border-inline-end-width: 1px;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-picker-large .ant-picker-input>input {
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
 .ant-input-textarea {
   margin: 0 auto;
 }
@@ -61,4 +72,10 @@
 .site-form-item-icon {
   padding: 10px;
   font-size: large;
+}
+
+.GroupCreate_select {
+  width: 90%;
+  text-align: center;
+  display: inline-block;
 }

@@ -2,13 +2,16 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function SoicalLoginConfirm(props) {
+function SoicalLoginKakaoConfirm(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const KAKAO_CODE = location.search.split('=')[1];
+
   console.log(KAKAO_CODE);
-  const [loginAccount, setLoginAccount] = useState([]);
-  const [loginNick, setLoginNick] = useState([]);
+
+
+
+  const [loginAccount, setLoginAccount] = useState({});
 
   const getKakaoToken = () => {
     axios
@@ -19,8 +22,9 @@ function SoicalLoginConfirm(props) {
         axios
           .get(`http://localhost:8088/oauth/userInfo?token=${res.data}`)
           .then((res) => {
-            setLoginAccount(res.data.userAccount);
-            setLoginNick(res.data.userNick)
+            const { data } = res;
+            setLoginAccount(data.userInfo);
+            window.sessionStorage.setItem(`userID`, data.userInfo.userAccount);
           })
       })
       .catch((e) => {
@@ -28,17 +32,18 @@ function SoicalLoginConfirm(props) {
       })
   }
 
+
   useEffect(() => {
     getKakaoToken();
   }, []);
 
   return (
     <div>
-      {loginAccount}
+      {loginAccount.userAccount}
       <br />
-      {loginNick}
+      {loginAccount.userNick}
     </div>
   );
 }
 
-export default SoicalLoginConfirm;
+export default SoicalLoginKakaoConfirm;
