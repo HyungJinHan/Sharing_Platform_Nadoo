@@ -99,4 +99,13 @@ public class NadooController {
     return gson.toJson(map);
   }
 
+  // tradeIdx를 받아와 해당 거래의 참여인원 수를 반환하는 컨트롤러
+  @RequestMapping(value = "/test")
+  public String Test1(@RequestParam(value = "tradeIdx")Long tradeIdx) throws IOException{
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    return gson.toJson(service.joinCount(tradeIdx));    // 현재 거래의 참여중인 인원 수, 참여 가능 인원수 json으로 반환
+
+  }
+
 }
