@@ -3,6 +3,7 @@ package com.nanum.nadoo.Controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nanum.nadoo.Entity.KakaoVO;
+import com.nanum.nadoo.Entity.User;
 import com.nanum.nadoo.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,9 +50,17 @@ public class LoginController {
 //  }
 
   @RequestMapping(value="/login/naver")
-  public String loginNaver(@RequestParam(value="code") String code, @RequestParam(value="state") String state){
-    loginService.getNaverAccessToken(code, state);
-    return "";
+  public String loginNaver(@RequestParam(value="code") String code, @RequestParam(value="state") String state)
+  throws IOException {
+
+    String accessToken = loginService.getNaverAccessToken(code, state);
+    User userInfo = loginService.getNaverUserInfo(accessToken);
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    map.put("userInfo", userInfo);
+
+    return gson.toJson(map);
   }
 
 //  @RequestMapping("/oauth/naver/userInfo")
