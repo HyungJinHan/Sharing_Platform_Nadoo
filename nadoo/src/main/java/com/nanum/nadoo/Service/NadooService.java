@@ -31,8 +31,6 @@ public class NadooService{
     @Autowired
     CategoryRepository categoryRepository;
 
-
-
     // 상세 거래 서비스
     public TradeDetailDTO getDetail(Long tradeIdx) {
         TradeDetailDTO trade = tradeRepository.findDetailTrade(tradeIdx);
@@ -178,8 +176,19 @@ public class NadooService{
     public Category findCategory(Long categoryIdx) {
         return categoryRepository.findByCategoryIdx(categoryIdx);   // 레포지토리에서 해당 category객체를 찾아서 반환
     }
+    // 계정으로 유저 객체 찾기
     public User findUser(String userAccount) {
         return userRepository.findByUserAccount(userAccount);
+    }
+
+    // 해당 거래에 참여하고 있는 인원 반환
+    public Map<String, Object> joinCount(Long tradeIdx){
+        Trade tradeVO = tradeRepository.findByTradeIdx(tradeIdx);   // 받아온 tradeIdx로 trade객체 찾기
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("참여 인원", tmemberRepository.getJoinCountByTradeIdx(tradeVO));     // 해당 거래의 참여중인 인원 수 반환
+        map.put("최대 참여 가능 수", tradeVO.getTradeMax());                           // 해당 거래의 최대 참여 인원 수 반환
+        return map;   // 참여 중인 인원 반환
     }
 
 }
