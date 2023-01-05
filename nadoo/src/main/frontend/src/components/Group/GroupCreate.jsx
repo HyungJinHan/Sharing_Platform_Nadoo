@@ -20,7 +20,9 @@ const CreateCenter = styled.div`
   text-align: center;
 `
 
-function GroupCreate(props) {
+function GroupCreate({
+  getGroupList
+}) {
   const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState();
@@ -94,17 +96,15 @@ function GroupCreate(props) {
         categoryIdx: groupCategory,
         tradeProduct: groupProduct
       })
-      .then((res) => {
-        navigate('/grouplist')
-      })
+      .then(
+        async (res) => {
+          await getGroupList();
+          await navigate('/grouplist');
+        })
       .catch((e) => {
         console.error(e);
       })
   };
-
-  // useEffect(() => {
-  //   createGroup();
-  // }, []);
 
   const errorCheck = () => {
     if (groupTradeType === '' || groupTradeType === undefined) {

@@ -72,7 +72,7 @@ function App() {
       <Route path="/navigatortop" element={<NavigatorTop />} />
 
       {/* 방 생성 */}
-      <Route path="/groupcreate" element={<GroupCreate />} />
+      <Route path="/groupcreate" element={<GroupCreate getGroupList={getGroupList} />} />
 
       {/* 소셜로그인 (카카오) */}
       <Route path="/kakaologin" element={<SocialLogin />} />
