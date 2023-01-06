@@ -24,6 +24,8 @@ function Main() {
   // const [userTag5, setUserTag5] = useState('#' + shortid.generate());
   // const [userTag6, setUserTag6] = useState('#' + shortid.generate());
 
+  const [test, setTest] = useState('Super');
+
   const location = useLocation();
   const url = location.pathname;
 
@@ -62,7 +64,7 @@ function Main() {
       <>
         <NavigatorTop />
         <Outlet />
-        <SearchPage />
+        <SearchPage test={test} setTest={setTest} url={url} />
         <NavigatorMain />
         <Outlet />
       </>
