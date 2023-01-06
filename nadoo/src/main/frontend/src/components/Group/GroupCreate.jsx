@@ -10,9 +10,7 @@ import TextArea from 'antd/es/input/TextArea';
 import styled from 'styled-components';
 import { GrLocation } from 'react-icons/gr';
 import { BiCart, BiHighlight, BiUser } from 'react-icons/bi'
-import { AiOutlineFontSize } from 'react-icons/ai';
 import { MdAttachMoney } from 'react-icons/md';
-import dayjs from 'dayjs';
 import axios from 'axios';
 const format = 'HH:mm';
 
