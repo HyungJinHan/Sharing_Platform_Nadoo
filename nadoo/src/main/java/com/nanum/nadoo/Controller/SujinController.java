@@ -38,10 +38,9 @@ public class SujinController {
 
     return gson.toJson(trade);
   }
-  @RequestMapping(value = "/nadoo/chat/{tradeIdx}")
-  public String getChat(@PathVariable("tradeIdx") Long tradeIdx) {
-//    List<Chat> chat = cService.getChat(paramMap.get("tradeIdx"));
-    List<ChatDTO> chat = service.getChat(tradeIdx);
+  @RequestMapping(value = "/nadoo/chat")
+  public String getChat(@RequestBody Map<String, Long> paramMap) {
+    List<ChatDTO> chat = service.getChat(paramMap.get("tradeIdx"));
     log.info(chat);
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
