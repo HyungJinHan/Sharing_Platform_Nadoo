@@ -1,9 +1,14 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
-const GroupChat = () => {
+const GroupChat = ({
+  idxState
+}) => {
+  const user = window.sessionStorage.getItem('userID');
+  const room = idxState;
+  console.log('idxState ->', idxState);
   const [msg, setMsg] = useState("");
-  const [name, setName] = useState(window.sessionStorage.getItem('userID'));
+  const [name, setName] = useState(user);
   const [chatt, setChatt] = useState([]);
   const [chkLog, setChkLog] = useState(false);
   const [socketData, setSocketData] = useState();
@@ -39,7 +44,7 @@ const GroupChat = () => {
 
 
   const webSocketLogin = useCallback(() => {
-    ws.current = new WebSocket("ws://localhost:8088/socket/chatt");
+    ws.current = new WebSocket(`ws://localhost:8088/socket/chatt/${user}/${room}`);
 
     ws.current.onmessage = (message) => {
       const dataSet = JSON.parse(message.data);

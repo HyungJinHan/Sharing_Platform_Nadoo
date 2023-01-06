@@ -6,6 +6,7 @@ import '../../styles/Group/GroupDetail.css'
 import NavigatorMain from '../Navigator/NavigatorMain';
 import axios from 'axios';
 import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
+import GroupChat from './GroupChat';
 
 function GroupDetail() {
   var [time, setTime] = useState(0);
@@ -168,6 +169,9 @@ function GroupDetail() {
           {detailArticle.tradeContent}
         </Descriptions.Item>
       </Descriptions>
+      <GroupChat
+        idxState={idxState}
+      />
       <NavigatorMain />
       <Outlet />
     </>
