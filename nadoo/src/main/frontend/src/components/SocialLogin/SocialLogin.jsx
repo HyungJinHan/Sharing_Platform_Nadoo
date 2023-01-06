@@ -7,9 +7,11 @@ function SocialLogin(props) {
 
   return (
     <div>
+      소셜 로그인
+      <br />
       <a href={KAKAO_AUTH_URL}>
         <span>카카오계정 로그인</span>
-      </a><br/>
+      </a><br />
       <a href={NAVER_AUTH_URL}>
         <span>네이버계정 로그인</span>
       </a>

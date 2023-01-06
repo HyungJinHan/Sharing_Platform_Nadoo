@@ -75,14 +75,14 @@ function App() {
       {/* 방 생성 */}
       <Route path="/groupcreate" element={<GroupCreate getGroupList={getGroupList} />} />
 
-      {/* 소셜로그인 (카카오) */}
-      <Route path="/kakaologin" element={<SocialLogin />} />
+      {/* 소셜로그인 */}
+      <Route path="/sociallogin" element={<SocialLogin />} />
 
       {/* 소셜로그인 (카카오) */}
       <Route path="/oauth/login" element={<SoicalLoginKakaoConfirm />} />
 
-        {/* 소셜로그인 (카카오) */}
-        <Route path="/login/naver" element={<SoicalLoginNaverConfirm/>} />
+      {/* 소셜로그인 (네이버) */}
+      <Route path="/login/naver" element={<SoicalLoginNaverConfirm />} />
 
       {/* 해당 그룹 상세정보 페이지 */}
       {groupList.list
