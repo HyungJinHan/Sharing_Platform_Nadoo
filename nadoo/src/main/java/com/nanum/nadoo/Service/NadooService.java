@@ -4,6 +4,7 @@ import com.nanum.nadoo.Dto.ChatDTO;
 import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Dto.TradePreviewDTO;
 import com.nanum.nadoo.Entity.Chat;
+import com.nanum.nadoo.Entity.Category;
 import com.nanum.nadoo.Entity.Tmember;
 import com.nanum.nadoo.Entity.Trade;
 import com.nanum.nadoo.Entity.User;
@@ -12,6 +13,7 @@ import com.nanum.nadoo.Repository.TmemberRepository;
 import com.nanum.nadoo.Repository.TradeRepository;
 import com.nanum.nadoo.Repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
+import com.nanum.nadoo.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,9 @@ public class NadooService{
 
     @Autowired
     ChatRepository cRepository;
+    
+    @Autowired
+    CategoryRepository categoryRepository;
 
     // 상세 거래 서비스
     public TradeDetailDTO getDetail(Long tradeIdx) {
@@ -168,10 +173,33 @@ public class NadooService{
         }
         return map;
     }
+
+    // 채팅 내역 가져오기
     public List<ChatDTO> getChat(Long tradeIdx) {
         List<ChatDTO> chat = cRepository.findChat(tradeIdx);
         log.info(chat);
         return chat;
+
+    public void createTrade(Trade tradeVO){
+        // 받아온 trade객체를 저장해주기(Insert)
+        tradeRepository.save(tradeVO);
+    }
+    public Category findCategory(Long categoryIdx) {
+        return categoryRepository.findByCategoryIdx(categoryIdx);   // 레포지토리에서 해당 category객체를 찾아서 반환
+    }
+    // 계정으로 유저 객체 찾기
+    public User findUser(String userAccount) {
+        return userRepository.findByUserAccount(userAccount);
+    }
+
+    // 해당 거래에 참여하고 있는 인원 반환
+    public Map<String, Object> joinCount(Long tradeIdx){
+        Trade tradeVO = tradeRepository.findByTradeIdx(tradeIdx);   // 받아온 tradeIdx로 trade객체 찾기
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("참여 인원", tmemberRepository.getJoinCountByTradeIdx(tradeVO));     // 해당 거래의 참여중인 인원 수 반환
+        map.put("최대 참여 가능 수", tradeVO.getTradeMax());                           // 해당 거래의 최대 참여 인원 수 반환
+        return map;   // 참여 중인 인원 반환
     }
 
 }

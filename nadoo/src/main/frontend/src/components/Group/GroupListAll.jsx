@@ -78,18 +78,25 @@ function GroupListAll(props) {
                   }
               }
               onClick=
-              {item.diffTime === 0 || item.diffTime <= 0 ?
+              {
                 () => {
-                  Swal.fire('거래가 종료된 나두입니다.😢');
-                  return false;
-                }
-                :
-                () => {
-                  navigate(`/groupdetail/${item.tradeIdx}`, {
-                    state: {
-                      tradeIdx: item.tradeIdx
-                    }
-                  });
+                  if (window.sessionStorage.getItem('userID') === ''
+                    || window.sessionStorage.getItem('userID') === undefined
+                    || window.sessionStorage.getItem('userID') === null) {
+                    Swal.fire('로그인 후 사용 가능한 서비스 입니다.');
+                    return false;
+                  }
+
+                  if (item.diffTime === 0 || item.diffTime <= 0) {
+                    Swal.fire('거래가 종료된 나두입니다.😢');
+                    return false;
+                  } else {
+                    navigate(`/groupdetail/${item.tradeIdx}`, {
+                      state: {
+                        tradeIdx: item.tradeIdx
+                      }
+                    });
+                  }
                 }
               }
               title={item.tradeTitle}

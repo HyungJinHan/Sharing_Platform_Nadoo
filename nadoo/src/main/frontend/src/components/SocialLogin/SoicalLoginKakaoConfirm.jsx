@@ -2,11 +2,15 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function SoicalLoginConfirm(props) {
+function SoicalLoginKakaoConfirm(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const KAKAO_CODE = location.search.split('=')[1];
+
   console.log(KAKAO_CODE);
+
+
+
   const [loginAccount, setLoginAccount] = useState({});
 
   const getKakaoToken = () => {
@@ -20,12 +24,18 @@ function SoicalLoginConfirm(props) {
           .then((res) => {
             const { data } = res;
             setLoginAccount(data.userInfo);
+            window.sessionStorage.clear();
+            window.sessionStorage.setItem(`userID`, data.userInfo.userAccount);
           })
+      })
+      .then((res) => {
+        navigate('/mypage');
       })
       .catch((e) => {
         console.error(e);
       })
   }
+
 
   useEffect(() => {
     getKakaoToken();
@@ -40,4 +50,4 @@ function SoicalLoginConfirm(props) {
   );
 }
 
-export default SoicalLoginConfirm;
+export default SoicalLoginKakaoConfirm;
