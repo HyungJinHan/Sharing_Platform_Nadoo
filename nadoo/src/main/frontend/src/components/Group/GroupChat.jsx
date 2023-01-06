@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GroupChat = () => {
   const [msg, setMsg] = useState("");
-  const [name, setName] = useState("");
+  const [name, setName] = useState(window.sessionStorage.getItem('userID'));
   const [chatt, setChatt] = useState([]);
   const [chkLog, setChkLog] = useState(false);
   const [socketData, setSocketData] = useState();
@@ -95,12 +95,13 @@ const GroupChat = () => {
             <div className='talk-shadow'></div>
             {msgBox}
           </div>
-          <input disabled={chkLog}
+          <input
+            disabled={chkLog}
             placeholder='이름을 입력하세요.'
             type='text'
             id='name'
             value={name}
-            onChange={(event => setName(event.target.value))} />
+          />
           <div id='sendZone'>
             <textarea id='msg' value={msg} onChange={onText}
               onKeyDown={(ev) => { if (ev.keyCode === 13) { send(); } }}></textarea>
