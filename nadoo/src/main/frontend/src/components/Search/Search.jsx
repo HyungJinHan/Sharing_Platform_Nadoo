@@ -6,6 +6,8 @@ import NavigatorTop from '../Navigator/NavigatorTop';
 import { Outlet, useLocation } from 'react-router-dom';
 import "../../styles/Search/Search.css";
 import { Cascader } from 'antd';
+import SearchList from './SearchList';
+import axios from 'axios';
 const { SHOW_CHILD } = Cascader;
 
 const { Search } = Input;
@@ -189,34 +191,112 @@ const options = [
 const onSearch = (value) => console.log(value);
 
 
-function SearchPage(props) {
+
+
+function SearchPage({
+  test,
+  setTest,
+  url
+}) {
+  const [mode, setMode] = useState(0);
+
   const [search, setSearch] = useState("");
+
+  console.log(mode);
+
   const onChange = (value) => {
     console.log(value);
   };
 
-  return (
-    <>
-      <div className='search'>
-        <Space direction="vertical" className='search_box'>
-          <Search placeholder="검색해보세요" onSearch={onSearch} enterButton />
-        </Space>
-        <br />
-        <br />
+  const [product, setProduct] = useState({
+    list: []
+  });
 
-        <Cascader
-          style={{
-            width: '80%',
-          }}
-          options={options}
-          onChange={onChange}
-          multiple
-          maxTagCount="responsive"
-          showCheckedStrategy={SHOW_CHILD}
-        />
+  const getProduct = () => {
+    axios
+      .post('http://localhost:8088/nadoo/tradeAll', {
+      })
+      .then((res) => {
+        const { data } = res;
+        setProduct({
+          list: data.tradeAll
+        })
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  }
+
+  // useEffect(
+  //   () => {
+  //     getProduct();
+  //   }
+  //   , []);
+
+  if (mode === 0) {
+    return (
+      <>
+        <div className='search'>
+          {test}
+          {url}
+          <Space direction="vertical" className='search_box'>
+            <Search
+              placeholder="검색해보세요"
+              onSearch={onSearch}
+              enterButton
+              onKeyPress={
+                (e) => {
+                  if (e.key === 'Enter') {
+                    getProduct();
+                    setTest('Child');
+                  }
+                }
+              } />
+          </Space>
+          <br />
+          <br />
+
+          <Cascader
+            style={{
+              width: '80%',
+            }}
+            options={options}
+            onChange={onChange}
+            multiple
+            maxTagCount="responsive"
+            showCheckedStrategy={SHOW_CHILD}
+          />
+          <SearchList productList={getProduct} />
+          {
+            product.list
+              .map(
+                (item) => (
+                  item.tradeProduct
+                )
+              )
+          }
+        </div>
+        <input type="button" onClick={
+          () => { setMode(1) }
+        } />
+      </>
+    );
+  }
+  if (mode === 1) {
+    return (
+      <div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        이건 모드 1
       </div>
-    </>
-  );
+    );
+  }
 }
 
 export default SearchPage;

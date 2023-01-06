@@ -34,27 +34,51 @@ function UserMyPage(props) {
     );
   } else if (url === '/wishlist') {
     return (
-      <UserMyPageCenter>
-        <UserMyPageWishList />
-      </UserMyPageCenter>
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <UserMyPageCenter>
+          <UserMyPageWishList />
+        </UserMyPageCenter>
+        <NavigatorMain />
+        <Outlet />
+      </>
     );
   } else if (url === '/customer') {
     return (
-      <UserMyPageCenter>
-        <UserMyPageCustomer />
-      </UserMyPageCenter>
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <UserMyPageCenter>
+          <UserMyPageCustomer />
+        </UserMyPageCenter>
+        <NavigatorMain />
+        <Outlet />
+      </>
     );
   } else if (url === '/notice') {
     return (
-      <UserMyPageCenter>
-        <UserMyPageNotice />
-      </UserMyPageCenter>
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <UserMyPageCenter>
+          <UserMyPageNotice />
+        </UserMyPageCenter>
+        <NavigatorMain />
+        <Outlet />
+      </>
     );
   } else if (url === '/purchased') {
     return (
-      <UserMyPageCenter>
-        <UserMyPagePurchased />
-      </UserMyPageCenter>
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <UserMyPageCenter>
+          <UserMyPagePurchased />
+        </UserMyPageCenter>
+        <NavigatorMain />
+        <Outlet />
+      </>
     );
   }
 }
