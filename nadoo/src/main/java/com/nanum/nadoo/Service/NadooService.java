@@ -1,14 +1,18 @@
 package com.nanum.nadoo.Service;
 
+import com.nanum.nadoo.Dto.ChatDTO;
 import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Dto.TradePreviewDTO;
+import com.nanum.nadoo.Entity.Chat;
 import com.nanum.nadoo.Entity.Category;
 import com.nanum.nadoo.Entity.Tmember;
 import com.nanum.nadoo.Entity.Trade;
 import com.nanum.nadoo.Entity.User;
+import com.nanum.nadoo.Repository.ChatRepository;
 import com.nanum.nadoo.Repository.TmemberRepository;
 import com.nanum.nadoo.Repository.TradeRepository;
 import com.nanum.nadoo.Repository.UserRepository;
+import lombok.extern.log4j.Log4j2;
 import com.nanum.nadoo.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Log4j2
 @Service
 public class NadooService{
     @Autowired
@@ -28,6 +32,9 @@ public class NadooService{
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ChatRepository cRepository;
+    
     @Autowired
     CategoryRepository categoryRepository;
 
@@ -151,10 +158,8 @@ public class NadooService{
 
             tradeRepository.changeTradeCheck(tradeIdx);
         }
-
-
-
     }
+
 
     // 로그인 정보 체크
     public Map<String, Object> loginCheck(String userAccount) {
@@ -168,6 +173,12 @@ public class NadooService{
         }
         return map;
     }
+
+    // 채팅 내역 가져오기
+    public List<ChatDTO> getChat(Long tradeIdx) {
+        List<ChatDTO> chat = cRepository.findChat(tradeIdx);
+        log.info(chat);
+        return chat;
 
     public void createTrade(Trade tradeVO){
         // 받아온 trade객체를 저장해주기(Insert)
