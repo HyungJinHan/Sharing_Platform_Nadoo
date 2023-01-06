@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { UserOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import { Alert, Button, DatePicker, Input, TimePicker } from 'antd';
 import '../../styles/Group/GroupCreate.css'
 import DaumPostcode from "react-daum-postcode";
 import DaumAddressPopup from './DaumPostCode/DaumAddressPopup';
@@ -9,15 +8,94 @@ import { Outlet } from 'react-router-dom';
 import NavigatorMain from '../Navigator/NavigatorMain';
 import TextArea from 'antd/es/input/TextArea';
 import styled from 'styled-components';
+import { GrLocation } from 'react-icons/gr';
+import { BiUser } from 'react-icons/bi'
+import { AiOutlineFontSize } from 'react-icons/ai';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 const CreateCenter = styled.div`
   text-align: center;
 `
 
 function GroupCreate(props) {
+  const [errorMessage, setErrorMessage] = useState();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [userAddr, setUserAddr] = useState('');
-  const addressRef = useRef();
+
+  const [groupTitle, setGroupTitle] = useState('');
+  const [groupLocation, setGroupLocation] = useState('');
+  const [groupArticle, setGroupArticle] = useState('');
+  const [groupDate, setGroupDate] = useState('');
+  const [groupTime, setGroupTime] = useState('');
+
+  const titleRef = useRef();
+  const locationRef = useRef();
+  const articleRef = useRef();
+  const dateRef = useRef();
+  const timeRef = useRef();
+
+  console.log(groupTitle, groupLocation, groupArticle);
+  console.log(groupDate, groupTime);
+
+  const errorCheck = () => {
+    if (groupTitle === '' || groupTitle === undefined) {
+      setErrorMessage(
+        <Alert
+          message="나두의 제목을 지어주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      titleRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      locationRef.current.focus();
+    }
+
+    if (groupLocation === '' || groupLocation === undefined) {
+      setErrorMessage(
+        <Alert
+          message="나두의 위치를 알려주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      locationRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+      articleRef.current.focus();
+    }
+
+    if (groupArticle === '' || groupArticle === undefined) {
+      setErrorMessage(
+        <Alert
+          message="전하고 싶은 메세지를 작성해주세요!"
+          type="error"
+          showIcon
+          style={{
+            width: '90%',
+            margin: `0 auto`
+          }}
+        />
+      );
+      articleRef.current.focus();
+      return false;
+    } else {
+      setErrorMessage("");
+    }
+  }
 
   /** 팝업창 열기 */
   const openPostCode = () => {
@@ -43,8 +121,8 @@ function GroupCreate(props) {
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-    addressRef.current.value = fullAddress;
-    setUserAddr(fullAddress);
+    locationRef.current.value = fullAddress;
+    setGroupLocation(fullAddress);
     closePostCode();
   };
 
@@ -62,25 +140,63 @@ function GroupCreate(props) {
           style={{
             width: '90%'
           }}
-          prefix={<UserOutlined className="site-form-item-icon" />}
+          prefix={<AiOutlineFontSize className="site-form-item-icon" />}
+          ref={titleRef}
+          onChange={(e) => {
+            setGroupTitle(e.target.value);
+          }}
         />
         <br />
         <br />
+        <div className='GroupCreate_datatime'>
+          <DatePicker
+            placeholder='날짜를 정해주세요.'
+            style={{
+              width: '48%'
+            }}
+            onChange={
+              (date, dateString) => {
+                setGroupDate(dateString);
+              }}
+            size="large"
+            ref={dateRef}
+          />
+          &nbsp;
+          &nbsp;
+          <TimePicker
+            style={{
+              width: '48%'
+            }}
+            placeholder='시간을 정해주세요.'
+            defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')}
+            size="large"
+            onChange={
+              (time, timeSting) => {
+                setGroupTime(timeSting);
+              }
+            }
+            ref={timeRef}
+          />
+        </div>
+        <br />
+        <br />
         <Input
+          type="text"
           placeholder="위치는 어디로 할까요?"
           style={{
             width: '90%'
           }}
-          ref={addressRef}
+          ref={locationRef}
+          value={groupLocation}
           onClick={() => {
             openPostCode();
-            addressRef.current.value = '';
+            locationRef.current.value = '';
           }}
           onChange={() => {
             openPostCode();
-            setUserAddr(addressRef.current.value);
+            setGroupLocation(locationRef.current.value);
           }}
-          prefix={<UserOutlined className="site-form-item-icon" />}
+          prefix={<GrLocation className="site-form-item-icon" />}
         />
         {/* 팝업 생성 기준 div */}
         <div id="popupDom">
@@ -104,15 +220,34 @@ function GroupCreate(props) {
           )}
         </div>
         <TextArea
-          placeholder="전하고 싶은 메시지를 작성해주세요!"
-          allowClear
           showCount
           maxLength={200}
           style={{
+            height: 160,
             resize: 'none',
             width: '90%'
           }}
+          placeholder="전하고 싶은 메시지를 작성해주세요!"
+          ref={articleRef}
+          onChange={(e) => {
+            setGroupArticle(e.target.value);
+          }}
         />
+        <br />
+        <br />
+        <Button
+          type="primary"
+          onClick={
+            () => {
+              errorCheck();
+            }
+          }
+        >
+          나두 만들기
+        </Button>
+        <br />
+        <br />
+        {errorMessage}
       </CreateCenter>
       <NavigatorMain />
       <Outlet />

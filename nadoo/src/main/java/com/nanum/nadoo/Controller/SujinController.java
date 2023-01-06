@@ -2,12 +2,14 @@ package com.nanum.nadoo.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nanum.nadoo.Dto.ChatDTO;
 import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Service.NadooService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,6 +19,7 @@ public class SujinController {
 
   @Autowired
   NadooService service;
+
 
 //  @RequestMapping(value = "/nadoo/detail/{tradeIdx}", method = RequestMethod.GET)
 //  public String getDetail(@PathVariable Long tradeIdx) {
@@ -35,6 +38,14 @@ public class SujinController {
 
     return gson.toJson(trade);
   }
+  @RequestMapping(value = "/nadoo/chat/{tradeIdx}")
+  public String getChat(@PathVariable("tradeIdx") Long tradeIdx) {
+//    List<Chat> chat = cService.getChat(paramMap.get("tradeIdx"));
+    List<ChatDTO> chat = service.getChat(tradeIdx);
+    log.info(chat);
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    return gson.toJson(chat);
+  }
 
 }

@@ -3,22 +3,27 @@ import axios from 'axios';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import NavigatorMain from '../Navigator/NavigatorMain';
 import NavigatorTop from '../Navigator/NavigatorTop';
-import '../../styles/Main/Main.css';
-import styled from 'styled-components';
-import Slider from '../Slider/Slider';
-import day from '../../static/HHJ/images/Group 40.svg';
-import recycle from '../../static/HHJ/images/Group 43.svg';
-import together from '../../static/HHJ/images/Group 45.svg';
-import mega from '../../static/HHJ/images/Group 47.svg';
-import GroupList from '../Group/GroupList';
 import GroupListAll from '../Group/GroupListAll';
-import GroupCloser from '../Group/GroupCloser';
+import MainShape from './MainShape';
+import SearchPage from '../Search/Search';
+import shortid from 'shortid';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import UserMyPage from '../UserMyPage/UserMyPage';
+import GroupChat from '../Group/GroupChat';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
 // `
 
 function Main() {
+  shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
+  // const [userTag1, setUserTag1] = useState('#' + shortid.generate());
+  // const [userTag2, setUserTag2] = useState('#' + shortid.generate());
+  // const [userTag3, setUserTag3] = useState('#' + shortid.generate());
+  // const [userTag4, setUserTag4] = useState('#' + shortid.generate());
+  // const [userTag5, setUserTag5] = useState('#' + shortid.generate());
+  // const [userTag6, setUserTag6] = useState('#' + shortid.generate());
+
   const location = useLocation();
   const url = location.pathname;
 
@@ -27,79 +32,17 @@ function Main() {
       <>
         <NavigatorTop />
         <Outlet />
-        <div className='Main_guideImg'>
-          <div>
-            <Slider />
-          </div>
-          <br />
-          <div className='Main_iconDiv'>
-            <div className='Main_iconIfo'>
-              <img
-                className='Main_icon'
-                alt='undefind'
-                src={together}
-              />
-              <br />
-              <p className='Main_iconText'>나두 일정</p>
-            </div>
-            <div className='Main_iconIfo'>
-              <img
-                className='Main_icon'
-                alt='undefind'
-                src={recycle}
-              />
-              <br />
-              <p className='Main_iconText'>나두 교환</p>
-            </div>
-            <div className='Main_iconIfo'>
-              <img
-                className='Main_icon'
-                alt='undefind'
-                src={mega}
-              />
-              <br />
-              <p className='Main_iconText'>나두 함께</p>
-            </div>
-            <div className='Main_iconIfo'>
-              <img
-                className='Main_icon'
-                alt='undefind'
-                src={day}
-              />
-              <br />
-              <p className='Main_iconText'>나두 공지</p>
-            </div>
-          </div>
-          <br />
-          <br />
-          <span className='Main_endSoon'>
-            ⏰ 종료 임박 ⏰
-            {/* 🚨⏰❗ */}
-          </span>
-          <br />
-          <br />
-        </div>
-        <GroupCloser />
-        <div className='Main_guideImg'>
-          <span className='Main_endSoon'>
-            👋 최신 나두 👋
-            {/* 🚨⏰❗ */}
-          </span>
-          <br />
-          <br />
-          <GroupList />
-        </div>
+        <MainShape />
         <NavigatorMain />
         <Outlet />
       </>
     );
-  }
-  else if (url === '/mypage') {
+  } else if (url === '/mypage') {
     return (
       <>
         <NavigatorTop />
         <Outlet />
-        mypage
+        <UserMyPage />
         <NavigatorMain />
         <Outlet />
       </>
@@ -110,6 +53,26 @@ function Main() {
         <NavigatorTop />
         <Outlet />
         <GroupListAll />
+        <NavigatorMain />
+        <Outlet />
+      </>
+    );
+  } else if (url === '/search') {
+    return (
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <SearchPage />
+        <NavigatorMain />
+        <Outlet />
+      </>
+    );
+  } else if (url === '/groupchat') {
+    return (
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <GroupChat />
         <NavigatorMain />
         <Outlet />
       </>

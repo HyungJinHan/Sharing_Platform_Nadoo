@@ -1,19 +1,24 @@
 package com.nanum.nadoo.Service;
 
+import com.nanum.nadoo.Dto.ChatDTO;
 import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Dto.TradePreviewDTO;
+import com.nanum.nadoo.Entity.Chat;
 import com.nanum.nadoo.Entity.Tmember;
 import com.nanum.nadoo.Entity.Trade;
+import com.nanum.nadoo.Entity.User;
+import com.nanum.nadoo.Repository.ChatRepository;
 import com.nanum.nadoo.Repository.TmemberRepository;
 import com.nanum.nadoo.Repository.TradeRepository;
 import com.nanum.nadoo.Repository.UserRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Log4j2
 @Service
 public class NadooService{
     @Autowired
@@ -24,6 +29,9 @@ public class NadooService{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ChatRepository cRepository;
 
     // 상세 거래 서비스
     public TradeDetailDTO getDetail(Long tradeIdx) {
@@ -145,6 +153,25 @@ public class NadooService{
 
             tradeRepository.changeTradeCheck(tradeIdx);
         }
+    }
+
+
+    // 로그인 정보 체크
+    public Map<String, Object> loginCheck(String userAccount) {
+        User findUser = userRepository.findByUserAccount(userAccount);
+        Map<String, Object> map = new HashMap<String, Object>();
+        if(findUser == null){
+            map.put("loginCheck", null);
+        }
+        else{
+            map.put("loginCheck", findUser);
+        }
+        return map;
+    }
+    public List<ChatDTO> getChat(Long tradeIdx) {
+        List<ChatDTO> chat = cRepository.findChat(tradeIdx);
+        log.info(chat);
+        return chat;
     }
 
 }
