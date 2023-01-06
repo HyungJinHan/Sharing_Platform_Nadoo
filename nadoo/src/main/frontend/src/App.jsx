@@ -10,7 +10,8 @@ import GroupCreate from "./components/Group/GroupCreate";
 import GroupDetail from "./components/Group/GroupDetail";
 import UserMyPage from "./components/UserMyPage/UserMyPage";
 import SocialLogin from "./components/SocialLogin/SocialLogin";
-import SoicalLoginConfirm from "./components/SocialLogin/SoicalLoginConfirm";
+import SocialLoginKakaoConfirm from "./components/SocialLogin/SocialLoginKakaoConfirm";
+import SocialLoginNaverConfirm from "./components/SocialLogin/SocialLoginNaverConfirm";
 
 function App() {
   const [groupList, setGroupList] = useState({
@@ -72,13 +73,16 @@ function App() {
       <Route path="/navigatortop" element={<NavigatorTop />} />
 
       {/* 방 생성 */}
-      <Route path="/groupcreate" element={<GroupCreate />} />
+      <Route path="/groupcreate" element={<GroupCreate getGroupList={getGroupList} />} />
+
+      {/* 소셜로그인 */}
+      <Route path="/sociallogin" element={<SocialLogin />} />
 
       {/* 소셜로그인 (카카오) */}
-      <Route path="/kakaologin" element={<SocialLogin />} />
+      <Route path="/oauth/login" element={<SocialLoginKakaoConfirm />} />
 
-      {/* 소셜로그인 (카카오) */}
-      <Route path="/oauth/login" element={<SoicalLoginConfirm />} />
+      {/* 소셜로그인 (네이버) */}
+      <Route path="/login/naver" element={<SocialLoginNaverConfirm />} />
 
       {/* 해당 그룹 상세정보 페이지 */}
       {groupList.list
