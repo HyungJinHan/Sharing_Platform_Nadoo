@@ -17,10 +17,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
-
 @Log4j2
 @Service
-@ServerEndpoint(value="/socket/chatt")
+@ServerEndpoint(value="/socket/chatt/{user}/{room}")
 public class WebSocketService {  //클라이언트가 접속할 때마다 생성되어 클라이언트와 직접 통신하는 클래스
     // 따라서 새로운 클라이언트가 접속할 때마다 클라이언트의 세션 관련 정보를 정적형으로 저장하여 1:N의 통신이 가능하도록 만들어야 함
     private ChatRepository cServ = ApplicationContextProvider.ctx.getBean(ChatRepository.class);
@@ -47,8 +46,7 @@ public class WebSocketService {  //클라이언트가 접속할 때마다 생성
     @OnMessage  //메세지 수신시 실행 (clients에 있는 모든 session에게 메세지를 전달)
     public void onMessage(String message, Session session) throws IOException, ParseException {
         log.info("receive message : {}", message);
-
-//         insert 이벤트
+        //DB저장
         JsonParser parser = new JsonParser();
         JsonObject jsonObject = (JsonObject) parser.parse(message);
         name= jsonObject.get("name").getAsString();
@@ -84,9 +82,6 @@ public class WebSocketService {  //클라이언트가 접속할 때마다 생성
         }
 
     }
-
-
-
 
     @OnClose  //클라이언트가 접속을 종료할 시(해당 클라이언트 정보를 clients에서 제거)
     public void onClose(Session session) {

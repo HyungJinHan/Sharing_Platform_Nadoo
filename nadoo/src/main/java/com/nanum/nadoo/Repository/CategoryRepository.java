@@ -18,4 +18,9 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     // 카테고리 이름으로 카테고리 찾기
     @Query("select c from Category c where c.categoryName = :name")
     Category findByCategoryName(@Param(value="name") String name);
+
+    // pk로 카테고리 찾기
+    Category findByCategoryIdx(Long categoryIdx);
+
+
 }

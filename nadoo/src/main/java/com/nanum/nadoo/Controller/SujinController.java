@@ -20,17 +20,17 @@ public class SujinController {
   @Autowired
   NadooService service;
 
-
-//  @RequestMapping(value = "/nadoo/detail/{tradeIdx}", method = RequestMethod.GET)
-//  public String getDetail(@PathVariable Long tradeIdx) {
-//    TradeDetailDTO trade = service.getDetail(tradeIdx);
-//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//
-//    return gson.toJson(trade);
-//  }
+  // @RequestMapping(value = "/nadoo/detail/{tradeIdx}", method =
+  // RequestMethod.GET)
+  // public String getDetail(@PathVariable Long tradeIdx) {
+  // TradeDetailDTO trade = service.getDetail(tradeIdx);
+  // Gson gson = new GsonBuilder().setPrettyPrinting().create();
+  //
+  // return gson.toJson(trade);
+  // }
 
   // 윤기
-//  @RequestMapping(value = "/nadoo/detail", method = RequestMethod.POST)
+  // @RequestMapping(value = "/nadoo/detail", method = RequestMethod.POST)
   @RequestMapping(value = "/nadoo/detail")
   public String getDetail2(@RequestBody Map<String, Long> paramMap) {
     TradeDetailDTO trade = service.getDetail(paramMap.get("tradeIdx"));
@@ -38,11 +38,11 @@ public class SujinController {
 
     return gson.toJson(trade);
   }
-  @RequestMapping(value = "/nadoo/chat/{tradeIdx}")
-  public String getChat(@PathVariable("tradeIdx") Long tradeIdx) {
-//    List<Chat> chat = cService.getChat(paramMap.get("tradeIdx"));
-    List<ChatDTO> chat = service.getChat(tradeIdx);
-    log.info(chat);
+
+
+  @RequestMapping(value = "/nadoo/chat")
+  public String getChat(@RequestBody Map<String, Long> paramMap) {
+    List<ChatDTO> chat = service.getChat(paramMap.get("tradeIdx"));
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     return gson.toJson(chat);
