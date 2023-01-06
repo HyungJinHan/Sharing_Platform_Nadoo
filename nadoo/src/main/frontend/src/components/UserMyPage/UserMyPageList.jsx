@@ -3,10 +3,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const data = [
-  '위시리스트',
   '공지사항',
   '고객센터',
   '구매목록',
+  '위시리스트',
 ];
 
 function UserMyPageList(props) {
@@ -14,26 +14,6 @@ function UserMyPageList(props) {
 
   return (
     <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <Divider orientation="left" >마이페이지</Divider>
       <List
         style={{
