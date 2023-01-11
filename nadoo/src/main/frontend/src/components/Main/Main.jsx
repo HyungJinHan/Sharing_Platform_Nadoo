@@ -10,12 +10,16 @@ import shortid from 'shortid';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import UserMyPage from '../UserMyPage/UserMyPage';
 import GroupChat from '../Group/GroupChat';
+import GroupChatList from '../Group/GroupChatList';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
 // `
 
-function Main() {
+function Main({
+  idxState,
+  detailTitle
+}) {
   shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
   // const [userTag1, setUserTag1] = useState('#' + shortid.generate());
   // const [userTag2, setUserTag2] = useState('#' + shortid.generate());
@@ -69,18 +73,30 @@ function Main() {
         <Outlet />
       </>
     );
+  } else if (url === `/groupchatlist`) {
+    return (
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <GroupChatList />
+        <NavigatorMain />
+        <Outlet />
+      </>
+    );
+  } else if (url === `/groupchat/${idxState}`) {
+    return (
+      <>
+        <NavigatorTop />
+        <Outlet />
+        <GroupChat
+          idxState={idxState}
+          detailTitle={detailTitle}
+        />
+        <NavigatorMain />
+        <Outlet />
+      </>
+    );
   }
-//   else if (url === '/groupchat') {
-//     return (
-//       <>
-//         <NavigatorTop />
-//         <Outlet />
-//         <GroupChat />
-//         <NavigatorMain />
-//         <Outlet />
-//       </>
-//     );
-//   }
 }
 
 export default Main;

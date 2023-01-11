@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 var stompClient = null;
 const GroupChat = ({
   idxState,
-  detailNum,
   detailTitle
 }) => {
   const userID = window.sessionStorage.getItem('userID');
@@ -96,7 +95,7 @@ const GroupChat = ({
         roomId: idxState,
         date: new Date().toLocaleString()
       };
-//       console.log(typeof(chatMessage));
+      //       console.log(typeof(chatMessage));
       stompClient.send(`/app/message/${idxState}`, {}, JSON.stringify(chatMessage));
       setUserData({ ...userData, "message": "" });
     }
@@ -136,19 +135,19 @@ const GroupChat = ({
           <div className="member-list">
             <ul>
               <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>{detailTitle}</li>
-{/*               { */}
-{/*                 [...privateChats.keys()] */}
-{/*                   .map((name, index) => ( */}
-{/*                     <li */}
-{/*                       onClick={() => { setTab(name); }} */}
-{/*                       className={`member ${tab === name && "active"}`} */}
-{/*                       key={index} */}
-{/*                       style={name === userID ? { display: `none` } : {}} */}
-{/*                     > */}
-{/*                       {name} */}
-{/*                     </li> */}
-{/*                   )) */}
-{/*               } */}
+              {/* {
+                [...privateChats.keys()]
+                  .map((name, index) => (
+                    <li
+                      onClick={() => { setTab(name); }}
+                      className={`member ${tab === name && "active"}`}
+                      key={index}
+                      style={name === userID ? { display: `none` } : {}}
+                    >
+                      {name}
+                    </li>
+                  ))
+              } */}
             </ul>
           </div>
           {/* <ScrollToBottom> */}
@@ -188,39 +187,39 @@ const GroupChat = ({
           {/* </ScrollToBottom> */}
 
           {/* <ScrollToBottom> */}
-{/*           {tab !== "CHATROOM" && <div className="chat-content"> */}
-{/*             <ul className="chat-messages"> */}
-{/*               {[...privateChats.get(tab)].map((chat, index) => ( */}
-{/*                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}> */}
-{/*                   {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>} */}
-{/*                   <div className="message-data">{chat.message}</div> */}
-{/*                   {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>} */}
-{/*                 </li> */}
-{/*               ))} */}
-{/*             </ul> */}
+          {/*           {tab !== "CHATROOM" && <div className="chat-content"> */}
+          {/*             <ul className="chat-messages"> */}
+          {/*               {[...privateChats.get(tab)].map((chat, index) => ( */}
+          {/*                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}> */}
+          {/*                   {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>} */}
+          {/*                   <div className="message-data">{chat.message}</div> */}
+          {/*                   {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>} */}
+          {/*                 </li> */}
+          {/*               ))} */}
+          {/*             </ul> */}
 
-{/*             <div className="send-message"> */}
-{/*               <input */}
-{/*                 onKeyPress={(e) => { */}
-{/*                   if (e.key === 'Enter') { */}
-{/*                     sendPrivateValue(); */}
-{/*                   } */}
-{/*                 }} */}
-{/*                 type="text" */}
-{/*                 className="input-message" */}
-{/*                 placeholder="enter the message" */}
-{/*                 value={userData.message} */}
-{/*                 onChange={handleMessage} */}
-{/*               /> */}
-{/*               <button */}
-{/*                 type="button" */}
-{/*                 className="send-button" */}
-{/*                 onClick={sendPrivateValue} */}
-{/*               > */}
-{/*                 send */}
-{/*               </button> */}
-{/*             </div> */}
-{/*           </div>} */}
+          {/*             <div className="send-message"> */}
+          {/*               <input */}
+          {/*                 onKeyPress={(e) => { */}
+          {/*                   if (e.key === 'Enter') { */}
+          {/*                     sendPrivateValue(); */}
+          {/*                   } */}
+          {/*                 }} */}
+          {/*                 type="text" */}
+          {/*                 className="input-message" */}
+          {/*                 placeholder="enter the message" */}
+          {/*                 value={userData.message} */}
+          {/*                 onChange={handleMessage} */}
+          {/*               /> */}
+          {/*               <button */}
+          {/*                 type="button" */}
+          {/*                 className="send-button" */}
+          {/*                 onClick={sendPrivateValue} */}
+          {/*               > */}
+          {/*                 send */}
+          {/*               </button> */}
+          {/*             </div> */}
+          {/*           </div>} */}
           {/* </ScrollToBottom> */}
         </div>
       </div >

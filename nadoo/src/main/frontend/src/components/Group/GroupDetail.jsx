@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Badge, Button, Descriptions, Space } from 'antd';
 import NavigatorTop from '../Navigator/NavigatorTop';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/Group/GroupDetail.css'
 import NavigatorMain from '../Navigator/NavigatorMain';
 import axios from 'axios';
@@ -17,6 +17,7 @@ function GroupDetail({
   const location = useLocation();
   const originUrl = location.pathname;
   const url = originUrl.substring(0, 12);
+  const navigate = useNavigate();
 
   const idxState = location.state.tradeIdx;
 
@@ -172,10 +173,19 @@ function GroupDetail({
           {detailArticle.tradeContent}
         </Descriptions.Item>
       </Descriptions>
-      <GroupChat
+      {/* <GroupChat
         idxState={idxState}
         detailNum={detailNum}
         detailTitle={detailTitle}
+      /> */}
+      <input
+        type='button'
+        value={'채팅 방으로'}
+        onClick={
+          () => {
+            navigate(`/groupchat/${detailNum}`)
+          }
+        }
       />
       <NavigatorMain />
       <Outlet />

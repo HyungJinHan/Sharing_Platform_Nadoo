@@ -52,7 +52,17 @@ function App() {
       <Route path="/search" element={<Main />} />
 
       {/* 채팅 페이지 */}
-      <Route path="/groupchat" element={<Main />} />
+      {groupList.list
+        .map((item) => (
+          <Route
+            key={item.tradeIdx}
+            path={`/groupchat/${item.tradeIdx}`}
+            element={<Main idxState={item.tradeIdx} detailTitle={item.tradeTitle} />}
+          />
+        ))}
+
+      {/* 검색 페이지 */}
+      <Route path="/groupchatlist" element={<Main />} />
 
       {/* 마이 페이지 */}
       <Route path='/wishlist' element={<UserMyPage />} />
