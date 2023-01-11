@@ -69,17 +69,18 @@ function Main() {
         <Outlet />
       </>
     );
-  } else if (url === '/groupchat') {
-    return (
-      <>
-        <NavigatorTop />
-        <Outlet />
-        <GroupChat />
-        <NavigatorMain />
-        <Outlet />
-      </>
-    );
   }
+//   else if (url === '/groupchat') {
+//     return (
+//       <>
+//         <NavigatorTop />
+//         <Outlet />
+//         <GroupChat />
+//         <NavigatorMain />
+//         <Outlet />
+//       </>
+//     );
+//   }
 }
 
 export default Main;

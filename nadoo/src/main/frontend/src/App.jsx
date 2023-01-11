@@ -90,7 +90,7 @@ function App() {
           <Route
             key={item.tradeIdx}
             path={`/groupdetail/${item.tradeIdx}`}
-            element={<GroupDetail />}
+            element={<GroupDetail detailNum={item.tradeIdx} detailTitle={item.tradeTitle} />}
           />
         ))}
     </Routes>

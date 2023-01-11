@@ -171,11 +171,11 @@ public class NadooService {
     }
 
     // 채팅 내역 가져오기
-    public List<ChatDTO> getChat(Long tradeIdx) {
-        List<ChatDTO> chat = cRepository.findChat(tradeIdx);
-        log.info(chat);
-        return chat;
-    }
+//    public List<ChatDTO> getChat(Long tradeIdx) {
+//        List<ChatDTO> chat = cRepository.findChat(tradeIdx);
+//        log.info(chat);
+//        return chat;
+//    }
 
     public void createTrade(Trade tradeVO) {
         // 받아온 trade객체를 저장해주기(Insert)

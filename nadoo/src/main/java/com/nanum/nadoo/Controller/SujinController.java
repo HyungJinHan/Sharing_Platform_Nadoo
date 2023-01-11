@@ -39,12 +39,12 @@ public class SujinController {
     return gson.toJson(trade);
   }
 
-  @RequestMapping(value = "/nadoo/chat")
-  public String getChat(@RequestBody Map<String, Long> paramMap) {
-    List<ChatDTO> chat = service.getChat(paramMap.get("tradeIdx"));
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    return gson.toJson(chat);
-  }
+//  @RequestMapping(value = "/nadoo/chat")
+//  public String getChat(@RequestBody Map<String, Long> paramMap) {
+//    List<ChatDTO> chat = service.getChat(paramMap.get("tradeIdx"));
+//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//
+//    return gson.toJson(chat);
+//  }
 
 }

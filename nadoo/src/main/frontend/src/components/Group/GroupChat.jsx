@@ -1,121 +1,231 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
-import { createGlobalStyle } from 'styled-components';
+import React, { useEffect, useState } from 'react'
+import { over } from 'stompjs';
+import SockJS from 'sockjs-client';
+import './GroupChat.css';
+import ScrollToBottom from 'react-scroll-to-bottom'
+import Swal from 'sweetalert2';
 
+var stompClient = null;
 const GroupChat = ({
-  idxState
+  idxState,
+  detailNum,
+  detailTitle
 }) => {
-  const user = window.sessionStorage.getItem('userID');
-  const room = idxState;
-  console.log('idxState ->', idxState);
-  const [msg, setMsg] = useState("");
-  const [name, setName] = useState(user);
-  const [chatt, setChatt] = useState([]);
-  const [chkLog, setChkLog] = useState(false);
-  const [socketData, setSocketData] = useState();
+  const userID = window.sessionStorage.getItem('userID');
+  const [privateChats, setPrivateChats] = useState(new Map());
+  const [publicChats, setPublicChats] = useState([]);
+  const [tab, setTab] = useState("CHATROOM");
+  const [userData, setUserData] = useState({
+    username: window.sessionStorage.getItem('userID'),
+    receivername: '',
+    connected: false,
+    message: '',
+    roomId: idxState
+  });
 
-  const ws = useRef(null);    //webSocket을 담는 변수, 
-  //컴포넌트가 변경될 때 객체가 유지되어야하므로 'ref'로 저장
-
-  const msgBox = chatt.map((item, idx) => (
-    <div key={idx} className={item.name === name ? 'me' : 'other'}>
-      <span><b>{item.name}</b></span> [ {item.date} ]<br />
-      <span>{item.msg}</span>
-    </div>
-  ));
-
-  useEffect(() => {
-    if (socketData !== undefined) {
-      const tempData = chatt.concat(socketData);
-      console.log(tempData);
-      setChatt(tempData);
-    }
-  }, [socketData]);
-
-  //webSocket
-  //webSocket
-  //webSocket
-  //webSocket
-  //webSocket
-  //webSocket
-  const onText = event => {
-    console.log(event.target.value);
-    setMsg(event.target.value);
+  const connect = () => {
+    let Sock = new SockJS(`http://localhost:8088/ws`);
+    stompClient = over(Sock);
+    stompClient.connect({}, onConnected, onError);
   }
 
+  const onConnected = () => {
+    setUserData({ ...userData, "connected": true });
+    stompClient.subscribe(`/chatroom/public/${idxState}`, onMessageReceived);
+    stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
+    userJoin();
+  }
 
-  const webSocketLogin = useCallback(() => {
-    ws.current = new WebSocket(`ws://localhost:8088/socket/chatt/${user}/${room}`);
+  const userJoin = () => {
+    var chatMessage = {
+      senderName: userData.username,
+      status: "JOIN"
+    };
+    stompClient.send(`/app/message/${idxState}`, {}, JSON.stringify(chatMessage));
+  }
 
-    ws.current.onmessage = (message) => {
-      const dataSet = JSON.parse(message.data);
-      setSocketData(dataSet);
-    }
-  });
-
-
-  const send = useCallback(() => {
-    if (!chkLog) {
-      if (name === "") {
-        alert("이름을 입력하세요.");
-        document.getElementById("name").focus();
-        return;
-      }
-      webSocketLogin();
-      setChkLog(true);
-    }
-
-    if (msg !== '') {
-      const data = {
-        name,
-        msg,
-        date: new Date().toLocaleString(),
-      };  //전송 데이터(JSON)
-
-      const temp = JSON.stringify(data);
-
-      if (ws.current.readyState === 0) {   //readyState는 웹 소켓 연결 상태를 나타냄
-        ws.current.onopen = () => { //webSocket이 맺어지고 난 후, 실행
-          console.log(ws.current.readyState);
-          ws.current.send(temp);
+  const onMessageReceived = (payload) => {
+    var payloadData = JSON.parse(payload.body);
+    // eslint-disable-next-line default-case
+    switch (payloadData.status) {
+      case "JOIN":
+        if (!privateChats.get(payloadData.senderName)) {
+          privateChats.set(payloadData.senderName, []);
+          setPrivateChats(new Map(privateChats));
         }
-      } else {
-        ws.current.send(temp);
-      }
-    } else {
-      alert("메세지를 입력하세요.");
-      document.getElementById("msg").focus();
-      return;
+        break;
+      case "MESSAGE":
+        publicChats.push(payloadData);
+        setPublicChats([...publicChats]);
+        break;
     }
-    setMsg("");
-  });
-  //webSocket
+  }
 
-  return (
-    <>
-      <div id="chat-wrap">
-        <div id='chatt'>
-          <h1 id="title">WebSocket Chatting</h1>
-          <br />
-          <div id='talk'>
-            <div className='talk-shadow'></div>
-            {msgBox}
+  const onPrivateMessage = (payload) => {
+    var payloadData = JSON.parse(payload.body);
+    if (privateChats.get(payloadData.senderName)) {
+      privateChats.get(payloadData.senderName).push(payloadData);
+      setPrivateChats(new Map(privateChats));
+    } else {
+      let list = [];
+      list.push(payloadData);
+      privateChats.set(payloadData.senderName, list);
+      setPrivateChats(new Map(privateChats));
+    }
+  }
+
+  const onError = (err) => {
+    // console.log(err);
+  }
+
+  // useEffect(() => {
+  //   onMessageReceived();
+  // }, [userData, privateChats]);
+
+  const handleMessage = (event) => {
+    const { value } = event.target;
+    setUserData({ ...userData, "message": value });
+  }
+
+  const sendValue = () => {
+    if (stompClient) {
+      var chatMessage = {
+        senderName: userData.username,
+        message: userData.message,
+        status: "MESSAGE",
+        roomId: idxState,
+        date: new Date().toLocaleString()
+      };
+//       console.log(typeof(chatMessage));
+      stompClient.send(`/app/message/${idxState}`, {}, JSON.stringify(chatMessage));
+      setUserData({ ...userData, "message": "" });
+    }
+  }
+
+  const sendPrivateValue = () => {
+    if (stompClient) {
+      var chatMessage = {
+        senderName: userData.username,
+        receiverName: tab,
+        message: userData.message,
+        status: "MESSAGE"
+      };
+
+      if (userData.username !== tab) {
+        privateChats.get(tab).push(chatMessage);
+        setPrivateChats(new Map(privateChats));
+      }
+      stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+      setUserData({ ...userData, "message": "" });
+    }
+  }
+
+  const handleUsername = (event) => {
+    const { value } = event.target;
+    setUserData({ ...userData, "username": value });
+  }
+
+  useEffect(() => {
+    connect();
+  }, []);
+
+  if (userData.connected) {
+    return (
+      <div className="container">
+        <div className="chat-box">
+          <div className="member-list">
+            <ul>
+              <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>{detailTitle}</li>
+{/*               { */}
+{/*                 [...privateChats.keys()] */}
+{/*                   .map((name, index) => ( */}
+{/*                     <li */}
+{/*                       onClick={() => { setTab(name); }} */}
+{/*                       className={`member ${tab === name && "active"}`} */}
+{/*                       key={index} */}
+{/*                       style={name === userID ? { display: `none` } : {}} */}
+{/*                     > */}
+{/*                       {name} */}
+{/*                     </li> */}
+{/*                   )) */}
+{/*               } */}
+            </ul>
           </div>
-          <input
-            disabled={chkLog}
-            placeholder='이름을 입력하세요.'
-            type='text'
-            id='name'
-            value={name}
-          />
-          <div id='sendZone'>
-            <textarea id='msg' value={msg} onChange={onText}
-              onKeyDown={(ev) => { if (ev.keyCode === 13) { send(); } }}></textarea>
-            <input type='button' value='전송' id='btnSend' onClick={send} />
-          </div>
+          {/* <ScrollToBottom> */}
+          {tab === "CHATROOM" && <div className="chat-content">
+            <ul className="chat-messages">
+              {publicChats.map((chat, index) => (
+                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                  {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                  <div className="message-data">{chat.message}</div>
+                  {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                </li>
+              ))}
+            </ul>
+
+            <div className="send-message">
+              <input
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    sendValue();
+                  }
+                }}
+                type="text"
+                className="input-message"
+                placeholder="enter the message"
+                value={userData.message}
+                onChange={handleMessage}
+              />
+              <button
+                type="button"
+                className="send-button"
+                onClick={sendValue}
+              >
+                send
+              </button>
+            </div>
+          </div>}
+          {/* </ScrollToBottom> */}
+
+          {/* <ScrollToBottom> */}
+{/*           {tab !== "CHATROOM" && <div className="chat-content"> */}
+{/*             <ul className="chat-messages"> */}
+{/*               {[...privateChats.get(tab)].map((chat, index) => ( */}
+{/*                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}> */}
+{/*                   {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>} */}
+{/*                   <div className="message-data">{chat.message}</div> */}
+{/*                   {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>} */}
+{/*                 </li> */}
+{/*               ))} */}
+{/*             </ul> */}
+
+{/*             <div className="send-message"> */}
+{/*               <input */}
+{/*                 onKeyPress={(e) => { */}
+{/*                   if (e.key === 'Enter') { */}
+{/*                     sendPrivateValue(); */}
+{/*                   } */}
+{/*                 }} */}
+{/*                 type="text" */}
+{/*                 className="input-message" */}
+{/*                 placeholder="enter the message" */}
+{/*                 value={userData.message} */}
+{/*                 onChange={handleMessage} */}
+{/*               /> */}
+{/*               <button */}
+{/*                 type="button" */}
+{/*                 className="send-button" */}
+{/*                 onClick={sendPrivateValue} */}
+{/*               > */}
+{/*                 send */}
+{/*               </button> */}
+{/*             </div> */}
+{/*           </div>} */}
+          {/* </ScrollToBottom> */}
         </div>
-      </div>
-    </>
-  );
-};
+      </div >
+    )
+  }
+}
 
 export default GroupChat;

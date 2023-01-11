@@ -18,7 +18,7 @@ function NavigatorMain({ searchMode, setSearchMode }) {
   const url = location.pathname;
   const detailUrl = url.substring(0, 12);
 
-  console.log(detailUrl)
+  // console.log(detailUrl)
 
   // 센터 로그인 후 센터 디테일 들어갈 때는 네비게이션바 안 띄우기 위해서 if문 추가
   return (

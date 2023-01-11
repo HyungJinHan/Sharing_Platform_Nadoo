@@ -8,7 +8,10 @@ import axios from 'axios';
 import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
 import GroupChat from './GroupChat';
 
-function GroupDetail() {
+function GroupDetail({
+  detailNum,
+  detailTitle
+}) {
   var [time, setTime] = useState(0);
   const [toggleButton, setToggleButton] = useState(false);
   const location = useLocation();
@@ -17,7 +20,7 @@ function GroupDetail() {
 
   const idxState = location.state.tradeIdx;
 
-  console.log(idxState);
+  // console.log(idxState);
 
   const [detailArticle, setDetailArticle] = useState([
     {
@@ -131,7 +134,7 @@ function GroupDetail() {
               `${price}원`
           }
         </Descriptions.Item>
-        {console.log(detailArticle.userAccount)}
+        {/* {console.log(detailArticle.userAccount)} */}
         {
           detailArticle.userAccount === window.sessionStorage.getItem('userID') ?
             <Descriptions.Item label="거래 상태">
@@ -171,6 +174,8 @@ function GroupDetail() {
       </Descriptions>
       <GroupChat
         idxState={idxState}
+        detailNum={detailNum}
+        detailTitle={detailTitle}
       />
       <NavigatorMain />
       <Outlet />

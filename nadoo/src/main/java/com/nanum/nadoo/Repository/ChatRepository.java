@@ -15,10 +15,12 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
     // List<Chat> findByTradeIdx(@Param(value="tradeIdx")Long tradeIdx);
     List<Chat> findAll();
 
-    @Query(value = "select new com.nanum.nadoo.Dto.ChatDTO(" +
-            "c.chatIdx, c.chatContent, t.tradeIdx) " +
-            "from Trade t, Chat c where c.tradeVO = t and c.tradeVO.tradeIdx = :tradeIdx ")
-    List<ChatDTO> findChat(@Param(value = "tradeIdx") Long tradeIdx);
+//    @Query(value = "select new com.nanum.nadoo.Dto.ChatDTO(" +
+//            "c.chatIdx, c.chatContent, t.tradeIdx) " +
+//            "from Trade t, Chat c where c.tradeVO = t and c.tradeVO.tradeIdx = :tradeIdx ")
+//    List<ChatDTO> findChat(@Param(value = "tradeIdx") Long tradeIdx);
+
+
 
     // @Query(value="insert Chat(chat_content) values(:jsonString)", nativeQuery =
     // true)

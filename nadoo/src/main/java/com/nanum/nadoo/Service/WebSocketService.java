@@ -94,8 +94,8 @@ public class WebSocketService {  //클라이언트가 접속할 때마다 생성
         map.put(name,list);
         String message = map.toString();
         Chat chat = new Chat();
-        chat.setChatContent(message);
-        cServ.save(chat);
+//        chat.setChatContent(message);
+//        cServ.save(chat);
 
         log.info("session close : {}", session);
         clients.remove(session);

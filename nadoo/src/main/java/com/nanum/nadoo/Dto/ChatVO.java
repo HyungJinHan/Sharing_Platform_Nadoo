@@ -10,12 +10,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ChatDTO {
-    private Long chatIdx;          // 채팅 인덱스
-    private String chatContent;      // 채팅 내용
-    private Long tradeIdx;    // 거래 인덱스
 
+public class ChatVO {
 
+    private String message;      // 채팅 내용
+
+    private String date;    // 채팅시간
 
 
 }
