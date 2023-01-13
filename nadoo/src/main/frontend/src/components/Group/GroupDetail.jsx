@@ -7,6 +7,12 @@ import NavigatorMain from '../Navigator/NavigatorMain';
 import axios from 'axios';
 import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
 import GroupChat from './GroupChat';
+import Swal from 'sweetalert2';
+import styled from 'styled-components';
+
+const ButtonCenter = styled.div`
+  text-align: center;
+`
 
 function GroupDetail({
   detailNum,
@@ -178,15 +184,25 @@ function GroupDetail({
         detailNum={detailNum}
         detailTitle={detailTitle}
       /> */}
-      <input
-        type='button'
-        value={'채팅 방으로'}
-        onClick={
-          () => {
-            navigate(`/groupchat/${detailNum}`)
+      <br />
+      <ButtonCenter>
+        <Button
+          type="primary"
+          onClick={
+            () => {
+              if (window.sessionStorage.getItem('userID') === '' ||
+                window.sessionStorage.getItem('userID') === undefined ||
+                window.sessionStorage.getItem('userID') === null) {
+                Swal.fire('로그인 후 이용이 가능합니다.');
+              } else {
+                navigate(`/groupchat/${detailNum}`);
+              }
+            }
           }
-        }
-      />
+        >
+          채팅 방으로
+        </Button>
+      </ButtonCenter>
       <NavigatorMain />
       <Outlet />
     </>

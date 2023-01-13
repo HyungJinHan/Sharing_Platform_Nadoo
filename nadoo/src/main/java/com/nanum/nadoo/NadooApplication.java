@@ -19,12 +19,13 @@ public class NadooApplication {
 
 		SpringApplication.run(NadooApplication.class, args);
 	}
+
 	@Bean
 	public ServerEndpointExporter serverEndpointExporter() {
 		return new ServerEndpointExporter();
 	}
-//	@Bean
-//	public ChatServerEndpoint chatServerEndpoint() {
-//		return new ChatServerEndpoint();
-//	}
+	// @Bean
+	// public ChatServerEndpoint chatServerEndpoint() {
+	// return new ChatServerEndpoint();
+	// }
 }

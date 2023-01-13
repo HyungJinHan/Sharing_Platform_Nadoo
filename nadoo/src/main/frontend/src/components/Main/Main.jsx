@@ -7,10 +7,10 @@ import GroupListAll from '../Group/GroupListAll';
 import MainShape from './MainShape';
 import SearchPage from '../Search/Search';
 import shortid from 'shortid';
-import SocialLogin from '../SocialLogin/SocialLogin';
 import UserMyPage from '../UserMyPage/UserMyPage';
 import GroupChat from '../Group/GroupChat';
 import GroupChatList from '../Group/GroupChatList';
+import NavigatorTopChat from '../Navigator/NavigatorTopChat';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
@@ -86,14 +86,12 @@ function Main({
   } else if (url === `/groupchat/${idxState}`) {
     return (
       <>
-        <NavigatorTop />
+        <NavigatorTopChat />
         <Outlet />
         <GroupChat
           idxState={idxState}
           detailTitle={detailTitle}
         />
-        <NavigatorMain />
-        <Outlet />
       </>
     );
   }

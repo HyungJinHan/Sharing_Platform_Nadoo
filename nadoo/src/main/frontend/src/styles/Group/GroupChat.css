@@ -1,0 +1,91 @@
+.member-list {
+  width: 20%;
+}
+
+.send-message {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.input-message {
+  width: 90%;
+  border-radius: 50px;
+}
+
+.send-button {
+  width: 10%;
+  border-radius: 50px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.member {
+  text-align: center;
+  padding: 5px;
+  padding-top: 0px;
+  background: white;
+  font-size: 20px;
+}
+
+.avatar {
+  background-color: #09cf83;
+  padding-bottom: 8px;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.avatar.self {
+  color: white;
+  background-color: #6C63FF;
+}
+
+.message {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  padding-right: 5px;
+}
+
+.message.self {
+  justify-content: end;
+  margin-bottom: 15px;
+}
+
+.just_message {
+  padding: 2px;
+  padding-right: 8px;
+  border-radius: 20px;
+}
+
+.chat_date {
+  font-size: 12px;
+  padding-top: 20px;
+  padding-left: 5px;
+}
+
+.chat_date_self {
+  font-size: 12px;
+  padding-top: 20px;
+  padding-right: 5px;
+}
+
+input.ant-input.css-dev-only-do-not-override-acm2ia {
+  height: 100%;
+  border: none;
+}
+
+.chat-wrapp {
+  height: 650px;
+  /* width: 100%; */
+}
+
+/* #6C
+63F #09cf83 */

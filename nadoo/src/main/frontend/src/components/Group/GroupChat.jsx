@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
-import './GroupChat.css';
-import ScrollToBottom from 'react-scroll-to-bottom'
+import '../../styles/Group/GroupChat.css';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import Swal from 'sweetalert2';
+import NavigatorChat from '../Navigator/NavigatorChat';
+import { Outlet } from 'react-router-dom';
 
 var stompClient = null;
 const GroupChat = ({
   idxState,
   detailTitle
 }) => {
+  const scrollRef = useRef();
   const userID = window.sessionStorage.getItem('userID');
   const [privateChats, setPrivateChats] = useState(new Map());
   const [publicChats, setPublicChats] = useState([]);
@@ -77,10 +80,6 @@ const GroupChat = ({
     // console.log(err);
   }
 
-  // useEffect(() => {
-  //   onMessageReceived();
-  // }, [userData, privateChats]);
-
   const handleMessage = (event) => {
     const { value } = event.target;
     setUserData({ ...userData, "message": value });
@@ -101,128 +100,52 @@ const GroupChat = ({
     }
   }
 
-  const sendPrivateValue = () => {
-    if (stompClient) {
-      var chatMessage = {
-        senderName: userData.username,
-        receiverName: tab,
-        message: userData.message,
-        status: "MESSAGE"
-      };
-
-      if (userData.username !== tab) {
-        privateChats.get(tab).push(chatMessage);
-        setPrivateChats(new Map(privateChats));
-      }
-      stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-      setUserData({ ...userData, "message": "" });
-    }
-  }
-
-  const handleUsername = (event) => {
-    const { value } = event.target;
-    setUserData({ ...userData, "username": value });
-  }
-
   useEffect(() => {
     connect();
   }, []);
 
   if (userData.connected) {
     return (
-      <div className="container">
-        <div className="chat-box">
-          <div className="member-list">
-            <ul>
-              <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>{detailTitle}</li>
-              {/* {
-                [...privateChats.keys()]
-                  .map((name, index) => (
-                    <li
-                      onClick={() => { setTab(name); }}
-                      className={`member ${tab === name && "active"}`}
-                      key={index}
-                      style={name === userID ? { display: `none` } : {}}
-                    >
-                      {name}
-                    </li>
-                  ))
-              } */}
-            </ul>
+      <>
+        <p className='member'>{detailTitle} 채팅방입니다!</p>
+        <ScrollToBottom>
+          <div className='chat-wrapp'>
+            {publicChats.map((chat, index) => (
+              chat.senderName !== userData.username
+                ?
+                <div className={`message`} key={index}>
+                  <div className='just_message'>
+                    {chat.senderName}
+                  </div>
+                  <div className="avatar">
+                    {chat.message}
+                  </div>
+                  <div className="chat_date">
+                    {chat.date.substring(6, 20)}
+                  </div>
+                </div>
+                :
+                <div
+                  className={`message self`}
+                  key={index}
+                >
+                  <div className="chat_date_self">
+                    {chat.date.substring(6, 20)}
+                  </div>
+                  <div className="avatar self">
+                    {chat.message}
+                  </div>
+                </div>
+            ))}
           </div>
-          {/* <ScrollToBottom> */}
-          {tab === "CHATROOM" && <div className="chat-content">
-            <ul className="chat-messages">
-              {publicChats.map((chat, index) => (
-                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                  {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                  <div className="message-data">{chat.message}</div>
-                  {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
-                </li>
-              ))}
-            </ul>
-
-            <div className="send-message">
-              <input
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    sendValue();
-                  }
-                }}
-                type="text"
-                className="input-message"
-                placeholder="enter the message"
-                value={userData.message}
-                onChange={handleMessage}
-              />
-              <button
-                type="button"
-                className="send-button"
-                onClick={sendValue}
-              >
-                send
-              </button>
-            </div>
-          </div>}
-          {/* </ScrollToBottom> */}
-
-          {/* <ScrollToBottom> */}
-          {/*           {tab !== "CHATROOM" && <div className="chat-content"> */}
-          {/*             <ul className="chat-messages"> */}
-          {/*               {[...privateChats.get(tab)].map((chat, index) => ( */}
-          {/*                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}> */}
-          {/*                   {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>} */}
-          {/*                   <div className="message-data">{chat.message}</div> */}
-          {/*                   {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>} */}
-          {/*                 </li> */}
-          {/*               ))} */}
-          {/*             </ul> */}
-
-          {/*             <div className="send-message"> */}
-          {/*               <input */}
-          {/*                 onKeyPress={(e) => { */}
-          {/*                   if (e.key === 'Enter') { */}
-          {/*                     sendPrivateValue(); */}
-          {/*                   } */}
-          {/*                 }} */}
-          {/*                 type="text" */}
-          {/*                 className="input-message" */}
-          {/*                 placeholder="enter the message" */}
-          {/*                 value={userData.message} */}
-          {/*                 onChange={handleMessage} */}
-          {/*               /> */}
-          {/*               <button */}
-          {/*                 type="button" */}
-          {/*                 className="send-button" */}
-          {/*                 onClick={sendPrivateValue} */}
-          {/*               > */}
-          {/*                 send */}
-          {/*               </button> */}
-          {/*             </div> */}
-          {/*           </div>} */}
-          {/* </ScrollToBottom> */}
-        </div>
-      </div >
+        </ScrollToBottom>
+        <NavigatorChat
+          message={userData.message}
+          sendValue={sendValue}
+          handleMessage={handleMessage}
+        />
+        <Outlet />
+      </>
     )
   }
 }
