@@ -24,5 +24,5 @@ public class Wishlist {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trade_idx")
-    private Trade tradeVO;      // 찜 된 거래 순번
+    private Trade tradeVO;      // 찜 된 거래 순번›
 }
