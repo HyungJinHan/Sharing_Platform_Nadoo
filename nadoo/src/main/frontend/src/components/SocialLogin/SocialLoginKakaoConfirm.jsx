@@ -29,7 +29,7 @@ function SoicalLoginKakaoConfirm(props) {
           })
       })
       .then((res) => {
-        navigate('/mypage');
+        navigate('/');
       })
       .catch((e) => {
         console.error(e);

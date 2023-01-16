@@ -1,0 +1,27 @@
+.kakaoIcon {
+  width: 309.31px;
+  height: 55.91px;
+  background: #FEE500;
+  border-radius: 15px;
+  filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.25));
+  margin: 0 auto;
+}
+
+.kakaoLogin {}
+
+.naverIcon {
+  width: 306px;
+  height: 55.32px;
+  background: #FFFFFF;
+  border-radius: 15px;
+  filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.25));
+  margin: 0 auto;
+}
+
+.naverLogin {}
+
+img {
+  position: relative;
+  top: 11px;
+  right: 55px;
+}
