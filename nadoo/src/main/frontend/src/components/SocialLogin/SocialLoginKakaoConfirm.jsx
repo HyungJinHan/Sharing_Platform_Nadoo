@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function SoicalLoginKakaoConfirm(props) {
+function SocialLoginKakaoConfirm(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const KAKAO_CODE = location.search.split('=')[1];
@@ -50,4 +50,4 @@ function SoicalLoginKakaoConfirm(props) {
   );
 }
 
-export default SoicalLoginKakaoConfirm;
+export default SocialLoginKakaoConfirm;

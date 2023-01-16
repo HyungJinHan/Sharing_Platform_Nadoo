@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function SoicalLoginNaverConfirm(props) {
+function SocialLoginNaverConfirm(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const NAVER_CODE = location.search.split('&')[0].split('=')[1];
@@ -44,4 +44,4 @@ function SoicalLoginNaverConfirm(props) {
   );
 }
 
-export default SoicalLoginNaverConfirm;
+export default SocialLoginNaverConfirm;

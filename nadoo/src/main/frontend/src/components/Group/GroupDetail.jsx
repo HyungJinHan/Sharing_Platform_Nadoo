@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { Badge, Button, Descriptions, Space } from 'antd';
 import NavigatorTop from '../Navigator/NavigatorTop';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/Group/GroupDetail.css'
 import NavigatorMain from '../Navigator/NavigatorMain';
 import axios from 'axios';
 import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
+import GroupChat from './GroupChat';
+import Swal from 'sweetalert2';
+import styled from 'styled-components';
 
-function GroupDetail() {
+const ButtonCenter = styled.div`
+  text-align: center;
+`
+
+function GroupDetail({
+  detailNum,
+  detailTitle
+}) {
   var [time, setTime] = useState(0);
   const [toggleButton, setToggleButton] = useState(false);
   const location = useLocation();
   const originUrl = location.pathname;
   const url = originUrl.substring(0, 12);
+  const navigate = useNavigate();
 
   const idxState = location.state.tradeIdx;
 
-  console.log(idxState);
+  // console.log(idxState);
 
   const [detailArticle, setDetailArticle] = useState([
     {
@@ -130,7 +141,7 @@ function GroupDetail() {
               `${price}원`
           }
         </Descriptions.Item>
-        {console.log(detailArticle.userAccount)}
+        {/* {console.log(detailArticle.userAccount)} */}
         {
           detailArticle.userAccount === window.sessionStorage.getItem('userID') ?
             <Descriptions.Item label="거래 상태">
@@ -168,6 +179,30 @@ function GroupDetail() {
           {detailArticle.tradeContent}
         </Descriptions.Item>
       </Descriptions>
+      {/* <GroupChat
+        idxState={idxState}
+        detailNum={detailNum}
+        detailTitle={detailTitle}
+      /> */}
+      <br />
+      <ButtonCenter>
+        <Button
+          type="primary"
+          onClick={
+            () => {
+              if (window.sessionStorage.getItem('userID') === '' ||
+                window.sessionStorage.getItem('userID') === undefined ||
+                window.sessionStorage.getItem('userID') === null) {
+                Swal.fire('로그인 후 이용이 가능합니다.');
+              } else {
+                navigate(`/groupchat/${detailNum}`);
+              }
+            }
+          }
+        >
+          채팅 방으로
+        </Button>
+      </ButtonCenter>
       <NavigatorMain />
       <Outlet />
     </>

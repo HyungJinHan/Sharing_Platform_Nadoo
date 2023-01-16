@@ -7,15 +7,19 @@ import GroupListAll from '../Group/GroupListAll';
 import MainShape from './MainShape';
 import SearchPage from '../Search/Search';
 import shortid from 'shortid';
-import SocialLogin from '../SocialLogin/SocialLogin';
 import UserMyPage from '../UserMyPage/UserMyPage';
 import GroupChat from '../Group/GroupChat';
+import GroupChatList from '../Group/GroupChatList';
+import NavigatorTopChat from '../Navigator/NavigatorTopChat';
 
 // const Background = styled.div`
 //   background-color: whitesmoke;
 // `
 
-function Main() {
+function Main({
+  idxState,
+  detailTitle
+}) {
   shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
   // const [userTag1, setUserTag1] = useState('#' + shortid.generate());
   // const [userTag2, setUserTag2] = useState('#' + shortid.generate());
@@ -69,14 +73,25 @@ function Main() {
         <Outlet />
       </>
     );
-  } else if (url === '/groupchat') {
+  } else if (url === `/groupchatlist`) {
     return (
       <>
         <NavigatorTop />
         <Outlet />
-        <GroupChat />
+        <GroupChatList />
         <NavigatorMain />
         <Outlet />
+      </>
+    );
+  } else if (url === `/groupchat/${idxState}`) {
+    return (
+      <>
+        <NavigatorTopChat />
+        <Outlet />
+        <GroupChat
+          idxState={idxState}
+          detailTitle={detailTitle}
+        />
       </>
     );
   }

@@ -1,6 +1,7 @@
 package com.nanum.nadoo.Entity;
 
 import com.google.gson.JsonObject;
+import com.nanum.nadoo.Dto.ChatVO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -25,9 +26,10 @@ public class Chat {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "chat_idx")
     private Long chatIdx;
-    @Lob
+
     @Column(name = "chat_content")
-    private String chatContent;
+    @Convert(converter = ChatMessageConverter.class)  //json 형식으로 바꿈
+    private ChatVO chatVO;
 //    @Column(name = "chat_type", nullable = false, length = 100)
 //    private String chatType;
     @Column(name="chat_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -40,4 +42,8 @@ public class Chat {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trade_idx")
     private Trade tradeVO;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_nick")
+    private User userVO;
 }

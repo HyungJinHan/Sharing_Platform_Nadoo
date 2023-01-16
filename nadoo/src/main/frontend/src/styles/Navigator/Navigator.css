@@ -44,3 +44,13 @@
   color: #3DA2FF;
   margin: 0;
 }
+
+.Navigator_chatButton {
+  background-color: white;
+  border: none;
+  color: #9e9e9e;
+}
+
+input.ant-input.css-dev-only-do-not-override-acm2ia {
+  height: 0px;
+}

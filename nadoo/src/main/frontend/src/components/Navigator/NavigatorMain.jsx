@@ -17,6 +17,7 @@ function NavigatorMain({ searchMode, setSearchMode }) {
   const location = useLocation();
   const url = location.pathname;
   const detailUrl = url.substring(0, 12);
+  const chatlUrl = url.substring(0, 10);
 
   console.log(detailUrl)
 
@@ -48,13 +49,13 @@ function NavigatorMain({ searchMode, setSearchMode }) {
         />
         <BiChat
           className={
-            url === '/groupchat' ?
+            url === '/groupchatlist' || chatlUrl === '/groupchat' ?
               'Navigator_imageSelect'
               :
               'Navigator_image'
           }
           onClick={() => {
-            navigate("/groupchat");
+            navigate("/groupchatlist");
           }}
         />
         <BiSearch

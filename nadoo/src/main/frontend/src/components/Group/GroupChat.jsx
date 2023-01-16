@@ -1,115 +1,153 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
-import { createGlobalStyle } from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react'
+import { over } from 'stompjs';
+import SockJS from 'sockjs-client';
+import '../../styles/Group/GroupChat.css';
+import ScrollToBottom from 'react-scroll-to-bottom';
+import Swal from 'sweetalert2';
+import NavigatorChat from '../Navigator/NavigatorChat';
+import { Outlet } from 'react-router-dom';
 
-const GroupChat = () => {
-  const [msg, setMsg] = useState("");
-  const [name, setName] = useState("");
-  const [chatt, setChatt] = useState([]);
-  const [chkLog, setChkLog] = useState(false);
-  const [socketData, setSocketData] = useState();
+var stompClient = null;
+const GroupChat = ({
+  idxState,
+  detailTitle
+}) => {
+  const scrollRef = useRef();
+  const userID = window.sessionStorage.getItem('userID');
+  const [privateChats, setPrivateChats] = useState(new Map());
+  const [publicChats, setPublicChats] = useState([]);
+  const [tab, setTab] = useState("CHATROOM");
+  const [userData, setUserData] = useState({
+    username: window.sessionStorage.getItem('userID'),
+    receivername: '',
+    connected: false,
+    message: '',
+    roomId: idxState
+  });
 
-  const ws = useRef(null);    //webSocket을 담는 변수, 
-  //컴포넌트가 변경될 때 객체가 유지되어야하므로 'ref'로 저장
-
-  const msgBox = chatt.map((item, idx) => (
-    <div key={idx} className={item.name === name ? 'me' : 'other'}>
-      <span><b>{item.name}</b></span> [ {item.date} ]<br />
-      <span>{item.msg}</span>
-    </div>
-  ));
-
-  useEffect(() => {
-    if (socketData !== undefined) {
-      const tempData = chatt.concat(socketData);
-      console.log(tempData);
-      setChatt(tempData);
-    }
-  }, [socketData]);
-
-  //webSocket
-  //webSocket
-  //webSocket
-  //webSocket
-  //webSocket
-  //webSocket
-  const onText = event => {
-    console.log(event.target.value);
-    setMsg(event.target.value);
+  const connect = () => {
+    let Sock = new SockJS(`http://localhost:8088/ws`);
+    stompClient = over(Sock);
+    stompClient.connect({}, onConnected, onError);
   }
 
+  const onConnected = () => {
+    setUserData({ ...userData, "connected": true });
+    stompClient.subscribe(`/chatroom/public/${idxState}`, onMessageReceived);
+    stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
+    userJoin();
+  }
 
-  const webSocketLogin = useCallback(() => {
-    ws.current = new WebSocket("ws://localhost:8088/socket/chatt");
+  const userJoin = () => {
+    var chatMessage = {
+      senderName: userData.username,
+      status: "JOIN"
+    };
+    stompClient.send(`/app/message/${idxState}`, {}, JSON.stringify(chatMessage));
+  }
 
-    ws.current.onmessage = (message) => {
-      const dataSet = JSON.parse(message.data);
-      setSocketData(dataSet);
-    }
-  });
-
-
-  const send = useCallback(() => {
-    if (!chkLog) {
-      if (name === "") {
-        alert("이름을 입력하세요.");
-        document.getElementById("name").focus();
-        return;
-      }
-      webSocketLogin();
-      setChkLog(true);
-    }
-
-    if (msg !== '') {
-      const data = {
-        name,
-        msg,
-        date: new Date().toLocaleString(),
-      };  //전송 데이터(JSON)
-
-      const temp = JSON.stringify(data);
-
-      if (ws.current.readyState === 0) {   //readyState는 웹 소켓 연결 상태를 나타냄
-        ws.current.onopen = () => { //webSocket이 맺어지고 난 후, 실행
-          console.log(ws.current.readyState);
-          ws.current.send(temp);
+  const onMessageReceived = (payload) => {
+    var payloadData = JSON.parse(payload.body);
+    // eslint-disable-next-line default-case
+    switch (payloadData.status) {
+      case "JOIN":
+        if (!privateChats.get(payloadData.senderName)) {
+          privateChats.set(payloadData.senderName, []);
+          setPrivateChats(new Map(privateChats));
         }
-      } else {
-        ws.current.send(temp);
-      }
-    } else {
-      alert("메세지를 입력하세요.");
-      document.getElementById("msg").focus();
-      return;
+        break;
+      case "MESSAGE":
+        publicChats.push(payloadData);
+        setPublicChats([...publicChats]);
+        break;
     }
-    setMsg("");
-  });
-  //webSocket
+  }
 
-  return (
-    <>
-      <div id="chat-wrap">
-        <div id='chatt'>
-          <h1 id="title">WebSocket Chatting</h1>
-          <br />
-          <div id='talk'>
-            <div className='talk-shadow'></div>
-            {msgBox}
+  const onPrivateMessage = (payload) => {
+    var payloadData = JSON.parse(payload.body);
+    if (privateChats.get(payloadData.senderName)) {
+      privateChats.get(payloadData.senderName).push(payloadData);
+      setPrivateChats(new Map(privateChats));
+    } else {
+      let list = [];
+      list.push(payloadData);
+      privateChats.set(payloadData.senderName, list);
+      setPrivateChats(new Map(privateChats));
+    }
+  }
+
+  const onError = (err) => {
+    // console.log(err);
+  }
+
+  const handleMessage = (event) => {
+    const { value } = event.target;
+    setUserData({ ...userData, "message": value });
+  }
+
+  const sendValue = () => {
+    if (stompClient) {
+      var chatMessage = {
+        senderName: userData.username,
+        message: userData.message,
+        status: "MESSAGE",
+        roomId: idxState,
+        date: new Date().toLocaleString()
+      };
+      //       console.log(typeof(chatMessage));
+      stompClient.send(`/app/message/${idxState}`, {}, JSON.stringify(chatMessage));
+      setUserData({ ...userData, "message": "" });
+    }
+  }
+
+  useEffect(() => {
+    connect();
+  }, []);
+
+  if (userData.connected) {
+    return (
+      <>
+        <p className='member'>{detailTitle} 채팅방입니다!</p>
+        <ScrollToBottom>
+          <div className='chat-wrapp'>
+            {publicChats.map((chat, index) => (
+              chat.senderName !== userData.username
+                ?
+                <div className={`message`} key={index}>
+                  <div className='just_message'>
+                    {chat.senderName}
+                  </div>
+                  <div className="avatar">
+                    {chat.message}
+                  </div>
+                  <div className="chat_date">
+                    {chat.date.substring(6, 20)}
+                  </div>
+                </div>
+                :
+                <div
+                  className={`message self`}
+                  key={index}
+                >
+                  <div className="chat_date_self">
+                    {chat.date.substring(6, 20)}
+                  </div>
+                  <div className="avatar self">
+                    {chat.message}
+                  </div>
+                </div>
+            ))}
           </div>
-          <input disabled={chkLog}
-            placeholder='이름을 입력하세요.'
-            type='text'
-            id='name'
-            value={name}
-            onChange={(event => setName(event.target.value))} />
-          <div id='sendZone'>
-            <textarea id='msg' value={msg} onChange={onText}
-              onKeyDown={(ev) => { if (ev.keyCode === 13) { send(); } }}></textarea>
-            <input type='button' value='전송' id='btnSend' onClick={send} />
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+        </ScrollToBottom>
+        <NavigatorChat
+          message={userData.message}
+          sendValue={sendValue}
+          handleMessage={handleMessage}
+        />
+        <Outlet />
+      </>
+    )
+  }
+}
 
 export default GroupChat;

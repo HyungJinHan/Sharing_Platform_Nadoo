@@ -7,7 +7,7 @@
   background: #FFFFFF;
   text-align: center;
   vertical-align: middle;
-  z-index: 99;
+  z-index: 90;
   border-top: solid 2px #e4e4e4;
   padding-bottom: 15px;
   padding-top: 15px;
@@ -24,7 +24,7 @@
   background: #FFFFFF;
   text-align: center;
   vertical-align: middle;
-  z-index: 99;
+  z-index: 90;
   border-top: solid 2px #e4e4e4;
   padding-bottom: 15px;
   padding-top: 15px;
@@ -50,4 +50,15 @@
 .Navigator_toplogo {
   transition: 1s;
   width: 40%;
+}
+
+.Navigator_topback {
+  position: fixed;
+  top: 13px;
+  z-index: 99;
+  left: 0;
+  border: none;
+  background-color: white;
+  font-size: 30px;
+  color: #696969;
 }

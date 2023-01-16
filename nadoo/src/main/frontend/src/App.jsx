@@ -10,8 +10,8 @@ import GroupCreate from "./components/Group/GroupCreate";
 import GroupDetail from "./components/Group/GroupDetail";
 import UserMyPage from "./components/UserMyPage/UserMyPage";
 import SocialLogin from "./components/SocialLogin/SocialLogin";
-import SoicalLoginKakaoConfirm from "./components/SocialLogin/SoicalLoginKakaoConfirm";
-import SoicalLoginNaverConfirm from "./components/SocialLogin/SoicalLoginNaverConfirm";
+import SocialLoginKakaoConfirm from "./components/SocialLogin/SocialLoginKakaoConfirm";
+import SocialLoginNaverConfirm from "./components/SocialLogin/SocialLoginNaverConfirm";
 
 function App() {
   const [groupList, setGroupList] = useState({
@@ -52,7 +52,17 @@ function App() {
       <Route path="/search" element={<Main />} />
 
       {/* 채팅 페이지 */}
-      <Route path="/groupchat" element={<Main />} />
+      {groupList.list
+        .map((item) => (
+          <Route
+            key={item.tradeIdx}
+            path={`/groupchat/${item.tradeIdx}`}
+            element={<Main idxState={item.tradeIdx} detailTitle={item.tradeTitle} />}
+          />
+        ))}
+
+      {/* 검색 페이지 */}
+      <Route path="/groupchatlist" element={<Main />} />
 
       {/* 마이 페이지 */}
       <Route path='/wishlist' element={<UserMyPage />} />
@@ -75,14 +85,14 @@ function App() {
       {/* 방 생성 */}
       <Route path="/groupcreate" element={<GroupCreate getGroupList={getGroupList} />} />
 
-      {/* 소셜로그인 (카카오) */}
-      <Route path="/kakaologin" element={<SocialLogin />} />
+      {/* 소셜로그인 */}
+      <Route path="/sociallogin" element={<SocialLogin />} />
 
       {/* 소셜로그인 (카카오) */}
-      <Route path="/oauth/login" element={<SoicalLoginKakaoConfirm />} />
+      <Route path="/oauth/login" element={<SocialLoginKakaoConfirm />} />
 
-        {/* 소셜로그인 (카카오) */}
-        <Route path="/login/naver" element={<SoicalLoginNaverConfirm/>} />
+      {/* 소셜로그인 (네이버) */}
+      <Route path="/login/naver" element={<SocialLoginNaverConfirm />} />
 
       {/* 해당 그룹 상세정보 페이지 */}
       {groupList.list
@@ -90,7 +100,7 @@ function App() {
           <Route
             key={item.tradeIdx}
             path={`/groupdetail/${item.tradeIdx}`}
-            element={<GroupDetail />}
+            element={<GroupDetail detailNum={item.tradeIdx} detailTitle={item.tradeTitle} />}
           />
         ))}
     </Routes>

@@ -123,7 +123,13 @@ function GroupListAll(props) {
           type="primary"
           onClick={
             () => {
-              navigate('/groupcreate');
+              if (window.sessionStorage.getItem('userID') === '' ||
+                window.sessionStorage.getItem('userID') === undefined ||
+                window.sessionStorage.getItem('userID') === null) {
+                Swal.fire('로그인 후 이용이 가능합니다.');
+              } else {
+                navigate('/groupcreate');
+              }
             }
           }
         >

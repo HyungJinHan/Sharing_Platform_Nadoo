@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Button, DatePicker, Input, InputNumber, Select, TimePicker } from 'antd';
+import { Alert, Button, DatePicker, Input, Select, TimePicker } from 'antd';
 import '../../styles/Group/GroupCreate.css'
 import DaumPostcode from "react-daum-postcode";
 import DaumAddressPopup from './DaumPostCode/DaumAddressPopup';
@@ -10,11 +10,45 @@ import TextArea from 'antd/es/input/TextArea';
 import styled from 'styled-components';
 import { GrLocation } from 'react-icons/gr';
 import { BiCart, BiHighlight, BiUser } from 'react-icons/bi'
-import { AiOutlineFontSize } from 'react-icons/ai';
 import { MdAttachMoney } from 'react-icons/md';
-import dayjs from 'dayjs';
 import axios from 'axios';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat);
 const format = 'HH:mm';
+const { RangePicker } = DatePicker;
+
+const range = (start, end) => {
+  const result = [];
+  for (let i = start; i < end; i++) {
+    result.push(i);
+  }
+  return result;
+};
+
+const disabledDate = (current) => {
+  // Can not select days before today and today
+  return current && current < dayjs().endOf('day');
+};
+const disabledDateTime = () => ({
+  disabledHours: () => range(0, 24).splice(4, 20),
+  disabledMinutes: () => range(30, 60),
+  disabledSeconds: () => [55, 56],
+});
+const disabledRangeTime = (_, type) => {
+  if (type === 'start') {
+    return {
+      disabledHours: () => range(0, 60).splice(4, 20),
+      disabledMinutes: () => range(30, 60),
+      disabledSeconds: () => [55, 56],
+    };
+  }
+  return {
+    disabledHours: () => range(0, 60).splice(20, 4),
+    disabledMinutes: () => range(0, 31),
+    disabledSeconds: () => [55, 56],
+  };
+};
 
 const CreateCenter = styled.div`
   text-align: center;
@@ -490,6 +524,12 @@ function GroupCreate({
               }}
             size="large"
             ref={dateRef}
+            format="YYYY-MM-DD"
+            disabledDate={disabledDate}
+            disabledTime={disabledDateTime}
+            showTime={{
+              defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+            }}
           />
           <TimePicker
             style={{

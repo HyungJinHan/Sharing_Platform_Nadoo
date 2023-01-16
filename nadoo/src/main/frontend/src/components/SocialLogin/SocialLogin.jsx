@@ -52,7 +52,7 @@ function SocialLogin(props) {
           }
         />
       </>
-  )
+  );
 }
 
 
