@@ -9,6 +9,7 @@ import KakaoMapContainer from '../KakaoMap/KakaoMapContainer';
 import GroupChat from './GroupChat';
 import Swal from 'sweetalert2';
 import styled from 'styled-components';
+import WishList from '../WishList/WishList';
 
 const ButtonCenter = styled.div`
   text-align: center;
@@ -89,11 +90,28 @@ function GroupDetail({
       <Outlet />
       <KakaoMapContainer tradeAddress={detailArticle.tradeAddress} />
       <br />
+
+      &nbsp;
+      &nbsp;
+      &nbsp;
+
+      <WishList
+        style={{ fontSize: '20px' }}
+      />
+      &nbsp;
+      &nbsp;
+      {detailArticle.tradeTitle}
+      <br />
+      <br />
+
       <Descriptions
         className='GroupDetail_article'
-        title={detailArticle.tradeTitle}
+        // title={detailArticle.tradeTitle}
         bordered
       >
+
+
+
         <Descriptions.Item label="판매 물품">
           {detailArticle.tradeProduct}
         </Descriptions.Item>
@@ -118,6 +136,7 @@ function GroupDetail({
                   {minute < 10 ? `0${minute}` : minute}:
                   {second < 10 ? `0${second}` : second}
                 </span>
+
               </>
           }
         </Descriptions.Item>
@@ -179,7 +198,7 @@ function GroupDetail({
           {detailArticle.tradeContent}
         </Descriptions.Item>
       </Descriptions>
-      {/* <GroupChat
+      {/* <GroupChaž
         idxState={idxState}
         detailNum={detailNum}
         detailTitle={detailTitle}
@@ -205,7 +224,7 @@ function GroupDetail({
       </ButtonCenter>
       <NavigatorMain />
       <Outlet />
-    </>
+    </ >
   );
 }
 
