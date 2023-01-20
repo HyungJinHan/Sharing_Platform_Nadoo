@@ -1,22 +1,14 @@
 package com.nanum.nadoo.Service;
 
-import com.nanum.nadoo.Dto.ChatDTO;
 import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Dto.TradePreviewDTO;
-import com.nanum.nadoo.Entity.Chat;
-import com.nanum.nadoo.Entity.Category;
-import com.nanum.nadoo.Entity.Tmember;
-import com.nanum.nadoo.Entity.Trade;
-import com.nanum.nadoo.Entity.User;
-import com.nanum.nadoo.Repository.ChatRepository;
-import com.nanum.nadoo.Repository.TmemberRepository;
-import com.nanum.nadoo.Repository.TradeRepository;
-import com.nanum.nadoo.Repository.UserRepository;
+import com.nanum.nadoo.Entity.*;
+import com.nanum.nadoo.Repository.*;
 import lombok.extern.log4j.Log4j2;
-import com.nanum.nadoo.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +30,10 @@ public class NadooService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+
+    @Autowired
+    WishListRepository WishListRepository;
 
     // 상세 거래 서비스
     public TradeDetailDTO getDetail(Long tradeIdx) {
@@ -201,4 +197,48 @@ public class NadooService {
         return map; // 참여 중인 인원 반환
     }
 
+    //위시리스트 추가
+    public void addWishList(Wishlist wishVO) {
+        WishListRepository.save(wishVO);
+    }
+
+    //위시리스트 삭제
+    public void deleteWishList(Wishlist wishVO) {
+        //userAccount와 tradeIdx 일치하는 wishlistIdx 찾아서 그 컬럼만 지우기
+        //위시리스트 순번 찾기
+        Long wish = WishListRepository.findWishlistIdx(wishVO.getUserVO().getUserAccount(), wishVO.getTradeVO().getTradeIdx());
+        log.info("삭제할 위시리스트 순번 :" + wish);
+        //해당 컬럼 지우기
+        WishListRepository.deleteById(wish);
+        log.info("삭제성공");
+    }
+    // 나의 모든 위시리스트 항목
+    public Map<String, Object> allWishList(User userVO) {
+        // 사용자가 등록한 위시리스트에서 글 번호정보 가져오기
+        List<Long> myWishList = WishListRepository.findMyWishList(userVO.getUserAccount());
+        System.out.println(myWishList.size());
+        List<TradePreviewDTO> list = new ArrayList<>();
+        // 해당 글 번호에 맞는 글 정보 불러와 리스트에 추가
+        for (int i = 0; i < myWishList.size(); i++) {
+            list.addAll(i, WishListRepository.findByTradeVO(myWishList.get(i)));
+        }
+        int addressSize = 2;// 주소 두번째까지만 제한
+
+        for (TradePreviewDTO dto : list) {
+            String resultAddress = "";
+            String[] temp = dto.getTradeAddress().split(" ");
+            // 혹시 제한개수보다 작은값이면 그대로 표출
+            if (temp.length < addressSize) {
+                dto.setTradeAddress(dto.getTradeAddress());
+            } else {
+                for (int i = 0; i < addressSize; i++) {
+                    resultAddress += (temp[i] + " ");
+                }
+            }
+            dto.setTradeAddress(resultAddress);
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("tradeAll", list);
+        return map;
+    }
 }

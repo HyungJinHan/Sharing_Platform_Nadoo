@@ -2,9 +2,14 @@
 package com.nanum.nadoo.Controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.nanum.nadoo.Dto.TradeDetailDTO;
 import com.nanum.nadoo.Entity.Category;
 import com.nanum.nadoo.Entity.Trade;
 import com.nanum.nadoo.Entity.User;
+import com.nanum.nadoo.Entity.Wishlist;
+import com.nanum.nadoo.Repository.TradeRepository;
 import com.nanum.nadoo.Service.NadooService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,9 @@ public class YuriController {
 
   @Autowired
   NadooService service;
+
+  @Autowired
+  private TradeRepository tradeRepository;
 
   @RequestMapping("/nadoo/createTrade")
   public void createTrade(@RequestBody Map<String, Object> newTrade) throws ParseException { // map데이터타입 매개변수
@@ -71,4 +79,42 @@ public class YuriController {
     // tradeVO를 완성
     service.createTrade(tradeVO);
   }
+
+
+  // 위시 리스트 추가
+  @RequestMapping ("/nadoo/addWishList")
+  public void addMyWishList(@RequestBody Map<String, Object> wishList) throws ParseException {
+    Wishlist wishVO = new Wishlist();
+    int check = 0;
+    check = Integer.parseInt((String)wishList.get("check"));
+
+    // 추가
+    if(check ==1) {
+      Trade tradeVO = tradeRepository.findByTradeIdx((Long.valueOf((String) wishList.get("tradeIdx"))));
+      User userVO = service.findUser((String) wishList.get("userAccount"));
+      wishVO.setTradeVO(tradeVO);
+      wishVO.setUserVO(userVO);
+      log.info(wishVO);
+      service.addWishList(wishVO);
+    }
+    else {
+      // wishlistidx찾아서 지우기?
+      Trade tradeVO = tradeRepository.findByTradeIdx((Long.valueOf((String) wishList.get("tradeIdx"))));
+      User userVO = service.findUser((String) wishList.get("userAccount"));
+      wishVO.setTradeVO(tradeVO);
+      wishVO.setUserVO(userVO);
+      service.deleteWishList(wishVO);
+    }
+  }
+
+  //위시리스트 목록
+  @RequestMapping("/nadoo/allWishList")
+  public String allWishList(@RequestParam Map<String, Object> wishList) throws ParseException {
+    User userVO = service.findUser((String) wishList.get("userAccount"));
+    System.out.println(userVO);
+    Map<String, Object> result = service.allWishList(userVO);
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    return gson.toJson(result);
+  }
+
 }
